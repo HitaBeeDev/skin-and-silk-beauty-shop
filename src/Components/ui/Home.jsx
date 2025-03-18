@@ -64,7 +64,7 @@ function Home() {
           </div>
         </div>
 
-        <div className="md:grid md:grid-cols-2 md:gap-4 md:h-full md:row-span-2 flex flex-col gap-8">
+        <div className="md:grid md:grid-cols-2 h-[58%] max-h-[58%] md:gap-4 md:h-full md:row-span-2 flex flex-col gap-8">
           <div className="col-span-1 rounded-[1.5rem] relative overflow-hidden h-36">
             <div
               className="absolute inset-0 bg-cover bg-center"
