@@ -34,7 +34,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="col-span-1 rounded-[1.5rem] h-full md:grid md:grid-rows-8 md:gap-4 flex flex-col gap-8">
+      <div className="col-span-1 rounded-[1.5rem] md:grid md:grid-rows-8 md:gap-4 flex flex-col gap-8">
         <div className="h-full rounded-[1.5rem] bg-[#F6E6DA] row-span-6 p-[2rem] flex flex-col justify-between">
           <div>
             <p className="font-['Quicksand'] md:text-[3.2rem] text-[2.5rem] text-[#5A4034] font-[300] md:leading-[5rem] md:tracking-[0.3rem]">
