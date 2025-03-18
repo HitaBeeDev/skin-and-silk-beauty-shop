@@ -34,7 +34,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="col-span-1 rounded-[1.5rem] md:h-[58%] md:max-h-[58%] md:grid md:grid-rows-8 md:gap-4 flex flex-col gap-8">
+      <div className="col-span-1 rounded-[1.5rem] h-full md:grid md:grid-rows-8 md:gap-4 flex flex-col gap-8">
         <div className="h-full rounded-[1.5rem] bg-[#F6E6DA] row-span-6 p-[2rem] flex flex-col justify-between">
           <div>
             <p className="font-['Quicksand'] md:text-[3.2rem] text-[2.5rem] text-[#5A4034] font-[300] md:leading-[5rem] md:tracking-[0.3rem]">
@@ -60,12 +60,7 @@ function Home() {
               of self-care.
             </p>
 
-            <p className="mt-2 text-[0.8rem] font-normal text-[#5A4034]">
-              From rare, potent formulations to groundbreaking skincare
-              innovations, our curated selection elevates beauty rituals to the
-              extraordinary. Experience effortless elegance and refined luxury—
-              where every product is a statement of excellence.
-            </p>
+          
           </div>
         </div>
 
