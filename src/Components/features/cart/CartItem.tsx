@@ -1,10 +1,10 @@
 import type { CartItem as CartItemModel } from '@/types';
 
-import { useAppSelector } from '../../../store/hooks';
-import { formatCurrency } from '../../utils/helpers';
-import DeleteItem from './DeleteItem';
-import UpdateItemQuantity from './UpdateItemQuantity';
-import { getCurrentQuantityById } from './cartSlice';
+import DeleteItem from '@/Components/features/cart/DeleteItem';
+import UpdateItemQuantity from '@/Components/features/cart/UpdateItemQuantity';
+import { getCurrentQuantityById } from '@/Components/features/cart/cartSlice';
+import { formatCurrency } from '@/Components/utils/helpers';
+import { useAppSelector } from '@/store/hooks';
 
 type CartItemProps = {
   product: CartItemModel;

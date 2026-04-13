@@ -1,6 +1,6 @@
 import type { Order } from '@/types';
 
-import { orders, productsList, type ProductsByCategory } from './data';
+import { orders, productsList, type ProductsByCategory } from '@/Components/services/data';
 
 type CreateOrderInput = Omit<Order, 'id'>;
 

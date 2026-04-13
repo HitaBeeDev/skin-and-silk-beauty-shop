@@ -5,14 +5,14 @@ import { useFetcher, useLoaderData } from 'react-router-dom';
 
 import type { Order as OrderModel, Product } from '@/types';
 
-import { getOrder } from '../../services/helper';
+import { getOrder } from '@/Components/services/helper';
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
-} from '../../utils/helpers';
-import OrderItem from './OrderItem';
-import UpdateOrder from './UpdateOrder';
+} from '@/Components/utils/helpers';
+import OrderItem from '@/Components/features/order/OrderItem';
+import UpdateOrder from '@/Components/features/order/UpdateOrder';
 
 function Order(): JSX.Element {
   const order = useLoaderData() as OrderModel;
@@ -96,7 +96,7 @@ function Order(): JSX.Element {
         </p>
       </div>
 
-      {!priority && <UpdateOrder order={order} />}
+      {!priority && <UpdateOrder />}
     </div>
   );
 }

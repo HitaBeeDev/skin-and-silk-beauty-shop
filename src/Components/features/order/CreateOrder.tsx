@@ -6,13 +6,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import type { CartItem, Order } from '@/types';
 
-import store from '../../../store';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { createOrder } from '../../services/helper';
-import { formatCurrency } from '../../utils/helpers';
-import EmptyCart from '../cart/EmptyCart';
-import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice';
-import { fetchAddress } from '../user/userSlice';
+import EmptyCart from '@/Components/features/cart/EmptyCart';
+import {
+  clearCart,
+  getCart,
+  getTotalCartPrice,
+} from '@/Components/features/cart/cartSlice';
+import { fetchAddress } from '@/Components/features/user/userSlice';
+import { createOrder } from '@/Components/services/helper';
+import { formatCurrency } from '@/Components/utils/helpers';
+import store from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str: string): boolean =>

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { useAppSelector } from '../../../store/hooks';
-import { formatCurrency } from '../../utils/helpers';
-import { getTotalCartPrice, getTotalCartQuantity } from './cartSlice';
+import { getTotalCartPrice, getTotalCartQuantity } from '@/Components/features/cart/cartSlice';
+import { formatCurrency } from '@/Components/utils/helpers';
+import { useAppSelector } from '@/store/hooks';
 
 function CartOverview(): JSX.Element | null {
   const totalCartQuantity = useAppSelector(getTotalCartQuantity);

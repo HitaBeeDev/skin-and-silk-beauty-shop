@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import shoppingBag from '../../assets/shoppingBag.svg';
-import { useAppSelector } from '../../store/hooks';
-import { getTotalCartQuantity } from '../features/cart/cartSlice';
+import { getTotalCartQuantity } from '@/Components/features/cart/cartSlice';
+import shoppingBag from '@/assets/shoppingBag.svg';
+import { useAppSelector } from '@/store/hooks';
 
 function Header(): JSX.Element {
   const totalCartQuantity = useAppSelector(getTotalCartQuantity);

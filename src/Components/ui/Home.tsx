@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import grid from '../../assets/grid1.jpg';
-import home from '../../assets/home4.jpg';
+import grid from '@/assets/grid1.jpg';
+import home from '@/assets/home4.jpg';
 
 function Home(): JSX.Element {
   return (

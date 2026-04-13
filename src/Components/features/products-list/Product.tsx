@@ -1,10 +1,10 @@
-import plus from '../../../assets/plus.svg';
+import plus from '@/assets/plus.svg';
 
 import type { Product as ProductModel } from '@/types';
 
-import { productsList } from '../../services/data';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { addItem, getCurrentQuantityById } from '../cart/cartSlice';
+import { addItem } from '@/Components/features/cart/cartSlice';
+import { productsList } from '@/Components/services/data';
+import { useAppDispatch } from '@/store/hooks';
 
 type ProductProps = {
   productId: ProductModel['id'];
@@ -15,10 +15,6 @@ function Product({ productId }: ProductProps): JSX.Element | null {
 
   const allProducts = Object.values(productsList).flat();
   const product = allProducts.find((p) => p.id === productId);
-
-  const currentQuantity = useAppSelector(
-    getCurrentQuantityById(product?.id ?? 0)
-  );
 
   if (!product) return null;
 

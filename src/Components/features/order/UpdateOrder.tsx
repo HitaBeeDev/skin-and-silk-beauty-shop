@@ -1,16 +1,10 @@
 import type { ActionFunctionArgs } from 'react-router-dom';
 import { useFetcher } from 'react-router-dom';
 
-import type { Order } from '@/types';
+import { updateOrder } from '@/Components/services/helper';
+import Button from '@/Components/ui/Button';
 
-import Button from '../../ui/Button';
-import { updateOrder } from '../../services/helper';
-
-type UpdateOrderProps = {
-  order: Order;
-};
-
-function UpdateOrder({ order }: UpdateOrderProps): JSX.Element {
+function UpdateOrder(): JSX.Element {
   const fetcher = useFetcher();
 
   return (

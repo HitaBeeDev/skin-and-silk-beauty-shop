@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../store/hooks';
+import { useAppSelector } from '@/store/hooks';
 
 function Username(): JSX.Element | null {
   const username = useAppSelector((state) => state.user.username);

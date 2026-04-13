@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import type { CartItem } from '@/types';
 
-import { useAppDispatch } from '../../../store/hooks';
-import { deleteItem } from './cartSlice';
+import { deleteItem } from '@/Components/features/cart/cartSlice';
+import { useAppDispatch } from '@/store/hooks';
 
 type DeleteItemProps = {
   productId: CartItem['productId'];

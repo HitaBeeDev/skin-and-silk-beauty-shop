@@ -3,8 +3,8 @@ import { useLoaderData } from 'react-router-dom';
 
 import type { Product } from '@/types';
 
-import { getProductsList } from '../../services/helper';
-import ProductCard from './Product';
+import ProductCard from '@/Components/features/products-list/Product';
+import { getProductsList } from '@/Components/services/helper';
 
 function ProductsList(): JSX.Element {
   const productsList = useLoaderData() as Record<string, Product[]>;

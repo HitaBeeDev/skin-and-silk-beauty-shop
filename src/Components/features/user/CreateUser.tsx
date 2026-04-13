@@ -1,9 +1,9 @@
 import { type FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../../store/hooks';
-import Button from '../../ui/Button';
-import { updateName } from './userSlice';
+import { updateName } from '@/Components/features/user/userSlice';
+import Button from '@/Components/ui/Button';
+import { useAppDispatch } from '@/store/hooks';
 
 function CreateUser(): JSX.Element {
   const [username, setUsername] = useState('');

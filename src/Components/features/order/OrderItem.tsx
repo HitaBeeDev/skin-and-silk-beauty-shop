@@ -1,6 +1,6 @@
 import type { CartItem } from '@/types';
 
-import { formatCurrency } from '../../utils/helpers';
+import { formatCurrency } from '@/Components/utils/helpers';
 
 type OrderItemProps = {
   item: CartItem;

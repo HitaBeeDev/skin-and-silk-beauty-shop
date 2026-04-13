@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import CartItem from './CartItem';
-import EmptyCart from './EmptyCart';
-import { clearCart, getCart } from './cartSlice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import CartItem from '@/Components/features/cart/CartItem';
+import EmptyCart from '@/Components/features/cart/EmptyCart';
+import { clearCart, getCart } from '@/Components/features/cart/cartSlice';
 
 function Cart(): JSX.Element {
   const cart = useAppSelector(getCart);

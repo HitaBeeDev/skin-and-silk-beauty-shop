@@ -1,7 +1,10 @@
 import type { CartItem } from '@/types';
 
-import { useAppDispatch } from '../../../store/hooks';
-import { decreaseItemQuantity, increaseItemQuantity } from './cartSlice';
+import {
+  decreaseItemQuantity,
+  increaseItemQuantity,
+} from '@/Components/features/cart/cartSlice';
+import { useAppDispatch } from '@/store/hooks';
 
 type UpdateItemQuantityProps = {
   productId: CartItem['productId'];

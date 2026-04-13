@@ -1,4 +1,4 @@
-import LinkButton from "../../ui/LinkButton";
+import LinkButton from '@/Components/ui/LinkButton';
 
 function EmptyCart(): JSX.Element {
   return (
