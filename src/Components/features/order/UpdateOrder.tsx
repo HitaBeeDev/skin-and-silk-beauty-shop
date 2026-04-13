@@ -9,7 +9,7 @@ function UpdateOrder(): JSX.Element {
 
   return (
     <fetcher.Form method="PATCH">
-      <Button type="primary">Make priority</Button>
+      <Button variant="primary">Make priority</Button>
     </fetcher.Form>
   );
 }

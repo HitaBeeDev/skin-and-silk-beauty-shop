@@ -33,7 +33,9 @@ function CreateUser(): JSX.Element {
 
       {username !== "" && (
         <div>
-          <Button type="primary">Start ordering</Button>
+          <Button variant="primary" type="submit">
+            Start ordering
+          </Button>
         </div>
       )}
     </form>
