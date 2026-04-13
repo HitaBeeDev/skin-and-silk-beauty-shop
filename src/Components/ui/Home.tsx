@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import grid from '../../assets/grid1.jpg';
 import home from '../../assets/home4.jpg';
 
-function Home() {
+function Home(): JSX.Element {
   return (
     <div className="mt-6 md:grid md:grid-cols-2 md:gap-3 md:h-screen md:max-h-screen md:pl-16 md:pr-16 pr-5 pl-5 flex flex-col gap-8">
       <div className="col-span-1 rounded-[1.5rem] h-[58%] max-h-[58%] relative">

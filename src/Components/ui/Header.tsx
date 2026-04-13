@@ -4,7 +4,7 @@ import shoppingBag from '../../assets/shoppingBag.svg';
 import { useAppSelector } from '../../store/hooks';
 import { getTotalCartQuantity } from '../features/cart/cartSlice';
 
-function Header() {
+function Header(): JSX.Element {
   const totalCartQuantity = useAppSelector(getTotalCartQuantity);
 
   return (

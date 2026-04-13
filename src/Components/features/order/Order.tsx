@@ -14,7 +14,7 @@ import {
 import OrderItem from './OrderItem';
 import UpdateOrder from './UpdateOrder';
 
-function Order() {
+function Order(): JSX.Element {
   const order = useLoaderData() as OrderModel;
   const fetcher = useFetcher<Product[]>();
 
@@ -101,7 +101,9 @@ function Order() {
   );
 }
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({
+  params,
+}: LoaderFunctionArgs): Promise<OrderModel | null> {
   const order = params.orderId ? await getOrder(params.orderId) : null;
   return order;
 }

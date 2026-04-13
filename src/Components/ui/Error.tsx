@@ -13,7 +13,7 @@ function hasStringProp(
   );
 }
 
-function Error() {
+function Error(): JSX.Element {
   const error = useRouteError();
   const message =
     hasStringProp(error, 'data')

@@ -1,7 +1,7 @@
 import { type FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function SearchOrder() {
+function SearchOrder(): JSX.Element {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
 

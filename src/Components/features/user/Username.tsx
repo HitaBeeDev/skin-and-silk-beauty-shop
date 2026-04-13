@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../../store/hooks';
 
-function Username() {
+function Username(): JSX.Element | null {
   const username = useAppSelector((state) => state.user.username);
 
   if (!username) return null;

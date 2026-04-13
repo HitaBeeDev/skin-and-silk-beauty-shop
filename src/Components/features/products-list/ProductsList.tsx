@@ -6,7 +6,7 @@ import type { Product } from '@/types';
 import { getProductsList } from '../../services/helper';
 import ProductCard from './Product';
 
-function ProductsList() {
+function ProductsList(): JSX.Element {
   const productsList = useLoaderData() as Record<string, Product[]>;
   const [activeTab, setActiveTab] = useState('Skin Care');
 
@@ -46,7 +46,7 @@ function ProductsList() {
   );
 }
 
-export async function loader() {
+export async function loader(): Promise<Record<string, Product[]>> {
   const productsList = await getProductsList();
   return productsList;
 }

@@ -6,7 +6,7 @@ type LinkButtonProps = {
   to: string;
 };
 
-function LinkButton({ children, to }: LinkButtonProps) {
+function LinkButton({ children, to }: LinkButtonProps): JSX.Element {
   const navigate = useNavigate();
   const className = 'text-sm text-blue-500 hover:text-blue-600 hover:underline';
 

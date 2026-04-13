@@ -5,7 +5,7 @@ import CartItem from './CartItem';
 import EmptyCart from './EmptyCart';
 import { clearCart, getCart } from './cartSlice';
 
-function Cart() {
+function Cart(): JSX.Element {
   const cart = useAppSelector(getCart);
   const dispatch = useAppDispatch();
 

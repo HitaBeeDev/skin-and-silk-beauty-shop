@@ -11,7 +11,7 @@ type UpdateItemQuantityProps = {
 function UpdateItemQuantity({
   productId,
   currentQuantity,
-}: UpdateItemQuantityProps) {
+}: UpdateItemQuantityProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (

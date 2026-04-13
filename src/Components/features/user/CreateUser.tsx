@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../../store/hooks';
 import Button from '../../ui/Button';
 import { updateName } from './userSlice';
 
-function CreateUser() {
+function CreateUser(): JSX.Element {
   const [username, setUsername] = useState('');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

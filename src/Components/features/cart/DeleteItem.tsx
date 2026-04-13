@@ -10,7 +10,7 @@ type DeleteItemProps = {
   productId: CartItem['productId'];
 };
 
-function DeleteItem({ productId }: DeleteItemProps) {
+function DeleteItem({ productId }: DeleteItemProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (

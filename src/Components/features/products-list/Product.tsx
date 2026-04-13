@@ -10,7 +10,7 @@ type ProductProps = {
   productId: ProductModel['id'];
 };
 
-function Product({ productId }: ProductProps) {
+function Product({ productId }: ProductProps): JSX.Element | null {
   const dispatch = useAppDispatch();
 
   const allProducts = Object.values(productsList).flat();
@@ -25,7 +25,7 @@ function Product({ productId }: ProductProps) {
   const { id, name, unitPrice, soldOut, mainImage, description } = product;
   const productUnitPrice = unitPrice ?? product.price;
 
-  function handleAddToCart() {
+  function handleAddToCart(): void {
     dispatch(
       addItem({
         productId: id,

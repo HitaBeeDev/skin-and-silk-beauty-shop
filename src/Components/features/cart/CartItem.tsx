@@ -10,7 +10,7 @@ type CartItemProps = {
   product: CartItemModel;
 };
 
-function CartItem({ product }: CartItemProps) {
+function CartItem({ product }: CartItemProps): JSX.Element {
   const { productId, name, unitPrice } = product;
   const currentQuantity = useAppSelector((state) =>
     getCurrentQuantityById(productId)(state)

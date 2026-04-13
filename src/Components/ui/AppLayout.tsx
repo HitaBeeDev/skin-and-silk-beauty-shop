@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from './Header';
 
-function AppLayout() {
+function AppLayout(): JSX.Element {
   return (
     <div className="bg-[#FFFFFF] h-screen flex flex-col">
       <Header />

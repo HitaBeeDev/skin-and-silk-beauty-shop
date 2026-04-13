@@ -10,7 +10,7 @@ type UpdateOrderProps = {
   order: Order;
 };
 
-function UpdateOrder({ order }: UpdateOrderProps) {
+function UpdateOrder({ order }: UpdateOrderProps): JSX.Element {
   const fetcher = useFetcher();
 
   return (
@@ -22,7 +22,9 @@ function UpdateOrder({ order }: UpdateOrderProps) {
 
 export default UpdateOrder;
 
-export async function action({ params }: ActionFunctionArgs) {
+export async function action({
+  params,
+}: ActionFunctionArgs): Promise<null> {
   const data = { priority: true };
   if (params.orderId) {
     await updateOrder(params.orderId, data);

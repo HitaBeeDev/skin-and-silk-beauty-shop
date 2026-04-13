@@ -1,6 +1,6 @@
 import LinkButton from "../../ui/LinkButton";
 
-function EmptyCart() {
+function EmptyCart(): JSX.Element {
   return (
     <div className="px-4 py-3">
       <LinkButton to="/products-list">&larr; Back to menu</LinkButton>

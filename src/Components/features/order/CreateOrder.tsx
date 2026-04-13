@@ -24,7 +24,7 @@ type OrderActionData = {
   phone?: string;
 };
 
-function CreateOrder() {
+function CreateOrder(): JSX.Element {
   const [withPriority, setWithPriority] = useState<boolean>(false);
   const {
     username,
@@ -179,7 +179,9 @@ function CreateOrder() {
   );
 }
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({
+  request,
+}: ActionFunctionArgs): Promise<Response | OrderActionData | undefined> {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 

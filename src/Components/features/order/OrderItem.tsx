@@ -12,7 +12,7 @@ function OrderItem({
   item,
   isLoadingIngredients,
   ingredients,
-}: OrderItemProps) {
+}: OrderItemProps): JSX.Element {
   const { quantity, name, totalPrice } = item;
 
   return (
