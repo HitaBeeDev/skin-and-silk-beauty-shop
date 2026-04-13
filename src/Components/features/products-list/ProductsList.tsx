@@ -1,11 +1,14 @@
-import { useLoaderData } from "react-router-dom";
-import { getProductsList } from "../../services/helper";
-import Product from "./Product";
-import { useState } from "react";
+import { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+
+import type { Product } from '@/types';
+
+import { getProductsList } from '../../services/helper';
+import ProductCard from './Product';
 
 function ProductsList() {
-  const productsList = useLoaderData();
-  const [activeTab, setActiveTab] = useState("Skin Care");
+  const productsList = useLoaderData() as Record<string, Product[]>;
+  const [activeTab, setActiveTab] = useState('Skin Care');
 
   const products = productsList[activeTab] || [];
 
@@ -36,7 +39,7 @@ function ProductsList() {
       {/* 🔥 Corrected to map over products from the selected category */}
       <div className="md:grid md:grid-cols-4 md:gap-6 mt-8 flex flex-col gap-5">
         {products.map((product) => (
-          <Product productId={product.id} key={product.id} />
+          <ProductCard productId={product.id} key={product.id} />
         ))}
       </div>
     </div>

@@ -1,20 +1,22 @@
 // Test ID: IIDSAT
-import { useFetcher, useLoaderData } from "react-router-dom";
+import { useEffect } from 'react';
+import type { LoaderFunctionArgs } from 'react-router-dom';
+import { useFetcher, useLoaderData } from 'react-router-dom';
 
-import OrderItem from "./OrderItem";
+import type { Order as OrderModel, Product } from '@/types';
 
-import { getOrder } from "../../services/helper";
+import { getOrder } from '../../services/helper';
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
-} from "../../utils/helpers";
-import { useEffect } from "react";
-import UpdateOrder from "./UpdateOrder";
+} from '../../utils/helpers';
+import OrderItem from './OrderItem';
+import UpdateOrder from './UpdateOrder';
 
 function Order() {
-  const order = useLoaderData();
-  const fetcher = useFetcher();
+  const order = useLoaderData() as OrderModel;
+  const fetcher = useFetcher<Product[]>();
 
   useEffect(
     function () {
@@ -34,6 +36,8 @@ function Order() {
     estimatedDelivery,
     cart,
   } = order;
+  const safeOrderPrice = orderPrice ?? 0;
+  const safePriorityPrice = priorityPrice ?? 0;
 
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
@@ -69,11 +73,10 @@ function Order() {
         {cart.map((item) => (
           <OrderItem
             item={item}
-            key={item.pizzaId}
+            key={item.productId}
             isLoadingIngredients={fetcher.state === "loading"}
             ingredients={
-              fetcher?.data?.find((el) => el.id === item.pizzaId)
-                ?.ingredients ?? []
+              fetcher?.data?.find((el) => el.id === item.productId)?.tags ?? []
             }
           />
         ))}
@@ -81,15 +84,15 @@ function Order() {
 
       <div className="space-y-2 bg-stone-200 px-6 py-5">
         <p className="text-sm font-medium text-stone-600">
-          Price pizza: {formatCurrency(orderPrice)}
+          Price pizza: {formatCurrency(safeOrderPrice)}
         </p>
         {priority && (
           <p className="text-sm font-medium text-stone-600">
-            Price priority: {formatCurrency(priorityPrice)}
+            Price priority: {formatCurrency(safePriorityPrice)}
           </p>
         )}
         <p className="font-bold">
-          To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
+          To pay on delivery: {formatCurrency(safeOrderPrice + safePriorityPrice)}
         </p>
       </div>
 
@@ -98,8 +101,8 @@ function Order() {
   );
 }
 
-export async function loader({ params }) {
-  const order = await getOrder(params.orderId);
+export async function loader({ params }: LoaderFunctionArgs) {
+  const order = params.orderId ? await getOrder(params.orderId) : null;
   return order;
 }
 

@@ -1,6 +1,17 @@
+import type { MouseEventHandler, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-function Button({ children, disabled, to, type, onClick }) {
+type ButtonVariant = 'primary' | 'small' | 'round' | 'secondary';
+
+type ButtonProps = {
+  children: ReactNode;
+  disabled?: boolean;
+  to?: string;
+  type: ButtonVariant;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+};
+
+function Button({ children, disabled, to, type, onClick }: ButtonProps) {
   const base =
     'inline-block text-sm rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed';
 
@@ -27,7 +38,7 @@ function Button({ children, disabled, to, type, onClick }) {
     );
 
   return (
-    <button disabled={disabled} className={styles[type]}>
+    <button disabled={disabled} className={styles[type]} type="button">
       {children}
     </button>
   );

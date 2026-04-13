@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
-import home from "../../assets/home4.jpg";
-import grid from "../../assets/grid1.jpg";
+import { Link } from 'react-router-dom';
+
+import grid from '../../assets/grid1.jpg';
+import home from '../../assets/home4.jpg';
 
 function Home() {
   return (
@@ -22,7 +23,7 @@ function Home() {
             </button>
           </Link>
 
-          <Link>
+          <Link to="/#contact">
             <button
               className="font-['Quicksand'] font-medium text-[0.9rem] rounded-[1rem]
               h-9 w-36 cursor-pointer transition-all duration-500 border border-white text-white hover:bg-[#F6E6DA]

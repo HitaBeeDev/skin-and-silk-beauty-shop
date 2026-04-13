@@ -1,6 +1,18 @@
+import type { CartItem } from '@/types';
+
 import { formatCurrency } from '../../utils/helpers';
 
-function OrderItem({ item, isLoadingIngredients, ingredients }) {
+type OrderItemProps = {
+  item: CartItem;
+  isLoadingIngredients: boolean;
+  ingredients: string[];
+};
+
+function OrderItem({
+  item,
+  isLoadingIngredients,
+  ingredients,
+}: OrderItemProps) {
   const { quantity, name, totalPrice } = item;
 
   return (
