@@ -42,7 +42,7 @@ function Home(): JSX.Element {
               About
             </p>
             <p className="font-['Quicksand'] md:text-[4rem] text-[3rem] text-[#5A4034] font-[400] md:leading-[6rem] md:tracking-[0.35rem]">
-              Élan Beauty
+              Skin & Silk
             </p>
             <p className="text-[#5A4034] pl-2 font-[300] tracking-[0.15rem] md:-mt-4">
               Where Luxury Meets Excellence
@@ -51,7 +51,7 @@ function Home(): JSX.Element {
 
           <div>
             <p className="mt-9 text-[0.8rem] font-normal text-[#5A4034]">
-              <span className="font-medium">Élan Beauty</span> embodies luxury,
+              <span className="font-medium">Skin & Silk</span> embodies luxury,
               offering an exclusive selection of high-end beauty, skincare, and
               wellness essentials. Partnering with the world’s most prestigious
               brands and visionary innovators, we curate an unparalleled
@@ -78,7 +78,10 @@ function Home(): JSX.Element {
             <div className="relative p-5">
               <p className="text-[1.5rem] font-[400]  text-[#9C8F8F] tracking-[0.12rem]">
                 Stay vibrant, stay{" "}
-                <span className="text-[#5A4034] font-semibold">Élan</span>.
+                <span className="text-[#5A4034] font-semibold">
+                  Skin & Silk
+                </span>
+                .
               </p>
 
               <p className="mt-3 text-[#5A4034] text-[0.8rem]">

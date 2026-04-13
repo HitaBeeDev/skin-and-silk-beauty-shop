@@ -1,3 +1,3 @@
-## Élan Beauty: Elevate Your Beauty Experience ✨
+## Skin & Silk: Elevate Your Beauty Experience ✨
 
-Élan Beauty is a luxury beauty shopping platform built with React, Tailwind CSS, Redux Toolkit, and React Router. 
+Skin & Silk is a luxury beauty shopping platform built with React, Tailwind CSS, Redux Toolkit, and React Router. 

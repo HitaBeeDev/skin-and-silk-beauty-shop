@@ -14,7 +14,7 @@ function Header(): JSX.Element {
           to="/"
           className="font-['Playfair_Display'] font-bold text-lg cursor-pointer tracking-[0.2rem]"
         >
-          Élan
+          Skin & Silk
         </Link>
 
         <p
