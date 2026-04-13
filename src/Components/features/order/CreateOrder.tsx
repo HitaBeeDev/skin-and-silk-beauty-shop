@@ -1,41 +1,47 @@
-import { useState } from "react";
-import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
-import { createOrder } from "../../services/helper";
-import Button from "../../ui/Button";
-import EmptyCart from "../cart/EmptyCart";
-import { useDispatch, useSelector } from "react-redux";
-import { clearCart, getCart, getTotalCartPrice } from "../cart/cartSlice";
-import store from "../../../store";
-import { formatCurrency } from "../../utils/helpers";
-import { fetchAddress } from "../user/userSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { useState } from 'react';
+import type { ActionFunctionArgs } from 'react-router-dom';
+import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import type { CartItem, Order } from '@/types';
+
+import store from '../../../store';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { createOrder } from '../../services/helper';
+import { formatCurrency } from '../../utils/helpers';
+import EmptyCart from '../cart/EmptyCart';
+import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice';
+import { fetchAddress } from '../user/userSlice';
 
 // https://uibakery.io/regex-library/phone-number
-const isValidPhone = (str) =>
+const isValidPhone = (str: string): boolean =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str
   );
 
+type OrderActionData = {
+  phone?: string;
+};
+
 function CreateOrder() {
-  const [withPriority, setWithPriority] = useState(false);
+  const [withPriority, setWithPriority] = useState<boolean>(false);
   const {
     username,
     status: addressStatus,
     position,
     address,
-    error: errorAddress,
-  } = useSelector((state) => state.user);
-  const isLoadingAddress = addressStatus === "loading";
+  } = useAppSelector((state) => state.user);
+  const isLoadingAddress = addressStatus === 'loading';
 
   const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const isSubmitting = navigation.state === 'submitting';
 
-  const formErrors = useActionData();
-  const dispatch = useDispatch();
+  const formErrors = useActionData() as OrderActionData | undefined;
+  const dispatch = useAppDispatch();
 
-  const cart = useSelector(getCart);
-  const totalCartPrice = useSelector(getTotalCartPrice);
+  const cart = useAppSelector(getCart);
+  const totalCartPrice = useAppSelector(getTotalCartPrice);
   const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
   const totalPrice = totalCartPrice + priorityPrice;
 
@@ -106,7 +112,7 @@ function CreateOrder() {
             <button
               className="absolute cursor-pointer right-1 top-1"
               disabled={isLoadingAddress}
-              type="small"
+              type="button"
               onClick={(e) => {
                 e.preventDefault();
                 dispatch(fetchAddress());
@@ -127,7 +133,8 @@ function CreateOrder() {
               type="checkbox"
               name="priority"
               id="priority"
-              value={withPriority}
+              value="true"
+              checked={withPriority}
               onChange={(e) => setWithPriority(e.target.checked)}
             />
 
@@ -148,7 +155,7 @@ function CreateOrder() {
               value={
                 position.longitude && position.latitude
                   ? `${position.latitude},${position.longitude}`
-                  : ""
+                  : ''
               }
             />
 
@@ -159,29 +166,36 @@ function CreateOrder() {
               disabled={isSubmitting || isLoadingAddress}
             >
               {isSubmitting
-                ? "Placing order...."
+                ? 'Placing order....'
                 : `Order now from ${formatCurrency(totalPrice)}`}
             </button>
           </div>
         </div>
       </Form>
+      {formErrors?.phone ? (
+        <p className="mt-4 text-sm text-red-600">{formErrors.phone}</p>
+      ) : null}
     </div>
   );
 }
 
-export async function action({ request }) {
+export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
-  const order = {
+  const order: Omit<Order, 'id'> = {
     ...data,
-    cart: JSON.parse(data.cart),
-    priority: data.priority === "true",
+    customer: String(data.customer ?? ''),
+    phone: String(data.phone ?? ''),
+    address: String(data.address ?? ''),
+    cart: JSON.parse(String(data.cart ?? '[]')) as CartItem[],
+    priority: data.priority === 'true',
+    status: 'new',
+    estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString(),
+    position: undefined,
   };
 
-  console.log(order);
-
-  const errors = {};
+  const errors: OrderActionData = {};
   if (!isValidPhone(order.phone))
     errors.phone =
       "Please give us your correct phone number. We might need it to contact you.";

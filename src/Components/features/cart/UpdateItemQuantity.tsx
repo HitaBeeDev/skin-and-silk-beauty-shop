@@ -1,8 +1,18 @@
-import { useDispatch } from "react-redux";
-import { decreaseItemQuantity, increaseItemQuantity } from "./cartSlice";
+import type { CartItem } from '@/types';
 
-function UpdateItemQuantity({ productId, currentQuantity }) {
-  const dispatch = useDispatch();
+import { useAppDispatch } from '../../../store/hooks';
+import { decreaseItemQuantity, increaseItemQuantity } from './cartSlice';
+
+type UpdateItemQuantityProps = {
+  productId: CartItem['productId'];
+  currentQuantity: number;
+};
+
+function UpdateItemQuantity({
+  productId,
+  currentQuantity,
+}: UpdateItemQuantityProps) {
+  const dispatch = useAppDispatch();
 
   return (
     <div className="flex flex-row items-center md:gap-4 gap-2">

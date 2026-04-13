@@ -1,12 +1,18 @@
-import { useSelector } from "react-redux";
-import { formatCurrency } from "../../utils/helpers";
-import DeleteItem from "./DeleteItem";
-import UpdateItemQuantity from "./UpdateItemQuantity";
-import { getCurrentQuantityById } from "./cartSlice";
+import type { CartItem as CartItemModel } from '@/types';
 
-function CartItem({ product }) {
+import { useAppSelector } from '../../../store/hooks';
+import { formatCurrency } from '../../utils/helpers';
+import DeleteItem from './DeleteItem';
+import UpdateItemQuantity from './UpdateItemQuantity';
+import { getCurrentQuantityById } from './cartSlice';
+
+type CartItemProps = {
+  product: CartItemModel;
+};
+
+function CartItem({ product }: CartItemProps) {
   const { productId, name, unitPrice } = product;
-  const currentQuantity = useSelector((state) =>
+  const currentQuantity = useAppSelector((state) =>
     getCurrentQuantityById(productId)(state)
   );
 

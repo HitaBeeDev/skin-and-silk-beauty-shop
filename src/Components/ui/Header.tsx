@@ -1,13 +1,11 @@
-// import { Link } from "react-router-dom";
-// import SearchOrder from "../features/order/SearchOrder";
-// import Username from "../features/user/Username";
-import { useSelector } from "react-redux";
-import shoppingBag from "../../assets/shoppingBag.svg";
-import { getTotalCartQuantity } from "../features/cart/cartSlice";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+
+import shoppingBag from '../../assets/shoppingBag.svg';
+import { useAppSelector } from '../../store/hooks';
+import { getTotalCartQuantity } from '../features/cart/cartSlice';
 
 function Header() {
-  const totalCartQuantity = useSelector(getTotalCartQuantity);
+  const totalCartQuantity = useAppSelector(getTotalCartQuantity);
 
   return (
     <div className="grid grid-cols-2 justify-between items-center pl-16 pr-16 pt-6">

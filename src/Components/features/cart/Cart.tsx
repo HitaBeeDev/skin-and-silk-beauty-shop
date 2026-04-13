@@ -1,14 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import { clearCart, getCart } from "./cartSlice";
-import CartItem from "./CartItem";
-import EmptyCart from "./EmptyCart";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import CartItem from './CartItem';
+import EmptyCart from './EmptyCart';
+import { clearCart, getCart } from './cartSlice';
 
 function Cart() {
-  const cart = useSelector(getCart);
-  const dispatch = useDispatch();
-
-  console.log(cart); // Log the cart state to verify its contents
+  const cart = useAppSelector(getCart);
+  const dispatch = useAppDispatch();
 
   if (!cart.length) return <EmptyCart />;
 
@@ -19,9 +18,12 @@ function Cart() {
       </p>
 
       <div className="md:mt-6 border border-[#FFFBF5] md:w-2/3 w-full md:pt-5 md:pb-5 md:pl-8 md:pr-8 md:rounded-[1.5rem] md:shadow-md">
-        <ul className="">
+          <ul className="">
           {cart.map((product) => (
-            <li className="border-b border-[#F6E6DA] mb-5 p-4" key={product.id}>
+            <li
+              className="border-b border-[#F6E6DA] mb-5 p-4"
+              key={product.productId}
+            >
               <CartItem product={product} />
             </li>
           ))}

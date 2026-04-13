@@ -1,7 +1,20 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
+
+import type { LoadingStatus, User } from '@/types';
+
 import { getAddress } from '../../services/apiGeocoding';
 
-function getPosition() {
+type Coordinates = {
+  latitude: number;
+  longitude: number;
+};
+
+type FetchAddressResult = {
+  position: Coordinates;
+  address: string;
+};
+
+function getPosition(): Promise<GeolocationPosition> {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
@@ -9,7 +22,7 @@ function getPosition() {
 
 export const fetchAddress = createAsyncThunk(
   'user/fetchAddress',
-  async function () {
+  async function (): Promise<FetchAddressResult> {
     // 1) We get the user's geolocation position
     const positionObj = await getPosition();
     const position = {
@@ -27,7 +40,9 @@ export const fetchAddress = createAsyncThunk(
   }
 );
 
-const initialState = {
+type UserState = User;
+
+const initialState: UserState = {
   username: '',
   status: 'idle',
   position: {},
@@ -39,13 +54,13 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateName(state, action) {
+    updateName(state, action: PayloadAction<string>) {
       state.username = action.payload;
     },
   },
   extraReducers: (builder) =>
     builder
-      .addCase(fetchAddress.pending, (state, action) => {
+      .addCase(fetchAddress.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchAddress.fulfilled, (state, action) => {
@@ -53,8 +68,8 @@ const userSlice = createSlice({
         state.address = action.payload.address;
         state.status = 'idle';
       })
-      .addCase(fetchAddress.rejected, (state, action) => {
-        state.status = 'error';
+      .addCase(fetchAddress.rejected, (state) => {
+        state.status = 'failed';
         state.error =
           'There was a problem getting your address. Make sure to fill this field!';
       }),

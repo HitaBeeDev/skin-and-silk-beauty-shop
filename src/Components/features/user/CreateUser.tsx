@@ -1,20 +1,21 @@
-import { useState } from "react";
-import Button from "../../ui/Button";
-import { useDispatch } from "react-redux";
-import { updateName } from "./userSlice";
-import { useNavigate } from "react-router-dom";
+import { type FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useAppDispatch } from '../../../store/hooks';
+import Button from '../../ui/Button';
+import { updateName } from './userSlice';
 
 function CreateUser() {
-  const [username, setUsername] = useState("");
-  const dispatch = useDispatch();
+  const [username, setUsername] = useState('');
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!username) return;
     dispatch(updateName(username));
-    navigate("/products-list");
+    navigate('/products-list');
   }
 
   return (

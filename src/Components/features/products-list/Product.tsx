@@ -1,20 +1,29 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addItem, getCurrentQuantityById } from "../cart/cartSlice";
-import { productsList } from "../../services/data";
-import plus from "../../../assets/plus.svg";
+import plus from '../../../assets/plus.svg';
 
-function Product({ productId }) {
-  const dispatch = useDispatch();
+import type { Product as ProductModel } from '@/types';
+
+import { productsList } from '../../services/data';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { addItem, getCurrentQuantityById } from '../cart/cartSlice';
+
+type ProductProps = {
+  productId: ProductModel['id'];
+};
+
+function Product({ productId }: ProductProps) {
+  const dispatch = useAppDispatch();
 
   const allProducts = Object.values(productsList).flat();
   const product = allProducts.find((p) => p.id === productId);
 
-  const currentQuantity = useSelector(getCurrentQuantityById(product?.id || 0));
-  const isInCart = currentQuantity > 0;
+  const currentQuantity = useAppSelector(
+    getCurrentQuantityById(product?.id ?? 0)
+  );
 
   if (!product) return null;
 
   const { id, name, unitPrice, soldOut, mainImage, description } = product;
+  const productUnitPrice = unitPrice ?? product.price;
 
   function handleAddToCart() {
     dispatch(
@@ -22,8 +31,8 @@ function Product({ productId }) {
         productId: id,
         name,
         quantity: 1,
-        unitPrice,
-        totalPrice: unitPrice * 1,
+        unitPrice: productUnitPrice,
+        totalPrice: productUnitPrice,
         mainImage,
       })
     );
@@ -56,7 +65,7 @@ function Product({ productId }) {
           <div className="mt-auto">
             {!soldOut ? (
               <p className="text-[0.9rem] text-[#5A4034] font-semibold mt-1">
-                €{unitPrice.toFixed(2)}
+                €{productUnitPrice.toFixed(2)}
               </p>
             ) : (
               <p className="text-[0.9rem] text-[#D4B189] font-semibold">
