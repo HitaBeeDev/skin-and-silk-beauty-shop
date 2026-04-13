@@ -4,11 +4,11 @@ import Header from '@/Components/ui/Header';
 
 function AppLayout(): JSX.Element {
   return (
-    <div className="bg-[#FFFFFF] h-screen flex flex-col">
+    <div>
       <Header />
 
-      <div className="flex-grow">
-        <main className="h-full">
+      <div>
+        <main>
           <Outlet />
         </main>
       </div>

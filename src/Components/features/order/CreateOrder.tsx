@@ -61,22 +61,19 @@ function CreateOrder(): JSX.Element {
   //   }
 
   return (
-    <div className="mt-6 flex flex-col justify-center items-center">
-      <p className="font-['Quicksand'] md:text-[1.2rem] text-[1rem] text-[#2e1f1a] font-[500] md:leading-[6rem] md:tracking-[0.15rem] mt-10 md:mt-0">
+    <div>
+      <p>
         Ready to place your order? Let’s make it happen!
       </p>
 
       <Form
         method="POST"
-        className="mt-6 md:border md:border-[#FFFBF5] md:rounded-[1.5rem] md:shadow-md grid grid-cols-2 gap-y-4 items-center p-5"
       >
         {/* First Name */}
-        <label className="font-['Quicksand'] font-medium text-[0.9rem] text-[#5A4034]">
+        <label>
           First Name
         </label>
         <input
-          className="border border-[#F6E6DA] rounded-[1rem] text-[#5A4034] font-['Quicksand'] 
-      font-medium text-[0.85rem] h-[2.5rem] md:w-[18rem] pl-3 focus:outline-none focus:border-[#F6E6DA]"
           type="text"
           name="customer"
           defaultValue={username}
@@ -85,12 +82,10 @@ function CreateOrder(): JSX.Element {
         />
 
         {/* Phone Number */}
-        <label className="font-['Quicksand'] font-medium text-[0.9rem] text-[#5A4034]">
+        <label>
           Phone Number
         </label>
         <input
-          className="border border-[#F6E6DA] rounded-[1rem] font-['Quicksand'] font-medium 
-      text-[0.85rem] h-[2.5rem] md:w-[18rem] pl-3 text-[#5A4034] focus:outline-none focus:border-[#F6E6DA]"
           type="tel"
           name="phone"
           required
@@ -98,13 +93,11 @@ function CreateOrder(): JSX.Element {
         />
 
         {/* Address */}
-        <label className="font-['Quicksand'] font-medium text-[0.9rem] text-[#5A4034]">
+        <label>
           Address
         </label>
-        <div className="relative w-[18rem]">
+        <div>
           <input
-            className="border border-[#F6E6DA] rounded-[1rem] font-['Quicksand'] font-normal text-[0.8rem] 
-        h-[2.5rem] md:w-full w-[11.8rem] pl-3 focus:outline-none focus:border-[#F6E6DA]"
             type="text"
             name="address"
             disabled={isLoadingAddress}
@@ -114,7 +107,6 @@ function CreateOrder(): JSX.Element {
           />
           {!position.latitude && !position.longitude && (
             <button
-              className="absolute cursor-pointer right-1 top-1"
               disabled={isLoadingAddress}
               type="button"
               onClick={(e) => {
@@ -123,7 +115,6 @@ function CreateOrder(): JSX.Element {
               }}
             >
               <FontAwesomeIcon
-                className="text-[#5A4034] w-9"
                 icon={faLocationDot}
               />
             </button>
@@ -131,8 +122,8 @@ function CreateOrder(): JSX.Element {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-10 w-full col-span-2 flex md:flex-row flex-col gap-5 md:gap-0 justify-between items-center">
-          <div className="flex flex-row gap-2 items-center">
+        <div>
+          <div>
             <input
               type="checkbox"
               name="priority"
@@ -143,7 +134,6 @@ function CreateOrder(): JSX.Element {
             />
 
             <label
-              className="font-['Quicksand'] font-semibold text-[0.9rem] text-[#5A4034]"
               htmlFor="priority"
             >
               Want to prioritize your order?
@@ -164,9 +154,6 @@ function CreateOrder(): JSX.Element {
             />
 
             <button
-              className="cursor-pointer h-9 w-[15rem] rounded-[1rem] border border-[#9C8F8F] flex justify-center items-center
-          transition-all duration-500 hover:bg-[#E8B4B8] bg-[#5A4034] hover:border-[#E8B4B8]
-          font-['Quicksand'] font-medium text-[0.9rem] text-[#FFFBF5]"
               disabled={isSubmitting || isLoadingAddress}
             >
               {isSubmitting
@@ -177,7 +164,7 @@ function CreateOrder(): JSX.Element {
         </div>
       </Form>
       {formErrors?.phone ? (
-        <p className="mt-4 text-sm text-red-600">{formErrors.phone}</p>
+        <p>{formErrors.phone}</p>
       ) : null}
     </div>
   );

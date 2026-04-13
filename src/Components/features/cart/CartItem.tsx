@@ -17,23 +17,23 @@ function CartItem({ product }: CartItemProps): JSX.Element {
   );
 
   return (
-    <div className="grid grid-cols-12 justify-center items-center">
-      <div className="col-span-6 font-['Quicksand'] md:text-[0.9rem] text-[0.8rem] font-medium">
+    <div>
+      <div>
         {currentQuantity} × {name}
       </div>
 
-      <div className="col-span-2 font-['Quicksand'] md:text-[0.9rem] text-[0.8rem] font-medium">
+      <div>
         {formatCurrency(currentQuantity * unitPrice)}
       </div>
 
-      <div className="col-span-2 flex justify-center">
+      <div>
         <UpdateItemQuantity
           productId={productId}
           currentQuantity={currentQuantity}
         />
       </div>
 
-      <div className="col-span-2 flex justify-center">
+      <div>
         <DeleteItem productId={productId} />
       </div>
     </div>

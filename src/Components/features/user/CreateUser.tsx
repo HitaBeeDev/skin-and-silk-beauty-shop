@@ -20,7 +20,7 @@ function CreateUser(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit}>
-      <p className="mb-4 text-sm text-stone-600 md:text-base">
+      <p>
         👋 Welcome! Please start by telling us your name:
       </p>
 
@@ -29,7 +29,6 @@ function CreateUser(): JSX.Element {
         placeholder="Your full name"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        className="input mb-8 w-72"
       />
 
       {username !== "" && (

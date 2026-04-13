@@ -8,7 +8,7 @@ function UpdateOrder(): JSX.Element {
   const fetcher = useFetcher();
 
   return (
-    <fetcher.Form method="PATCH" className="text-right">
+    <fetcher.Form method="PATCH">
       <Button type="primary">Make priority</Button>
     </fetcher.Form>
   );

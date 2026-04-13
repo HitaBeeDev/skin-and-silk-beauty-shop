@@ -36,49 +36,44 @@ function Product({ productId }: ProductProps): JSX.Element | null {
 
   return (
     <>
-      <div className="h-[23rem] rounded-xl shadow-sm p-5 flex flex-col justify-between ite cursor-pointer group relative">
-        <div className="flex justify-center items-center flex-grow">
-          <div className="w-[14rem] h-[14rem] flex justify-center items-center">
+      <div>
+        <div>
+          <div>
             <img
               src={mainImage}
               alt={name}
-              className={`object-contain w-full h-full ${
-                soldOut ? "opacity-70 grayscale" : ""
-              }`}
             />
           </div>
         </div>
 
-        <div className="flex flex-col justify-between h-full">
-          <p className="font-['Quicksand'] text-[0.9rem] text-[#5A4034] font-semibold">
+        <div>
+          <p>
             {name}
           </p>
 
-          <p className="text-[0.75rem] text-[#5A4034] font-normal pt-1 flex-grow">
+          <p>
             {description}
           </p>
 
-          <div className="mt-auto">
+          <div>
             {!soldOut ? (
-              <p className="text-[0.9rem] text-[#5A4034] font-semibold mt-1">
+              <p>
                 €{productUnitPrice.toFixed(2)}
               </p>
             ) : (
-              <p className="text-[0.9rem] text-[#D4B189] font-semibold">
+              <p>
                 Sold out
               </p>
             )}
 
             {!soldOut && (
               <div
-                className="absolute top-4 right-4 bg-[#F6E6DA] rounded-md w-7 h-7 flex justify-center items-center
-                 hover:bg-[#e2ad8f] transition-all duration-500 md:opacity-0 group-hover:opacity-100"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleAddToCart();
                 }}
               >
-                <img src={plus} alt="plus" className="w-4" />
+                <img src={plus} alt="plus" />
               </div>
             )}
           </div>

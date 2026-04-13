@@ -1,0 +1,16 @@
+type(scope): short summary
+
+# Types:
+# feat, fix, refactor, style, test, chore, docs
+#
+# Examples:
+# feat(cart): persist cart to localStorage
+# refactor(products): migrate list to typed service layer
+# chore(config): add eslint flat config
+#
+# Body:
+# Explain what changed and why.
+# Keep lines concise and focused on reviewer context.
+#
+# Footer:
+# Optional references, follow-ups, or breaking changes.
