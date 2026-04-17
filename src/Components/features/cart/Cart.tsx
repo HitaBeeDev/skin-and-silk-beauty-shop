@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import CartItem from '@/Components/features/cart/CartItem';
-import EmptyCart from '@/Components/features/cart/EmptyCart';
-import { clearCart, getCart } from '@/Components/features/cart/cartSlice';
+import { ROUTES } from '@/constants/routes';
+
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import CartItem from '@/components/features/cart/CartItem';
+import EmptyCart from '@/components/features/cart/EmptyCart';
+import { clearCart, getCart } from '@/components/features/cart/cartSlice';
 
 function Cart(): JSX.Element {
   const cart = useAppSelector(getCart);
@@ -30,7 +32,7 @@ function Cart(): JSX.Element {
 
         <div>
           <div>
-            <Link to="/products-list">
+            <Link to={ROUTES.PRODUCTS}>
               <button
               >
                 Return to Menu
@@ -47,7 +49,7 @@ function Cart(): JSX.Element {
             <div
             >
               <Link
-                to="/order/new"
+                to={ROUTES.CREATE_ORDER}
               >
                 Order
               </Link>

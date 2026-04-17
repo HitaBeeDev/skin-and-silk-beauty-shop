@@ -1,5 +1,5 @@
 import { useRouteError } from 'react-router-dom';
-import LinkButton from '@/Components/ui/LinkButton';
+import LinkButton from '@/components/ui/LinkButton';
 
 function hasStringProp(
   value: unknown,

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { getTotalCartQuantity } from '@/Components/features/cart/cartSlice';
+import { ROUTES } from '@/constants/routes';
+
+import { getTotalCartQuantity } from '@/components/features/cart/cartSlice';
 import shoppingBag from '@/assets/shoppingBag.svg';
-import { useAppSelector } from '@/store/hooks';
+import { useAppSelector } from '@store/hooks';
 
 function Header(): JSX.Element {
   const totalCartQuantity = useAppSelector(getTotalCartQuantity);
@@ -11,7 +13,7 @@ function Header(): JSX.Element {
     <div>
       <div>
         <Link
-          to="/"
+          to={ROUTES.HOME}
         >
           Skin & Silk
         </Link>
@@ -34,7 +36,7 @@ function Header(): JSX.Element {
 
       <div>
         {totalCartQuantity > 0 ? (
-          <Link to="/cart">
+          <Link to={ROUTES.CART}>
             <img src={shoppingBag} alt="shopping bag" />
             <p
             >
@@ -42,7 +44,7 @@ function Header(): JSX.Element {
             </p>
           </Link>
         ) : (
-          <Link to="/products-list">
+          <Link to={ROUTES.PRODUCTS}>
             <button
             >
               Start Shopping

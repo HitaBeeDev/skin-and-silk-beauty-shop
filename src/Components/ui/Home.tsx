@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import { ROUTES } from '@/constants/routes';
+
 import grid from '@/assets/grid1.jpg';
 import home from '@/assets/home4.jpg';
 
@@ -13,11 +15,11 @@ function Home(): JSX.Element {
         />
 
         <div>
-          <Link to="/products-list">
+          <Link to={ROUTES.PRODUCTS}>
             <button>Start Shopping</button>
           </Link>
 
-          <Link to="/#contact">
+          <Link to={`${ROUTES.HOME}#contact`}>
             <button>Get in Touch</button>
           </Link>
         </div>

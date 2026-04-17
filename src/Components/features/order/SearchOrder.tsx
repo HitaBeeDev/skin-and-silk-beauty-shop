@@ -1,6 +1,8 @@
 import { type FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ROUTES } from '@/constants/routes';
+
 function SearchOrder(): JSX.Element {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
@@ -8,7 +10,7 @@ function SearchOrder(): JSX.Element {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!query) return;
-    navigate(`/order/${query}`);
+    navigate(ROUTES.ORDER_DETAIL.replace(':orderId', query));
     setQuery('');
   }
 

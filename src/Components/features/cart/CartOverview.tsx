@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { getTotalCartPrice, getTotalCartQuantity } from '@/Components/features/cart/cartSlice';
-import { formatCurrency } from '@/Components/utils/helpers';
-import { useAppSelector } from '@/store/hooks';
+import { ROUTES } from '@/constants/routes';
+
+import { getTotalCartPrice, getTotalCartQuantity } from '@/components/features/cart/cartSlice';
+import { formatCurrency } from '@/components/utils/helpers';
+import { useAppSelector } from '@store/hooks';
 
 function CartOverview(): JSX.Element | null {
   const totalCartQuantity = useAppSelector(getTotalCartQuantity);
@@ -16,7 +18,7 @@ function CartOverview(): JSX.Element | null {
         <span>{totalCartQuantity} items</span>
         <span>{formatCurrency(totalCartPrice)}</span>
       </p>
-      <Link to="/cart">Open cart &rarr;</Link>
+      <Link to={ROUTES.CART}>Open cart &rarr;</Link>
     </div>
   );
 }

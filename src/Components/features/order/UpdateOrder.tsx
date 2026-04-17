@@ -1,8 +1,8 @@
 import type { ActionFunctionArgs } from 'react-router-dom';
 import { useFetcher } from 'react-router-dom';
 
-import { updateOrder } from '@/Components/services/helper';
-import Button from '@/Components/ui/Button';
+import { updateOrder } from '@/components/services/helper';
+import Button from '@/components/ui/Button';
 
 function UpdateOrder(): JSX.Element {
   const fetcher = useFetcher();

@@ -1,9 +1,11 @@
 import { type FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { updateName } from '@/Components/features/user/userSlice';
-import Button from '@/Components/ui/Button';
-import { useAppDispatch } from '@/store/hooks';
+import { ROUTES } from '@/constants/routes';
+
+import { updateName } from '@/components/features/user/userSlice';
+import Button from '@/components/ui/Button';
+import { useAppDispatch } from '@store/hooks';
 
 function CreateUser(): JSX.Element {
   const [username, setUsername] = useState('');
@@ -15,7 +17,7 @@ function CreateUser(): JSX.Element {
 
     if (!username) return;
     dispatch(updateName(username));
-    navigate('/products-list');
+    navigate(ROUTES.PRODUCTS);
   }
 
   return (

@@ -3,12 +3,14 @@ import { useLoaderData } from 'react-router-dom';
 
 import type { Product } from '@/types';
 
-import ProductCard from '@/Components/features/products-list/Product';
-import { getProductsList } from '@/Components/services/helper';
+import { CATEGORY_OPTIONS, DEFAULT_CATEGORY, type ProductCategoryLabel } from '@/constants/categories';
+
+import ProductCard from '@/components/features/products/Product';
+import { getProductsList } from '@/components/services/helper';
 
 function ProductsList(): JSX.Element {
   const productsList = useLoaderData() as Record<string, Product[]>;
-  const [activeTab, setActiveTab] = useState('Skin Care');
+  const [activeTab, setActiveTab] = useState<ProductCategoryLabel>(DEFAULT_CATEGORY);
 
   const products = productsList[activeTab] || [];
 
@@ -20,12 +22,12 @@ function ProductsList(): JSX.Element {
         </p>
 
         <div>
-          {Object.keys(productsList).map((category) => (
+          {CATEGORY_OPTIONS.map(({ label }) => (
             <p
-              key={category}
-              onClick={() => setActiveTab(category)}
+              key={label}
+              onClick={() => setActiveTab(label)}
             >
-              {category}
+              {label}
             </p>
           ))}
         </div>

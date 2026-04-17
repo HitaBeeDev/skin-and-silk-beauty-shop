@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
-import Header from '@/Components/ui/Header';
+import Footer from '@/components/layout/Footer';
+import Header from '@/components/layout/Header';
 
 function AppLayout(): JSX.Element {
   return (
@@ -13,7 +14,7 @@ function AppLayout(): JSX.Element {
         </main>
       </div>
 
-      {/* <CartOverview /> */}
+      <Footer />
     </div>
   );
 }

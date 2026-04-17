@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/tool
 
 import type { User } from '@/types';
 
-import { getAddress } from '@/Components/services/apiGeocoding';
+import { getAddress } from '@/components/services/apiGeocoding';
 
 type Coordinates = {
   latitude: number;

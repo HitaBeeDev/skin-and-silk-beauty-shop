@@ -5,7 +5,7 @@ import type {
 } from 'react';
 import { Link } from 'react-router-dom';
 
-import Spinner from '@/Components/ui/Spinner';
+import Spinner from '@/components/ui/Spinner';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'link';
 type ButtonSize = 'sm' | 'md' | 'lg';

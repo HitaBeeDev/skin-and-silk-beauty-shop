@@ -5,14 +5,16 @@ import { useFetcher, useLoaderData } from 'react-router-dom';
 
 import type { Order as OrderModel, Product } from '@/types';
 
-import { getOrder } from '@/Components/services/helper';
+import { ROUTES } from '@/constants/routes';
+
+import { getOrder } from '@/components/services/helper';
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
-} from '@/Components/utils/helpers';
-import OrderItem from '@/Components/features/order/OrderItem';
-import UpdateOrder from '@/Components/features/order/UpdateOrder';
+} from '@/components/utils/helpers';
+import OrderItem from '@/components/features/order/OrderItem';
+import UpdateOrder from '@/components/features/order/UpdateOrder';
 
 function Order(): JSX.Element {
   const order = useLoaderData() as OrderModel;
@@ -21,7 +23,7 @@ function Order(): JSX.Element {
   useEffect(
     function () {
       if (!fetcher.data && fetcher.state === "idle")
-        fetcher.load("/products-list");
+        fetcher.load(ROUTES.PRODUCTS);
     },
     [fetcher]
   );

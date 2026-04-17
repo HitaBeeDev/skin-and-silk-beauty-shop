@@ -6,17 +6,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import type { CartItem, Order } from '@/types';
 
-import EmptyCart from '@/Components/features/cart/EmptyCart';
+import { ROUTES } from '@/constants/routes';
+
+import EmptyCart from '@/components/features/cart/EmptyCart';
 import {
   clearCart,
   getCart,
   getTotalCartPrice,
-} from '@/Components/features/cart/cartSlice';
-import { fetchAddress } from '@/Components/features/user/userSlice';
-import { createOrder } from '@/Components/services/helper';
-import { formatCurrency } from '@/Components/utils/helpers';
-import store from '@/store';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+} from '@/components/features/cart/cartSlice';
+import { fetchAddress } from '@/components/features/user/userSlice';
+import { createOrder } from '@/components/services/helper';
+import { formatCurrency } from '@/components/utils/helpers';
+import store from '@store';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str: string): boolean =>
@@ -201,7 +203,7 @@ export async function action({
   // Do NOT overuse
   store.dispatch(clearCart());
 
-  return redirect(`/order/${newOrder.id}`);
+  return redirect(ROUTES.ORDER_DETAIL.replace(':orderId', String(newOrder.id)));
 }
 
 export default CreateOrder;

@@ -1,4 +1,5 @@
 import type { Order, Product } from '@/types';
+import type { ProductCategoryLabel } from '@/constants/categories';
 
 import HYDROSOFTENINGLOTIONN1 from '@/assets/Products/product1.png';
 import TheNEWTheRejuvenatingNightCream1 from '@/assets/Products/product2.avif';
@@ -25,7 +26,7 @@ import product7 from '@/assets/Products/product7.png';
 import product8 from '@/assets/Products/product8.png';
 import product9 from '@/assets/Products/product9.png';
 
-export type ProductsByCategory = Record<string, Product[]>;
+export type ProductsByCategory = Record<ProductCategoryLabel, Product[]>;
 
 export const productsList: ProductsByCategory = {
   "Skin Care": [

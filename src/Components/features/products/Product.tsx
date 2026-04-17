@@ -2,9 +2,9 @@ import plus from '@/assets/plus.svg';
 
 import type { Product as ProductModel } from '@/types';
 
-import { addItem } from '@/Components/features/cart/cartSlice';
-import { productsList } from '@/Components/services/data';
-import { useAppDispatch } from '@/store/hooks';
+import { addItem } from '@/components/features/cart/cartSlice';
+import { productsList } from '@/components/services/data';
+import { useAppDispatch } from '@store/hooks';
 
 type ProductProps = {
   productId: ProductModel['id'];
