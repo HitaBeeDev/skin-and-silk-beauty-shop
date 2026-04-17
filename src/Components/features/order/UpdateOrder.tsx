@@ -1,8 +1,9 @@
 import type { ActionFunctionArgs } from 'react-router-dom';
 import { useFetcher } from 'react-router-dom';
 
-import { updateOrder } from '@/services/ordersService';
+import { upgradeOrderPriority } from '@/components/features/order/ordersSlice';
 import Button from '@/components/ui/Button';
+import store from '@store';
 
 function UpdateOrder(): JSX.Element {
   const fetcher = useFetcher();
@@ -19,9 +20,8 @@ export default UpdateOrder;
 export async function action({
   params,
 }: ActionFunctionArgs): Promise<null> {
-  const data = { priority: true };
   if (params.orderId) {
-    await updateOrder(params.orderId, data);
+    await store.dispatch(upgradeOrderPriority(params.orderId)).unwrap();
   }
   return null;
 }

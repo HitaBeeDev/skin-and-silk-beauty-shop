@@ -1,13 +1,16 @@
 // Test ID: IIDSAT
 import { useEffect } from 'react';
 import type { LoaderFunctionArgs } from 'react-router-dom';
-import { useFetcher, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 
 import type { Order as OrderModel, Product } from '@/types';
 
-import { ROUTES } from '@/constants/routes';
-
-import { getOrder } from '@/services/ordersService';
+import {
+  fetchProducts,
+  selectProducts,
+  selectProductsStatus,
+} from '@/components/features/products/productsSlice';
+import { loadOrder } from '@/components/features/order/ordersSlice';
 import {
   calcMinutesLeft,
   formatCurrency,
@@ -15,17 +18,20 @@ import {
 } from '@/components/utils/helpers';
 import OrderItem from '@/components/features/order/OrderItem';
 import UpdateOrder from '@/components/features/order/UpdateOrder';
+import store from '@store';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 function Order(): JSX.Element {
   const order = useLoaderData() as OrderModel;
-  const fetcher = useFetcher<Product[]>();
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(selectProducts);
+  const productsStatus = useAppSelector(selectProductsStatus);
 
   useEffect(
     function () {
-      if (!fetcher.data && fetcher.state === "idle")
-        fetcher.load(ROUTES.PRODUCTS);
+      void dispatch(fetchProducts());
     },
-    [fetcher]
+    [dispatch]
   );
 
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
@@ -76,9 +82,9 @@ function Order(): JSX.Element {
           <OrderItem
             item={item}
             key={item.productId}
-            isLoadingIngredients={fetcher.state === "loading"}
+            isLoadingIngredients={productsStatus === 'loading'}
             ingredients={
-              fetcher?.data?.find((el) => el.id === item.productId)?.tags ?? []
+              products.find((el: Product) => el.id === item.productId)?.tags ?? []
             }
           />
         ))}
@@ -111,7 +117,7 @@ export async function loader({
   }
 
   try {
-    return await getOrder(params.orderId);
+    return await store.dispatch(loadOrder(params.orderId)).unwrap();
   } catch {
     throw new Response('Order not found.', { status: 404 });
   }

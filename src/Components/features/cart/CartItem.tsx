@@ -2,7 +2,7 @@ import type { CartItem as CartItemModel } from '@/types';
 
 import DeleteItem from '@/components/features/cart/DeleteItem';
 import UpdateItemQuantity from '@/components/features/cart/UpdateItemQuantity';
-import { getCurrentQuantityById } from '@/components/features/cart/cartSlice';
+import { getCartItemById } from '@/components/features/cart/cartSelectors';
 import { formatCurrency } from '@/components/utils/helpers';
 import { useAppSelector } from '@store/hooks';
 
@@ -12,9 +12,8 @@ type CartItemProps = {
 
 function CartItem({ product }: CartItemProps): JSX.Element {
   const { productId, name, unitPrice } = product;
-  const currentQuantity = useAppSelector((state) =>
-    getCurrentQuantityById(productId)(state)
-  );
+  const currentQuantity =
+    useAppSelector(getCartItemById(productId))?.quantity ?? 0;
 
   return (
     <div>

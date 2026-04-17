@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
-import { getTotalCartQuantity } from '@/components/features/cart/cartSlice';
+import { getTotalCartQuantity } from '@/components/features/cart/cartSelectors';
 import shoppingBag from '@/assets/shoppingBag.svg';
 import { useAppSelector } from '@store/hooks';
 

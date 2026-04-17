@@ -14,9 +14,7 @@ import { action as updateOrderAction } from '@/components/features/order/UpdateO
 import ProductDetail, {
   loader as productDetailLoader,
 } from '@/components/features/products/ProductDetail';
-import ProductsList, {
-  loader as menuLoader,
-} from '@/components/features/products/ProductsList';
+import ProductsList from '@/components/features/products/ProductsList';
 import AppLayout from '@/components/layout/AppLayout';
 import Home from '@/components/ui/Home';
 
@@ -33,7 +31,6 @@ const router = createBrowserRouter([
       {
         path: ROUTES.PRODUCTS,
         element: <ProductsList />,
-        loader: menuLoader,
         errorElement: <Error />,
       },
       {

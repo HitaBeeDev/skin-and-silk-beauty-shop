@@ -1,6 +1,10 @@
 import { useRouteError } from 'react-router-dom';
 import LinkButton from '@/components/ui/LinkButton';
 
+type ErrorProps = {
+  message?: string;
+};
+
 function hasStringProp(
   value: unknown,
   key: 'data' | 'message'
@@ -13,14 +17,15 @@ function hasStringProp(
   );
 }
 
-function Error(): JSX.Element {
+function Error({ message: explicitMessage }: ErrorProps): JSX.Element {
   const error = useRouteError();
-  const message =
+  const message = explicitMessage ?? (
     hasStringProp(error, 'data')
       ? error.data
       : hasStringProp(error, 'message')
         ? error.message
-        : 'Something went wrong.';
+        : 'Something went wrong.'
+  );
 
   return (
     <div>

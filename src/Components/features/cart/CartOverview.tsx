@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
-import { getTotalCartPrice, getTotalCartQuantity } from '@/components/features/cart/cartSlice';
+import {
+  getTotalCartPrice,
+  getTotalCartQuantity,
+} from '@/components/features/cart/cartSelectors';
 import { formatCurrency } from '@/components/utils/helpers';
 import { useAppSelector } from '@store/hooks';
 

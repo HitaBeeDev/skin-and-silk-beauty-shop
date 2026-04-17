@@ -2,16 +2,20 @@ import { Link } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
+import type { CartItem as CartItemModel } from '@/types';
+
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import CartItem from '@/components/features/cart/CartItem';
 import EmptyCart from '@/components/features/cart/EmptyCart';
-import { clearCart, getCart } from '@/components/features/cart/cartSlice';
+import { clearCart } from '@/components/features/cart/cartSlice';
+import { getCart, getIsCartEmpty } from '@/components/features/cart/cartSelectors';
 
 function Cart(): JSX.Element {
   const cart = useAppSelector(getCart);
+  const isCartEmpty = useAppSelector(getIsCartEmpty);
   const dispatch = useAppDispatch();
 
-  if (!cart.length) return <EmptyCart />;
+  if (isCartEmpty) return <EmptyCart />;
 
   return (
     <div>
@@ -21,7 +25,7 @@ function Cart(): JSX.Element {
 
       <div>
           <ul>
-          {cart.map((product) => (
+          {cart.map((product: CartItemModel) => (
             <li
               key={product.productId}
             >

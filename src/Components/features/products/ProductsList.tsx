@@ -1,18 +1,68 @@
-import { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import type { Product } from '@/types';
 
-import { CATEGORY_OPTIONS, DEFAULT_CATEGORY, type ProductCategoryLabel } from '@/constants/categories';
+import {
+  CATEGORY_OPTIONS,
+  CATEGORY_SLUG_BY_LABEL,
+  DEFAULT_CATEGORY,
+  getCategoryLabelBySlug,
+  type ProductCategoryLabel,
+} from '@/constants/categories';
 
 import ProductCard from '@/components/features/products/Product';
-import { getProducts } from '@/services/productsService';
+import {
+  fetchProducts,
+  selectActiveCategory,
+  selectProducts,
+  selectProductsError,
+  selectProductsStatus,
+  setActiveCategory,
+} from '@/components/features/products/productsSlice';
+import Error from '@/components/ui/Error';
+import Spinner from '@/components/ui/Spinner';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 function ProductsList(): JSX.Element {
-  const products = useLoaderData() as Product[];
-  const [activeTab, setActiveTab] = useState<ProductCategoryLabel>(DEFAULT_CATEGORY);
+  const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categorySlug = searchParams.get('category');
+  const products = useAppSelector(selectProducts);
+  const activeCategory = useAppSelector(selectActiveCategory);
+  const productsStatus = useAppSelector(selectProductsStatus);
+  const productsError = useAppSelector(selectProductsError);
 
-  const visibleProducts = products.filter((product) => product.category === activeTab);
+  useEffect(() => {
+    const categoryFromUrl = getCategoryLabelBySlug(categorySlug) ?? DEFAULT_CATEGORY;
+
+    if (!categorySlug) {
+      setSearchParams(
+        { category: CATEGORY_SLUG_BY_LABEL[categoryFromUrl] },
+        { replace: true }
+      );
+    }
+
+    if (categoryFromUrl !== activeCategory) {
+      dispatch(setActiveCategory(categoryFromUrl));
+      return;
+    }
+
+    void dispatch(fetchProducts(activeCategory));
+  }, [activeCategory, categorySlug, dispatch, setSearchParams]);
+
+  function handleCategoryChange(category: ProductCategoryLabel): void {
+    dispatch(setActiveCategory(category));
+    setSearchParams({ category: CATEGORY_SLUG_BY_LABEL[category] });
+  }
+
+  if (productsStatus === 'loading' && !products.length) {
+    return <Spinner label="Loading products" />;
+  }
+
+  if (productsStatus === 'failed') {
+    return <Error message={productsError ?? 'Failed to load products.'} />;
+  }
 
   return (
     <div>
@@ -25,7 +75,7 @@ function ProductsList(): JSX.Element {
           {CATEGORY_OPTIONS.map(({ label }) => (
             <p
               key={label}
-              onClick={() => setActiveTab(label)}
+              onClick={() => handleCategoryChange(label)}
             >
               {label}
             </p>
@@ -34,18 +84,13 @@ function ProductsList(): JSX.Element {
       </div>
 
       {/* 🔥 Corrected to map over products from the selected category */}
-      <div>
-        {visibleProducts.map((product) => (
+        <div>
+        {products.map((product: Product) => (
           <ProductCard product={product} key={product.id} />
         ))}
       </div>
     </div>
   );
-}
-
-export async function loader(): Promise<Product[]> {
-  const response = await getProducts();
-  return response.data;
 }
 
 export default ProductsList;

@@ -22,3 +22,16 @@ export const CATEGORY_OPTIONS = [
 export const DEFAULT_CATEGORY = CATEGORY_LABELS[ProductCategory.SkinCare];
 
 export type ProductCategoryLabel = (typeof CATEGORY_OPTIONS)[number]['label'];
+
+export const CATEGORY_SLUG_BY_LABEL: Record<ProductCategoryLabel, ProductCategory> = {
+  'Skin Care': ProductCategory.SkinCare,
+  Makeup: ProductCategory.Makeup,
+  'New Arrivals': ProductCategory.NewArrivals,
+};
+
+export function getCategoryLabelBySlug(
+  slug?: string | null
+): ProductCategoryLabel | undefined {
+  const matchedCategory = CATEGORY_OPTIONS.find((category) => category.value === slug);
+  return matchedCategory?.label;
+}

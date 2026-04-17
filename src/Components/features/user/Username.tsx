@@ -1,7 +1,8 @@
+import { selectUsername } from '@/components/features/user/userSlice';
 import { useAppSelector } from '@store/hooks';
 
 function Username(): JSX.Element | null {
-  const username = useAppSelector((state) => state.user.username);
+  const username = useAppSelector(selectUsername);
 
   if (!username) return null;
 

@@ -9,13 +9,20 @@ import type { CartItem, CreateOrderPayload } from '@/types';
 import { ROUTES } from '@/constants/routes';
 
 import EmptyCart from '@/components/features/cart/EmptyCart';
+import { clearCart } from '@/components/features/cart/cartSlice';
 import {
-  clearCart,
   getCart,
+  getIsCartEmpty,
   getTotalCartPrice,
-} from '@/components/features/cart/cartSlice';
-import { fetchAddress } from '@/components/features/user/userSlice';
-import { createOrder } from '@/services/ordersService';
+} from '@/components/features/cart/cartSelectors';
+import { submitOrder } from '@/components/features/order/ordersSlice';
+import {
+  fetchAddress,
+  selectUserAddress,
+  selectUserPosition,
+  selectUserStatus,
+  selectUsername,
+} from '@/components/features/user/userSlice';
 import { formatCurrency } from '@/components/utils/helpers';
 import store from '@store';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
@@ -32,12 +39,10 @@ type OrderActionData = {
 
 function CreateOrder(): JSX.Element {
   const [withPriority, setWithPriority] = useState<boolean>(false);
-  const {
-    username,
-    status: addressStatus,
-    position,
-    address,
-  } = useAppSelector((state) => state.user);
+  const username = useAppSelector(selectUsername);
+  const addressStatus = useAppSelector(selectUserStatus);
+  const position = useAppSelector(selectUserPosition);
+  const address = useAppSelector(selectUserAddress);
   const isLoadingAddress = addressStatus === 'loading';
 
   const navigation = useNavigation();
@@ -47,11 +52,12 @@ function CreateOrder(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const cart = useAppSelector(getCart);
+  const isCartEmpty = useAppSelector(getIsCartEmpty);
   const totalCartPrice = useAppSelector(getTotalCartPrice);
   const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
   const totalPrice = totalCartPrice + priorityPrice;
 
-  if (!cart.length) return <EmptyCart />;
+  if (isCartEmpty) return <EmptyCart />;
 
   //   {
   //     /* #F6E6DA  (Soft Nude)
@@ -198,7 +204,7 @@ export async function action({
   if (Object.keys(errors).length > 0) return errors;
 
   // If everything is okay, create new order and redirect
-  const newOrder = await createOrder(order);
+  const newOrder = await store.dispatch(submitOrder(order)).unwrap();
 
   // Do NOT overuse
   store.dispatch(clearCart());

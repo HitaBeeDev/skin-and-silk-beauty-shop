@@ -1,17 +1,17 @@
 import type { CreateOrderPayload, Order } from '@/types';
 
-const STORAGE_KEY = 'elan-beauty-orders';
+export const ORDERS_STORAGE_KEY = 'elan-beauty-orders';
 
 function canUseLocalStorage(): boolean {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
 }
 
-function readOrders(): Order[] {
+export function readOrders(): Order[] {
   if (!canUseLocalStorage()) {
     return [];
   }
 
-  const rawOrders = window.localStorage.getItem(STORAGE_KEY);
+  const rawOrders = window.localStorage.getItem(ORDERS_STORAGE_KEY);
 
   if (!rawOrders) {
     return [];
@@ -24,12 +24,12 @@ function readOrders(): Order[] {
   }
 }
 
-function writeOrders(orders: Order[]): void {
+export function writeOrders(orders: Order[]): void {
   if (!canUseLocalStorage()) {
     return;
   }
 
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+  window.localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
 }
 
 function createOrderId(): string {

@@ -1,22 +1,25 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import type { CartItem } from '@/types';
-import type { RootState } from '@store';
+import type { CartItem, LoadingStatus } from '@/types';
 
 type CartState = {
-  cart: CartItem[];
+  items: CartItem[];
+  status: LoadingStatus;
+  error: string | null;
 };
 
-const initialState: CartState = {
-  cart: [],
+export const initialCartState: CartState = {
+  items: [],
+  status: 'idle',
+  error: null,
 };
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: initialCartState,
   reducers: {
     addItem(state, action: PayloadAction<CartItem>) {
-      const existingItem = state.cart.find(
+      const existingItem = state.items.find(
         (item) => item.productId === action.payload.productId
       );
 
@@ -26,28 +29,33 @@ const cartSlice = createSlice({
         return;
       }
 
-      state.cart.push(action.payload);
+      state.items.push(action.payload);
+      state.status = 'succeeded';
     },
     deleteItem(state, action: PayloadAction<CartItem['productId']>) {
-      state.cart = state.cart.filter(
+      state.items = state.items.filter(
         (item) => item.productId !== action.payload
       );
+      state.status = 'succeeded';
     },
     increaseItemQuantity(state, action: PayloadAction<CartItem['productId']>) {
-      const item = state.cart.find((item) => item.productId === action.payload);
+      const item = state.items.find((item) => item.productId === action.payload);
       if (!item) return;
       item.quantity++;
       item.totalPrice = item.quantity * item.unitPrice;
+      state.status = 'succeeded';
     },
     decreaseItemQuantity(state, action: PayloadAction<CartItem['productId']>) {
-      const item = state.cart.find((item) => item.productId === action.payload);
+      const item = state.items.find((item) => item.productId === action.payload);
       if (!item) return;
       item.quantity--;
       item.totalPrice = item.quantity * item.unitPrice;
       if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);
+      state.status = 'succeeded';
     },
     clearCart(state) {
-      state.cart = [];
+      state.items = [];
+      state.status = 'succeeded';
     },
   },
 });
@@ -61,16 +69,3 @@ export const {
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
-
-export const getCart = (state: RootState): CartItem[] => state.cart.cart;
-
-export const getTotalCartQuantity = (state: RootState): number =>
-  state.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
-
-export const getTotalCartPrice = (state: RootState): number =>
-  state.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0);
-
-export const getCurrentQuantityById =
-  (id: CartItem['productId']) =>
-  (state: RootState): number =>
-    state.cart.cart.find((item) => item.productId === id)?.quantity ?? 0;
