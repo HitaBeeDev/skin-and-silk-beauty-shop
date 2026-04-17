@@ -16,11 +16,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@features/*": ["src/features/*"],
-      "@components/*": ["src/components/*"],
-      "@services/*": ["src/services/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
+      "@features/*": ["src/Components/features/*"],
+      "@components/*": ["src/Components/*"],
+      "@services/*": ["src/Components/services/*"],
+      "@hooks/*": ["src/store/*"],
+      "@utils/*": ["src/Components/utils/*"],
+      "@store": ["src/store.ts"],
       "@store/*": ["src/store/*"]
     }
   },
