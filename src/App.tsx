@@ -11,6 +11,9 @@ import Order, {
   loader as orderLoader,
 } from '@/components/features/order/Order';
 import { action as updateOrderAction } from '@/components/features/order/UpdateOrder';
+import ProductDetail, {
+  loader as productDetailLoader,
+} from '@/components/features/products/ProductDetail';
 import ProductsList, {
   loader as menuLoader,
 } from '@/components/features/products/ProductsList';
@@ -31,6 +34,12 @@ const router = createBrowserRouter([
         path: ROUTES.PRODUCTS,
         element: <ProductsList />,
         loader: menuLoader,
+        errorElement: <Error />,
+      },
+      {
+        path: ROUTES.PRODUCT_DETAIL,
+        element: <ProductDetail />,
+        loader: productDetailLoader,
         errorElement: <Error />,
       },
       { path: ROUTES.CART, element: <Cart /> },

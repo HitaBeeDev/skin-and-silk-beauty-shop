@@ -1,4 +1,4 @@
-import type { Order } from '@/types';
+import type { Order, Product } from '@/types';
 
 import { orders, productsList, type ProductsByCategory } from '@/components/services/data';
 
@@ -6,6 +6,15 @@ type CreateOrderInput = Omit<Order, 'id'>;
 
 export async function getProductsList(): Promise<ProductsByCategory> {
   return productsList;
+}
+
+export async function getProductById(
+  id: string | number
+): Promise<Product | null> {
+  const normalizedId = String(id);
+  const allProducts = Object.values(productsList).flat();
+
+  return allProducts.find((product) => String(product.id) === normalizedId) ?? null;
 }
 
 export async function getOrder(id: string | number): Promise<Order | null> {

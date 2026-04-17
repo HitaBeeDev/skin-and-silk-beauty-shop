@@ -1,6 +1,10 @@
+import { Link } from 'react-router-dom';
+
 import plus from '@/assets/plus.svg';
 
 import type { Product as ProductModel } from '@/types';
+
+import { ROUTES } from '@/constants/routes';
 
 import { addItem } from '@/components/features/cart/cartSlice';
 import { productsList } from '@/components/services/data';
@@ -35,7 +39,7 @@ function Product({ productId }: ProductProps): JSX.Element | null {
   }
 
   return (
-    <>
+    <Link to={ROUTES.PRODUCT_DETAIL.replace(':id', String(id))}>
       <div>
         <div>
           <div>
@@ -70,6 +74,7 @@ function Product({ productId }: ProductProps): JSX.Element | null {
               <div
                 onClick={(e) => {
                   e.stopPropagation();
+                  e.preventDefault();
                   handleAddToCart();
                 }}
               >
@@ -79,7 +84,7 @@ function Product({ productId }: ProductProps): JSX.Element | null {
           </div>
         </div>
       </div>
-    </>
+    </Link>
   );
 }
 
