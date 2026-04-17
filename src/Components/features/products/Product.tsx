@@ -7,20 +7,14 @@ import type { Product as ProductModel } from '@/types';
 import { ROUTES } from '@/constants/routes';
 
 import { addItem } from '@/components/features/cart/cartSlice';
-import { productsList } from '@/components/services/data';
 import { useAppDispatch } from '@store/hooks';
 
 type ProductProps = {
-  productId: ProductModel['id'];
+  product: ProductModel;
 };
 
-function Product({ productId }: ProductProps): JSX.Element | null {
+function Product({ product }: ProductProps): JSX.Element {
   const dispatch = useAppDispatch();
-
-  const allProducts = Object.values(productsList).flat();
-  const product = allProducts.find((p) => p.id === productId);
-
-  if (!product) return null;
 
   const { id, name, unitPrice, soldOut, mainImage, description } = product;
   const productUnitPrice = unitPrice ?? product.price;

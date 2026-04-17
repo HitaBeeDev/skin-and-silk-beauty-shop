@@ -4,7 +4,7 @@ import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import type { CartItem, Order } from '@/types';
+import type { CartItem, CreateOrderPayload } from '@/types';
 
 import { ROUTES } from '@/constants/routes';
 
@@ -15,7 +15,7 @@ import {
   getTotalCartPrice,
 } from '@/components/features/cart/cartSlice';
 import { fetchAddress } from '@/components/features/user/userSlice';
-import { createOrder } from '@/components/services/helper';
+import { createOrder } from '@/services/ordersService';
 import { formatCurrency } from '@/components/utils/helpers';
 import store from '@store';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
@@ -178,7 +178,7 @@ export async function action({
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
-  const order: Omit<Order, 'id'> = {
+  const order: CreateOrderPayload = {
     ...data,
     customer: String(data.customer ?? ''),
     phone: String(data.phone ?? ''),

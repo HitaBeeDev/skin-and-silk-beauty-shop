@@ -6,13 +6,13 @@ import type { Product } from '@/types';
 import { CATEGORY_OPTIONS, DEFAULT_CATEGORY, type ProductCategoryLabel } from '@/constants/categories';
 
 import ProductCard from '@/components/features/products/Product';
-import { getProductsList } from '@/components/services/helper';
+import { getProducts } from '@/services/productsService';
 
 function ProductsList(): JSX.Element {
-  const productsList = useLoaderData() as Record<string, Product[]>;
+  const products = useLoaderData() as Product[];
   const [activeTab, setActiveTab] = useState<ProductCategoryLabel>(DEFAULT_CATEGORY);
 
-  const products = productsList[activeTab] || [];
+  const visibleProducts = products.filter((product) => product.category === activeTab);
 
   return (
     <div>
@@ -35,17 +35,17 @@ function ProductsList(): JSX.Element {
 
       {/* 🔥 Corrected to map over products from the selected category */}
       <div>
-        {products.map((product) => (
-          <ProductCard productId={product.id} key={product.id} />
+        {visibleProducts.map((product) => (
+          <ProductCard product={product} key={product.id} />
         ))}
       </div>
     </div>
   );
 }
 
-export async function loader(): Promise<Record<string, Product[]>> {
-  const productsList = await getProductsList();
-  return productsList;
+export async function loader(): Promise<Product[]> {
+  const response = await getProducts();
+  return response.data;
 }
 
 export default ProductsList;

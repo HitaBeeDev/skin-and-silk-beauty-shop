@@ -6,8 +6,7 @@ import type { Product } from '@/types';
 
 import { ROUTES } from '@/constants/routes';
 import { addItem } from '@/components/features/cart/cartSlice';
-import { productsList } from '@/components/services/data';
-import { getProductById } from '@/components/services/helper';
+import { getProductById, getProducts } from '@/services/productsService';
 import { formatCurrency } from '@/components/utils/helpers';
 import { useAppDispatch } from '@store/hooks';
 
@@ -134,17 +133,17 @@ export async function loader({
     throw new Response('Product not found.', { status: 404 });
   }
 
-  const product = await getProductById(productId);
+  try {
+    const product = await getProductById(productId);
+    const relatedProductsResponse = await getProducts({ category: product.category });
+    const relatedProducts = relatedProductsResponse.data
+      .filter((relatedProduct) => relatedProduct.id !== product.id)
+      .slice(0, 4);
 
-  if (!product) {
+    return { product, relatedProducts };
+  } catch {
     throw new Response('Product not found.', { status: 404 });
   }
-
-  const relatedProducts = (productsList[product.category] ?? [])
-    .filter((relatedProduct) => relatedProduct.id !== product.id)
-    .slice(0, 4);
-
-  return { product, relatedProducts };
 }
 
 export default ProductDetail;

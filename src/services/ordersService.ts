@@ -1,0 +1,86 @@
+import type { CreateOrderPayload, Order } from '@/types';
+
+const STORAGE_KEY = 'elan-beauty-orders';
+
+function canUseLocalStorage(): boolean {
+  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+}
+
+function readOrders(): Order[] {
+  if (!canUseLocalStorage()) {
+    return [];
+  }
+
+  const rawOrders = window.localStorage.getItem(STORAGE_KEY);
+
+  if (!rawOrders) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(rawOrders) as Order[];
+  } catch {
+    return [];
+  }
+}
+
+function writeOrders(orders: Order[]): void {
+  if (!canUseLocalStorage()) {
+    return;
+  }
+
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+}
+
+function createOrderId(): string {
+  return `ord_${Date.now()}`;
+}
+
+/** Simulates `GET /api/orders/:id`. */
+export async function getOrder(id: string): Promise<Order> {
+  const order = readOrders().find((item) => item.id === id);
+
+  if (!order) {
+    throw new Error(`Order ${id} not found`);
+  }
+
+  return Promise.resolve(order);
+}
+
+/** Simulates `POST /api/orders`. */
+export async function createOrder(data: CreateOrderPayload): Promise<Order> {
+  const orders = readOrders();
+  const nextOrder = {
+    ...data,
+    id: createOrderId(),
+  };
+
+  orders.push(nextOrder);
+  writeOrders(orders);
+
+  return Promise.resolve(nextOrder);
+}
+
+/** Simulates `PATCH /api/orders/:id`. */
+export async function updateOrder(
+  id: string,
+  patch: Partial<Order>
+): Promise<Order> {
+  const orders = readOrders();
+  const orderIndex = orders.findIndex((item) => item.id === id);
+
+  if (orderIndex === -1) {
+    throw new Error(`Order ${id} not found`);
+  }
+
+  const updatedOrder = {
+    ...orders[orderIndex],
+    ...patch,
+    id,
+  };
+
+  orders[orderIndex] = updatedOrder;
+  writeOrders(orders);
+
+  return Promise.resolve(updatedOrder);
+}

@@ -2,30 +2,30 @@ export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export interface ProductImageSet {
   main: string;
-  hover?: string;
-  gallery?: string[];
+  hover: string;
+  gallery: string[];
 }
 
 export interface Product {
-  id: string | number;
+  id: string;
   sku: string;
   name: string;
+  slug: string;
   category: string;
   price: number;
+  compareAtPrice?: number;
   images: ProductImageSet;
   description: string;
   inStock: boolean;
-  slug?: string;
-  compareAtPrice?: number;
-  isNew?: boolean;
-  tags?: string[];
+  isNew: boolean;
+  tags: string[];
   unitPrice?: number;
   soldOut?: boolean;
   mainImage?: string;
 }
 
 export interface CartItem {
-  productId: string | number;
+  productId: string;
   name: string;
   quantity: number;
   unitPrice: number;
@@ -34,7 +34,7 @@ export interface CartItem {
 }
 
 export interface Order {
-  id: string | number;
+  id: string;
   customer: string;
   phone: string;
   address: string;
@@ -64,7 +64,7 @@ export interface User {
 }
 
 export interface Category {
-  id: string | number;
+  id: string;
   slug: string;
   label: string;
 }
@@ -75,3 +75,5 @@ export interface ApiResponse<T> {
     total: number;
   };
 }
+
+export type CreateOrderPayload = Omit<Order, 'id'>;

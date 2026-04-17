@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": "skin-care",
+      "slug": "skin-care",
+      "label": "Skin Care"
+    },
+    {
+      "id": "makeup",
+      "slug": "makeup",
+      "label": "Makeup"
+    },
+    {
+      "id": "new-arrivals",
+      "slug": "new-arrivals",
+      "label": "New Arrivals"
+    }
+  ],
+  "meta": {
+    "total": 3
+  }
+}

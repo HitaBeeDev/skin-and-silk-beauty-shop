@@ -7,7 +7,7 @@ import type { Order as OrderModel, Product } from '@/types';
 
 import { ROUTES } from '@/constants/routes';
 
-import { getOrder } from '@/components/services/helper';
+import { getOrder } from '@/services/ordersService';
 import {
   calcMinutesLeft,
   formatCurrency,
@@ -105,9 +105,16 @@ function Order(): JSX.Element {
 
 export async function loader({
   params,
-}: LoaderFunctionArgs): Promise<OrderModel | null> {
-  const order = params.orderId ? await getOrder(params.orderId) : null;
-  return order;
+}: LoaderFunctionArgs): Promise<OrderModel> {
+  if (!params.orderId) {
+    throw new Response('Order not found.', { status: 404 });
+  }
+
+  try {
+    return await getOrder(params.orderId);
+  } catch {
+    throw new Response('Order not found.', { status: 404 });
+  }
 }
 
 export default Order;
