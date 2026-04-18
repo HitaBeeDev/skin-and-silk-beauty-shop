@@ -9,7 +9,6 @@ import {
   upgradeOrderPriority,
   upgradeOrderPriorityOptimistic,
 } from '@/components/features/order/ordersSlice';
-import SearchOrder from '@/components/features/order/SearchOrder';
 import Badge from '@/components/ui/Badge';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import Button from '@/components/ui/Button';
@@ -146,7 +145,7 @@ function Order(): JSX.Element {
           <Breadcrumb
             items={[
               { label: 'Home', to: ROUTES.HOME },
-              { label: 'Orders', to: `${ROUTES.HOME}#order-search` },
+              { label: 'Orders', to: ROUTES.HOME },
               { label: orderIdLabel },
             ]}
           />
@@ -245,8 +244,6 @@ function Order(): JSX.Element {
             </div>
 
             <aside className="space-y-6 lg:sticky lg:top-28">
-              <SearchOrder compact title="Look up another order" />
-
               <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_24px_60px_-44px_rgba(36,25,21,0.34)]">
                 <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
                   Delivery options

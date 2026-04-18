@@ -4,7 +4,6 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 
 import { getTotalCartQuantity } from '@/components/features/cart/cartSelectors';
-import SearchOrder from '@/components/features/order/SearchOrder';
 import Badge from '@/components/ui/Badge';
 import shoppingBag from '@/assets/shoppingBag.svg';
 import { useClickOutside } from '@/hooks';
@@ -192,7 +191,6 @@ function Header(): JSX.Element {
           </button>
         </div>
 
-        <SearchOrder />
       </div>
 
       <div

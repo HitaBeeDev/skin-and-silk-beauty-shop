@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { RouterProvider, createBrowserRouter, useLocation } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
@@ -12,7 +12,6 @@ import RouteSkeleton from '@/components/ui/RouteSkeleton';
 import AppLayout from '@/components/layout/AppLayout';
 import Home from '@/components/ui/Home';
 import LinkButton from '@/components/ui/LinkButton';
-import SearchOrder from '@/components/features/order/SearchOrder';
 import { action as createOrderAction } from '@/routes/createOrder.action';
 import { loader as orderLoader } from '@/routes/order.loader';
 import { loader as productDetailLoader } from '@/routes/productDetail.loader';
@@ -31,32 +30,15 @@ function withRouteSuspense(node: JSX.Element): JSX.Element {
 }
 
 function OrderRouteError(): JSX.Element {
-  const location = useLocation();
-  const pathSegments = location.pathname.split('/').filter(Boolean);
-  const attemptedOrderId = pathSegments[pathSegments.length - 1] ?? '';
-
   return (
-    <div className="mx-auto flex w-[min(100%-2rem,48rem)] flex-col gap-6 px-4 py-20 sm:px-6 lg:px-8">
-      <div className="text-center">
-        <h1 className="font-['Playfair_Display',serif] text-4xl text-[#5a4034]">
-          Order not found
-        </h1>
-        <p className="mt-3 text-sm leading-7 text-[#5b463d]">
-          The order ID you opened doesn&apos;t match an existing saved order.
-        </p>
-      </div>
-
-      <SearchOrder
-        autoFocus
-        compact
-        initialQuery={attemptedOrderId}
-        missingOrderMessage={`No saved order was found for ${attemptedOrderId}.`}
-        title="Look up another order"
-      />
-
-      <div className="text-center">
-        <LinkButton to={ROUTES.HOME}>Back home</LinkButton>
-      </div>
+    <div className="mx-auto flex w-[min(100%-2rem,48rem)] flex-col items-center gap-6 px-4 py-20 text-center sm:px-6 lg:px-8">
+      <h1 className="font-['Playfair_Display',serif] text-4xl text-[#5a4034]">
+        Order not found
+      </h1>
+      <p className="text-sm leading-7 text-[#5b463d]">
+        The order ID you opened doesn&apos;t match an existing saved order.
+      </p>
+      <LinkButton to={ROUTES.HOME}>Back home</LinkButton>
     </div>
   );
 }

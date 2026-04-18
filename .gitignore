@@ -27,3 +27,6 @@ project-checklist.md
 *.njsproj
 *.sln
 *.sw?
+
+*storybook.log
+storybook-static
