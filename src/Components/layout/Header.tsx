@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 
 import { getTotalCartQuantity } from '@/components/features/cart/cartSelectors';
+import SearchOrder from '@/components/features/order/SearchOrder';
 import shoppingBag from '@/assets/shoppingBag.svg';
 import { useAppSelector } from '@store/hooks';
 
@@ -52,6 +53,8 @@ function Header(): JSX.Element {
           </Link>
         )}
       </div>
+
+      <SearchOrder />
     </div>
   );
 }
