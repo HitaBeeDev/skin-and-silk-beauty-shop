@@ -13,12 +13,14 @@ import { getCart, getIsCartEmpty } from '@/components/features/cart/cartSelector
 import CartSkeleton from '@/components/ui/CartSkeleton';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import Error from '@/components/ui/Error';
+import Modal from '@/components/ui/Modal';
 
 function Cart(): JSX.Element {
   const cart = useAppSelector(getCart);
   const isCartEmpty = useAppSelector(getIsCartEmpty);
   const dispatch = useAppDispatch();
   const [isHydrating, setIsHydrating] = useState(true);
+  const [isClearCartModalOpen, setIsClearCartModalOpen] = useState(false);
 
   useEffect(() => {
     const hydrationFrame = window.requestAnimationFrame(() => {
@@ -66,7 +68,7 @@ function Cart(): JSX.Element {
                 </button>
               </Link>
               <button
-                onClick={() => dispatch(clearCart())}
+                onClick={() => setIsClearCartModalOpen(true)}
               >
                 Remove All Items
               </button>
@@ -84,6 +86,35 @@ function Cart(): JSX.Element {
             </div>
           </div>
         </div>
+
+        <Modal
+          onClose={() => setIsClearCartModalOpen(false)}
+          open={isClearCartModalOpen}
+        >
+          <Modal.Header>
+            <h2>Clear cart?</h2>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure? This will remove all items.</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              onClick={() => setIsClearCartModalOpen(false)}
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                dispatch(clearCart());
+                setIsClearCartModalOpen(false);
+              }}
+              type="button"
+            >
+              Clear cart
+            </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </ErrorBoundary>
   );

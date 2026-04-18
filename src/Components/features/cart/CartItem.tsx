@@ -33,7 +33,7 @@ function CartItem({ product }: CartItemProps): JSX.Element {
       </div>
 
       <div>
-        <DeleteItem productId={productId} />
+        <DeleteItem product={product} />
       </div>
     </div>
   );

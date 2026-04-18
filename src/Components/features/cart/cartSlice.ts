@@ -40,6 +40,21 @@ const cartSlice = createSlice({
       );
       state.status = 'succeeded';
     },
+    restoreDeletedItem(state, action: PayloadAction<CartItem>) {
+      state.error = null;
+      const existingItem = state.items.find(
+        (item) => item.productId === action.payload.productId
+      );
+
+      if (existingItem) {
+        existingItem.quantity += action.payload.quantity;
+        existingItem.totalPrice = existingItem.quantity * existingItem.unitPrice;
+        return;
+      }
+
+      state.items.push(action.payload);
+      state.status = 'succeeded';
+    },
     increaseItemQuantity(state, action: PayloadAction<CartItem['productId']>) {
       state.error = null;
       const item = state.items.find((item) => item.productId === action.payload);
@@ -76,6 +91,7 @@ const cartSlice = createSlice({
 export const {
   addItem,
   deleteItem,
+  restoreDeletedItem,
   increaseItemQuantity,
   decreaseItemQuantity,
   clearCart,
