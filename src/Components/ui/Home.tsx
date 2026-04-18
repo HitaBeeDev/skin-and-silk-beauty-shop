@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import { Link } from "react-router-dom";
-
 import type { Product } from "@/types";
 
+import HomeHero from "@/components/ui/home/HomeHero";
+import Skeleton from "@/components/ui/Skeleton";
+import img2 from "@/assets/new/img2.png";
+import img3 from "@/assets/new/img3.png";
+import img4 from "@/assets/new/img4.png";
 import { ROUTES } from "@/constants/routes";
-
-import { formatCurrency } from "@/components/utils/helpers";
 import { getProducts } from "@/services/productsService";
-import heroImage from "@/assets/new/img1.webp";
 
 type FeaturedState = {
   allItems: Product[];
@@ -16,6 +17,33 @@ type FeaturedState = {
   loading: boolean;
   error: string | null;
 };
+
+const categoryCards = [
+  {
+    title: "For Face",
+    description:
+      "Gentle cleansers, brightening serums, and daily hydration for a balanced, healthy-looking complexion.",
+    image: img2,
+    alt: "Face care icon",
+    focus: "face",
+  },
+  {
+    title: "For Eyes",
+    description:
+      "Target puffiness, dryness, and fine lines with lightweight care made for the delicate eye area.",
+    image: img3,
+    alt: "Eye care icon",
+    focus: "eyes",
+  },
+  {
+    title: "For Lips",
+    description:
+      "Nourishing balms and soft-gloss treatments to keep lips smooth, supple, and comfortably hydrated.",
+    image: img4,
+    alt: "Lip care icon",
+    focus: "lips",
+  },
+] as const;
 
 const heroHotspot = {
   productId: "25",
@@ -79,140 +107,68 @@ function Home(): JSX.Element {
   );
 
   return (
-    <div className="mt-6 flex w-full min-w-0 flex-col gap-5 md:grid md:h-[32rem] md:grid-cols-2 md:items-center md:justify-center">
-      <div
-        className="order-2 md:order-1 col-span-1 flex h-full w-full min-w-0 flex-col items-start justify-center 
-      rounded-t-[1.1rem] bg-[#550000] p-5 sm:p-7"
-      >
-        <p
-          className="mr-2 ml-2 font-['Playfair_Display',serif] text-[2rem] font-[500] leading-none text-[#fff0f0] 
-        sm:text-[2.6rem] md:text-[4rem]"
-        >
-          Luxury Beauty Collection
-        </p>
+    <div>
+      <HomeHero heroProduct={heroProduct} hotspot={heroHotspot} />
 
-        <Link
-          className="group mt-6 md:mt-8 flex items-center ml-2"
-          to={ROUTES.PRODUCTS}
-        >
-          <div
-            className="relative z-10 flex h-[2rem] w-[2rem] items-center justify-center rounded-full bg-white 
-          transition-all duration-300 cursor-pointer group-hover:bg-[#fff0f0]"
-          >
-            <ArrowUpRight className="text-black" size={13} strokeWidth={2} />
-          </div>
-
-          <div
-            className="-ml-[1.2rem] flex h-[2rem] pl-7 pr-6 items-center justify-center rounded-full bg-black px-5
-          cursor-pointer transition-colors duration-300 group-hover:bg-[#900c0c]"
-          >
-            <p className="text-[0.7rem] font-[400] tracking-[0.02em] text-white">
-              Open Store
-            </p>
-          </div>
-        </Link>
-
-        <div className="mt-5 sm:mt-10 ml-2 grid w-full min-w-0 items-start gap-6 md:grid-cols-2">
-          <div className="col-span-1 min-w-0">
-            <p className="text-white text-[0.9rem] font-[300]">
-              Discover prestige skincare, refined makeup, and elevated
-              essentials curated to make every ritual feel intentional,
-              sensorial, and beautifully complete.
-            </p>
-          </div>
-
-          <div className="col-span-1 flex min-w-0 flex-row flex-wrap items-center justify-start gap-2">
-            <div className="flex justify-center items-center h-[2.1rem] border border-[#fff0f0] rounded-full px-5">
-              <p className="text-white text-[0.7rem] font-[300]">
-                Clé de Peau Beauté
-              </p>
-            </div>
-
-            <div className="flex justify-center items-center h-[2.1rem] border border-[#fff0f0] rounded-full px-5">
-              <p className="text-white text-[0.7rem] font-[300]">
-                Sisley Paris
-              </p>
-            </div>
-
-            <div className="flex justify-center items-center h-[2.1rem] border border-[#fff0f0] rounded-full px-5">
-              <p className="text-white text-[0.7rem] font-[300]">Valmont</p>
-            </div>
-
-            <div className="flex justify-center items-center h-[2.1rem] border border-[#fff0f0] rounded-full px-5">
-              <p className="text-white text-[0.7rem] font-[300]">
-                Augustinus Bader
-              </p>
-            </div>
-
-            <div className="flex justify-center items-center h-[2.1rem] border border-[#fff0f0] rounded-full px-5">
-              <p className="text-white text-[0.7rem] font-[300]">La Prairie</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        className="order-1 md:order-2 relative col-span-1 h-[18rem] sm:h-[24rem] w-full min-w-0 overflow-hidden 
-      rounded-t-[1.1rem] md:h-full"
-      >
-        <img
-          aria-hidden="true"
-          alt=""
-          className="h-full w-full object-cover"
-          fetchPriority="high"
-          height={7038}
-          loading="eager"
-          src={heroImage}
-          width={4912}
-        />
-
-        {heroProduct ? (
-          <div
-            className="absolute z-10"
-            style={{ left: heroHotspot.x, top: heroHotspot.y }}
-          >
-            <Link
-              className="group relative block -translate-x-1/2 -translate-y-1/2 focus-visible:outline-none"
-              to={ROUTES.PRODUCT_DETAIL.replace(":id", heroProduct.id)}
+      {featuredState.loading ? (
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5 xl:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div
+              key={index}
+              className="relative min-h-[9.75rem] rounded-[1.1rem] bg-[#fff0f0] px-4 py-4 sm:px-5 md:min-h-[10rem] lg:px-6"
             >
-              <span
-                className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full 
-              border border-white/60 bg-white/20 animate-ping"
-              />
-              <span
-                className="relative flex h-5 w-5 items-center justify-center rounded-full border border-white/80
-               bg-white shadow-[0_12px_32px_rgba(36,25,21,0.28)]"
-              >
-                <span className="h-2 w-2 rounded-full bg-[#241915]" />
-              </span>
-
-              <div
-                className="pointer-events-none absolute right-0 top-8 w-[min(18rem,calc(100vw-3rem))] rounded-[1.1rem] bg-white/30 
-              p-5 text-left text-[#241915] opacity-0 shadow-[0_24px_60px_rgba(36,25,21,0.24)] transition-all duration-200 
-              ease-in group-hover:pointer-events-auto group-hover:translate-y-1 
-              group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:translate-y-1 
-              group-focus-visible:opacity-100 backdrop-blur-lg md:left-[-8.5rem] md:right-auto md:w-[19rem]"
-              >
-                <p className="text-[0.6rem] font-[500] uppercase tracking-[0.18em] text-[#8c6659]">
-                  {heroProduct.category}
-                </p>
-
-                <p className="mt-2 text-[0.85rem] font-[500] leading-5 text-[#5a4034]">
-                  {heroProduct.name}
-                </p>
-
-                <p className="text-[0.7rem] leading-5 text-[#5b463d] mt-[0.1rem]">
-                  {heroProduct.description}
-                </p>
-
-                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#5a4034]">
-                  {formatCurrency(heroProduct.price)}
-                </p>
+              <div className="flex items-start gap-3 sm:gap-4">
+                <Skeleton className="h-[3.5rem] w-[3.5rem] shrink-0 rounded-[0.6rem] sm:h-[4rem] sm:w-[4rem]" />
+                <div className="min-w-0 flex-1 space-y-2 pr-1 pb-8 sm:pr-2 sm:pb-9">
+                  <Skeleton className="h-5 w-24 rounded-full sm:h-6 sm:w-28" />
+                  <Skeleton className="h-3 w-full rounded-full" />
+                  <Skeleton className="h-3 w-[85%] rounded-full" />
+                </div>
               </div>
-            </Link>
-          </div>
-        ) : null}
-      </div>
+
+              <Skeleton className="absolute right-4 bottom-4 h-[1.6rem] w-[3.2rem] rounded-full sm:right-5 md:right-6" />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-5 md:mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5 xl:grid-cols-3">
+          {categoryCards.map((card) => (
+            <div
+              key={card.title}
+              className="relative min-h-[9.75rem] rounded-[1.1rem] bg-[#fff0f0] px-4 py-4 sm:px-5 md:min-h-[10rem] lg:px-6"
+            >
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="h-[3.5rem] w-[3.5rem] shrink-0 overflow-hidden rounded-[0.6rem] border border-[#550000]/30 p-[0.55rem] sm:h-[4rem] sm:w-[4rem] sm:p-[0.6rem]">
+                  <img
+                    src={card.image}
+                    alt={card.alt}
+                    className="block h-full w-full object-cover"
+                  />
+                </div>
+
+                <div className="min-w-0 flex-1 pr-1 pb-8 sm:pr-2 sm:pb-9">
+                  <p className="font-['Playfair_Display',serif] text-[1.1rem] font-[400] text-[#550000] sm:text-[1.2rem] lg:text-[1.3rem]">
+                    {card.title}
+                  </p>
+
+                  <p className="w-full font-['Playfair_Display',serif] text-[0.72rem] font-[300] leading-[1.45] text-[#550000] sm:text-[0.75rem]">
+                    {card.description}
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                aria-label={`View ${card.focus} products`}
+                className="absolute right-4 bottom-4 flex h-[1.6rem] w-[3.2rem] items-center justify-center rounded-full border border-[#900c0c]
+                transition-all duration-300 hover:border-[#ffdddd] hover:bg-[#ffdddd] sm:right-5 md:right-6"
+                to={`${ROUTES.PRODUCTS}?category=all&focus=${card.focus}`}
+              >
+                <MoveRight strokeWidth={1.5} className="text-[#900c0c]" />
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

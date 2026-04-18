@@ -13,6 +13,11 @@ import {
   DEFAULT_CATEGORY,
   type ProductCategoryLabel,
 } from "@/constants/categories";
+import {
+  getProductFocusFromSearchParam,
+  matchesProductFocus,
+  PRODUCT_FOCUS_LABELS,
+} from "@/constants/productFocus";
 import { ROUTES } from "@/constants/routes";
 
 import {
@@ -55,6 +60,7 @@ function ProductsList(): JSX.Element {
   );
   const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
   const isSaleFilterActive = searchParams.get("sale") === "true";
+  const activeFocus = getProductFocusFromSearchParam(searchParams.get("focus"));
 
   const sortedProducts = useMemo(() => {
     const nextProducts = [...products];
@@ -84,12 +90,15 @@ function ProductsList(): JSX.Element {
     const saleFilteredProducts = isSaleFilterActive
       ? sortedProducts.filter((product) => product.compareAtPrice)
       : sortedProducts;
+    const focusFilteredProducts = saleFilteredProducts.filter((product) =>
+      matchesProductFocus(product, activeFocus),
+    );
 
     if (!searchQuery) {
-      return saleFilteredProducts;
+      return focusFilteredProducts;
     }
 
-    return saleFilteredProducts.filter((product) => {
+    return focusFilteredProducts.filter((product) => {
       const searchableText = [
         product.name,
         product.category,
@@ -101,7 +110,7 @@ function ProductsList(): JSX.Element {
 
       return searchableText.includes(searchQuery);
     });
-  }, [isSaleFilterActive, searchQuery, sortedProducts]);
+  }, [activeFocus, isSaleFilterActive, searchQuery, sortedProducts]);
 
   useEffect(() => {
     if (productsStatus !== "succeeded") return;
@@ -172,6 +181,7 @@ function ProductsList(): JSX.Element {
             <p className="mt-3 font-['Quicksand',sans-serif] text-base leading-7 text-[#5b463d]">
               Showing {filteredProducts.length} product
               {filteredProducts.length === 1 ? "" : "s"}
+              {activeFocus ? ` for ${PRODUCT_FOCUS_LABELS[activeFocus].toLowerCase()}` : ""}
               {searchQuery ? ` for "${searchParams.get("q")}"` : ""}
             </p>
           </div>
