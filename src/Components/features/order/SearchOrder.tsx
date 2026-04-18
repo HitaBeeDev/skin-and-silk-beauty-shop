@@ -1,16 +1,19 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useDeferredValue, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
 function SearchOrder(): JSX.Element {
   const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
   const navigate = useNavigate();
+  const normalizedDeferredQuery = deferredQuery.trim();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!query) return;
-    navigate(ROUTES.ORDER_DETAIL.replace(':orderId', query));
+    const nextQuery = normalizedDeferredQuery || query.trim();
+    if (!nextQuery) return;
+    navigate(ROUTES.ORDER_DETAIL.replace(':orderId', nextQuery));
     setQuery('');
   }
 
@@ -21,6 +24,7 @@ function SearchOrder(): JSX.Element {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
+      {normalizedDeferredQuery ? <p>Ready to open order #{normalizedDeferredQuery}</p> : null}
     </form>
   );
 }

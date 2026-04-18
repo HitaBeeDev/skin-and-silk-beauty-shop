@@ -1,21 +1,14 @@
 import { useState } from 'react';
-import type { ActionFunctionArgs } from 'react-router-dom';
-import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
+import { Form, useActionData, useNavigation } from 'react-router-dom';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import type { CartItem, CreateOrderPayload } from '@/types';
-
-import { ROUTES } from '@/constants/routes';
-
 import EmptyCart from '@/components/features/cart/EmptyCart';
-import { clearCart } from '@/components/features/cart/cartSlice';
 import {
   getCart,
   getIsCartEmpty,
   getTotalCartPrice,
 } from '@/components/features/cart/cartSelectors';
-import { submitOrder } from '@/components/features/order/ordersSlice';
 import {
   fetchAddress,
   selectUserAddress,
@@ -24,18 +17,8 @@ import {
   selectUsername,
 } from '@/components/features/user/userSlice';
 import { formatCurrency } from '@/components/utils/helpers';
-import store from '@store';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-
-// https://uibakery.io/regex-library/phone-number
-const isValidPhone = (str: string): boolean =>
-  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-    str
-  );
-
-type OrderActionData = {
-  phone?: string;
-};
+import type { CreateOrderActionData } from '@/routes/createOrder.action';
 
 function CreateOrder(): JSX.Element {
   const [withPriority, setWithPriority] = useState<boolean>(false);
@@ -48,7 +31,7 @@ function CreateOrder(): JSX.Element {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
 
-  const formErrors = useActionData() as OrderActionData | undefined;
+  const formErrors = useActionData() as CreateOrderActionData | undefined;
   const dispatch = useAppDispatch();
 
   const cart = useAppSelector(getCart);
@@ -176,40 +159,6 @@ function CreateOrder(): JSX.Element {
       ) : null}
     </div>
   );
-}
-
-export async function action({
-  request,
-}: ActionFunctionArgs): Promise<Response | OrderActionData | undefined> {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-
-  const order: CreateOrderPayload = {
-    ...data,
-    customer: String(data.customer ?? ''),
-    phone: String(data.phone ?? ''),
-    address: String(data.address ?? ''),
-    cart: JSON.parse(String(data.cart ?? '[]')) as CartItem[],
-    priority: data.priority === 'true',
-    status: 'new',
-    estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString(),
-    position: undefined,
-  };
-
-  const errors: OrderActionData = {};
-  if (!isValidPhone(order.phone))
-    errors.phone =
-      "Please give us your correct phone number. We might need it to contact you.";
-
-  if (Object.keys(errors).length > 0) return errors;
-
-  // If everything is okay, create new order and redirect
-  const newOrder = await store.dispatch(submitOrder(order)).unwrap();
-
-  // Do NOT overuse
-  store.dispatch(clearCart());
-
-  return redirect(ROUTES.ORDER_DETAIL.replace(':orderId', String(newOrder.id)));
 }
 
 export default CreateOrder;

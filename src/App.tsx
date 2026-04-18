@@ -1,22 +1,26 @@
+import { Suspense, lazy } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
 import Error from '@/components/ui/Error';
-import Cart from '@/components/features/cart/Cart';
-import CreateOrder, {
-  action as createOrderAction,
-} from '@/components/features/order/CreateOrder';
-import Order, {
-  loader as orderLoader,
-} from '@/components/features/order/Order';
+import RouteSkeleton from '@/components/ui/RouteSkeleton';
 import { action as updateOrderAction } from '@/components/features/order/UpdateOrder';
-import ProductDetail, {
-  loader as productDetailLoader,
-} from '@/components/features/products/ProductDetail';
-import ProductsList from '@/components/features/products/ProductsList';
 import AppLayout from '@/components/layout/AppLayout';
 import Home from '@/components/ui/Home';
+import { action as createOrderAction } from '@/routes/createOrder.action';
+import { loader as orderLoader } from '@/routes/order.loader';
+import { loader as productDetailLoader } from '@/routes/productDetail.loader';
+
+const ProductsList = lazy(() => import('@/components/features/products/ProductsList'));
+const ProductDetail = lazy(() => import('@/components/features/products/ProductDetail'));
+const Cart = lazy(() => import('@/components/features/cart/Cart'));
+const CreateOrder = lazy(() => import('@/components/features/order/CreateOrder'));
+const Order = lazy(() => import('@/components/features/order/Order'));
+
+function withRouteSuspense(node: JSX.Element): JSX.Element {
+  return <Suspense fallback={<RouteSkeleton />}>{node}</Suspense>;
+}
 
 const router = createBrowserRouter([
   {
@@ -30,24 +34,24 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.PRODUCTS,
-        element: <ProductsList />,
+        element: withRouteSuspense(<ProductsList />),
         errorElement: <Error />,
       },
       {
         path: ROUTES.PRODUCT_DETAIL,
-        element: <ProductDetail />,
+        element: withRouteSuspense(<ProductDetail />),
         loader: productDetailLoader,
         errorElement: <Error />,
       },
-      { path: ROUTES.CART, element: <Cart /> },
+      { path: ROUTES.CART, element: withRouteSuspense(<Cart />) },
       {
         path: ROUTES.CREATE_ORDER,
-        element: <CreateOrder />,
+        element: withRouteSuspense(<CreateOrder />),
         action: createOrderAction,
       },
       {
         path: ROUTES.ORDER_DETAIL,
-        element: <Order />,
+        element: withRouteSuspense(<Order />),
         loader: orderLoader,
         errorElement: <Error />,
         action: updateOrderAction,

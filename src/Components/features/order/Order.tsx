@@ -1,6 +1,5 @@
 // Test ID: IIDSAT
 import { useEffect } from 'react';
-import type { LoaderFunctionArgs } from 'react-router-dom';
 import { useLoaderData } from 'react-router-dom';
 
 import type { Order as OrderModel, Product } from '@/types';
@@ -10,7 +9,6 @@ import {
   selectProducts,
   selectProductsStatus,
 } from '@/components/features/products/productsSlice';
-import { loadOrder } from '@/components/features/order/ordersSlice';
 import {
   calcMinutesLeft,
   formatCurrency,
@@ -18,7 +16,6 @@ import {
 } from '@/components/utils/helpers';
 import OrderItem from '@/components/features/order/OrderItem';
 import UpdateOrder from '@/components/features/order/UpdateOrder';
-import store from '@store';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 function Order(): JSX.Element {
@@ -107,20 +104,6 @@ function Order(): JSX.Element {
       {!priority && <UpdateOrder />}
     </div>
   );
-}
-
-export async function loader({
-  params,
-}: LoaderFunctionArgs): Promise<OrderModel> {
-  if (!params.orderId) {
-    throw new Response('Order not found.', { status: 404 });
-  }
-
-  try {
-    return await store.dispatch(loadOrder(params.orderId)).unwrap();
-  } catch {
-    throw new Response('Order not found.', { status: 404 });
-  }
 }
 
 export default Order;
