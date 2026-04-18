@@ -36,11 +36,11 @@ type ButtonAsLinkProps = BaseButtonProps & {
 export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'border border-[#5A4034] bg-[#5A4034] text-white',
-  secondary: 'border border-[#D4B189] bg-[#F6E6DA] text-[#5A4034]',
-  ghost: 'border border-zinc-300 bg-transparent text-[#5A4034]',
-  danger: 'border border-[#b42318] bg-[#b42318] text-white',
-  link: 'border-none bg-transparent p-0 text-[#5A4034] underline',
+  primary: 'border border-[#5A4034] bg-[#5A4034] text-white hover:opacity-90 active:scale-[0.99]',
+  secondary: 'border border-[#D4B189] bg-[#F6E6DA] text-[#5A4034] hover:opacity-90 active:scale-[0.99]',
+  ghost: 'border border-zinc-300 bg-transparent text-[#5A4034] hover:bg-[#f8efe7] active:scale-[0.99]',
+  danger: 'border border-[#b42318] bg-[#b42318] text-white hover:opacity-90 active:scale-[0.99]',
+  link: 'border-none bg-transparent p-0 text-[#5A4034] underline hover:opacity-90',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -66,7 +66,7 @@ function Button(props: ButtonProps): JSX.Element {
   } = props;
 
   const sharedClassName = [
-    'inline-flex items-center justify-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
+    'inline-flex items-center justify-center gap-2 rounded-lg transition-[opacity,transform,background-color] duration-200 ease-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
     sizeClasses[size],
     variantClasses[variant],
     fullWidth ? 'w-full' : '',

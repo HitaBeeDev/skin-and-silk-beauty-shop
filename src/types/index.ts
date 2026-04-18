@@ -12,6 +12,7 @@ export interface Product {
   name: string;
   slug: string;
   category: string;
+  featured?: boolean;
   price: number;
   compareAtPrice?: number;
   images: ProductImageSet;
