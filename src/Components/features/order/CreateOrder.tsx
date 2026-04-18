@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +12,7 @@ import {
 import {
   fetchAddress,
   selectUserAddress,
+  selectUserError,
   selectUserPosition,
   selectUserStatus,
   selectUsername,
@@ -125,19 +126,25 @@ function createOrderFormReducer(
 function CreateOrder(): JSX.Element {
   const username = useAppSelector(selectUsername);
   const addressStatus = useAppSelector(selectUserStatus);
+  const addressError = useAppSelector(selectUserError);
   const position = useAppSelector(selectUserPosition);
   const address = useAppSelector(selectUserAddress);
   const isLoadingAddress = addressStatus === 'loading';
+  const isAddressLookupFailed = addressStatus === 'failed';
+  const isGeolocationFailure = addressError.includes('Could not detect location');
+  const isGeocodingFailure = addressError.includes('Could not look up your address');
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
 
   const formErrors = useActionData() as CreateOrderActionData | undefined;
   const dispatch = useAppDispatch();
+  const addressInputRef = useRef<HTMLInputElement | null>(null);
   const [formState, dispatchForm] = useReducer(
     createOrderFormReducer,
     createInitialState(username, address)
   );
+  const [isGeocodingErrorVisible, setIsGeocodingErrorVisible] = useState(true);
 
   const cart = useAppSelector(getCart);
   const isCartEmpty = useAppSelector(getIsCartEmpty);
@@ -164,6 +171,18 @@ function CreateOrder(): JSX.Element {
       error: formErrors.phone,
     });
   }, [formErrors?.phone]);
+
+  useEffect(() => {
+    if (!isGeolocationFailure) return;
+
+    addressInputRef.current?.focus();
+  }, [isGeolocationFailure]);
+
+  useEffect(() => {
+    if (isGeocodingFailure) {
+      setIsGeocodingErrorVisible(true);
+    }
+  }, [isGeocodingFailure]);
 
   if (isCartEmpty) return <EmptyCart />;
 
@@ -240,9 +259,9 @@ function CreateOrder(): JSX.Element {
         </label>
         <div>
           <input
+            ref={addressInputRef}
             type="text"
             name="address"
-            disabled={isLoadingAddress}
             value={formState.address}
             onChange={(event) =>
               dispatchForm({
@@ -269,6 +288,17 @@ function CreateOrder(): JSX.Element {
             </button>
           )}
         </div>
+        {isAddressLookupFailed && isGeolocationFailure ? (
+          <p>Couldn&apos;t detect location — enter address manually</p>
+        ) : null}
+        {isAddressLookupFailed && isGeocodingFailure && isGeocodingErrorVisible ? (
+          <div>
+            <p>Couldn&apos;t look up your address right now. Enter it manually if needed.</p>
+            <button type="button" onClick={() => setIsGeocodingErrorVisible(false)}>
+              Dismiss
+            </button>
+          </div>
+        ) : null}
 
         {/* Bottom Section */}
         <div>

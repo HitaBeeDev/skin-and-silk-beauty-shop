@@ -1,6 +1,6 @@
 // Test ID: IIDSAT
 import { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 
 import type { Order as OrderModel, Product } from '@/types';
 
@@ -22,11 +22,15 @@ import {
 } from '@/components/utils/helpers';
 import OrderItem from '@/components/features/order/OrderItem';
 import UpdateOrder from '@/components/features/order/UpdateOrder';
+import Error from '@/components/ui/Error';
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
+import OrderDetailSkeleton from '@/components/ui/OrderDetailSkeleton';
 import Toast from '@/components/ui/Toast';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 function Order(): JSX.Element {
   const loadedOrder = useLoaderData() as OrderModel;
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
   const productsStatus = useAppSelector(selectProductsStatus);
@@ -59,6 +63,10 @@ function Order(): JSX.Element {
 
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
+  if (!storedOrder && !products.length && productsStatus === 'loading') {
+    return <OrderDetailSkeleton />;
+  }
+
   async function handlePriorityUpgrade(): Promise<void> {
     const previousOrderSnapshot: OrderModel = {
       ...order,
@@ -80,77 +88,86 @@ function Order(): JSX.Element {
   }
 
   return (
-    <div>
-      <div>
-        <h2>Order #{id} status</h2>
-
-        <div>
-          {priority && (
-            <span>
-              Priority
-            </span>
-          )}
-          <span>
-            {status} order
-          </span>
-        </div>
-      </div>
-
-      <div>
-        <p>
-          {deliveryIn >= 0
-            ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
-            : "Order should have arrived"}
-        </p>
-        <p>
-          (Estimated delivery: {formatDate(estimatedDelivery)})
-        </p>
-      </div>
-
-      <ul>
-        {cart.map((item) => (
-          <OrderItem
-            item={item}
-            key={item.productId}
-            isLoadingIngredients={productsStatus === 'loading'}
-            ingredients={
-              products.find((el: Product) => el.id === item.productId)?.tags ?? []
-            }
-          />
-        ))}
-      </ul>
-
-      <div>
-        <p>
-          Order subtotal: {formatCurrency(safeOrderPrice)}
-        </p>
-        {priority && (
-          <p>
-            Price priority: {formatCurrency(safePriorityPrice)}
-          </p>
-        )}
-        <p>
-          To pay on delivery: {formatCurrency(safeOrderPrice + safePriorityPrice)}
-        </p>
-      </div>
-
-      {!priority && (
-        <UpdateOrder
-          disabled={isUpdatingPriority}
-          onUpgrade={() => {
-            void handlePriorityUpgrade();
-          }}
+    <ErrorBoundary
+      fallback={(error) => (
+        <Error
+          message={error.message || 'The order details could not be rendered.'}
         />
       )}
+      resetKey={location.pathname}
+    >
+      <div>
+        <div>
+          <h2>Order #{id} status</h2>
 
-      <Toast
-        duration={4000}
-        message="Could not upgrade this order to priority. The change was reverted."
-        onClose={() => setIsToastOpen(false)}
-        open={isToastOpen}
-        tone="error"
-      />
-    </div>
+          <div>
+            {priority && (
+              <span>
+                Priority
+              </span>
+            )}
+            <span>
+              {status} order
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <p>
+            {deliveryIn >= 0
+              ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
+              : "Order should have arrived"}
+          </p>
+          <p>
+            (Estimated delivery: {formatDate(estimatedDelivery)})
+          </p>
+        </div>
+
+        <ul>
+          {cart.map((item) => (
+            <OrderItem
+              item={item}
+              key={item.productId}
+              isLoadingIngredients={productsStatus === 'loading'}
+              ingredients={
+                products.find((el: Product) => el.id === item.productId)?.tags ?? []
+              }
+            />
+          ))}
+        </ul>
+
+        <div>
+          <p>
+            Order subtotal: {formatCurrency(safeOrderPrice)}
+          </p>
+          {priority && (
+            <p>
+              Price priority: {formatCurrency(safePriorityPrice)}
+            </p>
+          )}
+          <p>
+            To pay on delivery: {formatCurrency(safeOrderPrice + safePriorityPrice)}
+          </p>
+        </div>
+
+        {!priority && (
+          <UpdateOrder
+            disabled={isUpdatingPriority}
+            onUpgrade={() => {
+              void handlePriorityUpgrade();
+            }}
+          />
+        )}
+
+        <Toast
+          duration={4000}
+          message="Could not upgrade this order to priority. The change was reverted."
+          onClose={() => setIsToastOpen(false)}
+          open={isToastOpen}
+          tone="error"
+        />
+      </div>
+    </ErrorBoundary>
   );
 }
 

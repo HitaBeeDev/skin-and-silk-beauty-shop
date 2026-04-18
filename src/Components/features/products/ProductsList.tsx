@@ -11,8 +11,8 @@ import {
   selectProductsStatus,
 } from '@/components/features/products/productsSlice';
 import Error from '@/components/ui/Error';
-import Skeleton from '@/components/ui/Skeleton';
-import Spinner from '@/components/ui/Spinner';
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
+import ProductGridSkeleton from '@/components/ui/ProductGridSkeleton';
 import { useAppSelector } from '@store/hooks';
 import { useProductFilters } from '@hooks/useProductFilters';
 
@@ -32,7 +32,7 @@ function ProductsList(): JSX.Element {
   }
 
   if (productsStatus === 'loading' && !products.length) {
-    return <Spinner label="Loading products" />;
+    return <ProductGridSkeleton />;
   }
 
   if (productsStatus === 'failed') {
@@ -60,14 +60,7 @@ function ProductsList(): JSX.Element {
       </div>
 
       <Suspense
-        fallback={
-          <div aria-label="Loading products grid">
-            <Skeleton height="14rem" />
-            <div style={{ marginTop: '1rem' }}>
-              <Skeleton height="14rem" />
-            </div>
-          </div>
-        }
+        fallback={<ProductGridSkeleton />}
       >
         <div>
           <div
@@ -78,7 +71,18 @@ function ProductsList(): JSX.Element {
             }}
           >
             {isPending ? <p>Updating products…</p> : null}
-            <ProductGrid products={products} />
+            <ErrorBoundary
+              fallback={(error) => (
+                <Error
+                  message={
+                    error.message || 'The product grid could not be rendered.'
+                  }
+                />
+              )}
+              resetKey={activeCategory}
+            >
+              <ProductGrid products={products} />
+            </ErrorBoundary>
           </div>
         </div>
       </Suspense>

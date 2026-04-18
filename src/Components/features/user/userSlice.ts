@@ -20,6 +20,29 @@ type FetchAddressResult = {
   address: string;
 };
 
+function getAddressLookupErrorMessage(error: unknown): string {
+  if (
+    typeof DOMException !== 'undefined' &&
+    error instanceof DOMException &&
+    error.name === 'NotAllowedError'
+  ) {
+    return 'Could not detect location. Please enter your address manually.';
+  }
+
+  if (
+    typeof GeolocationPositionError !== 'undefined' &&
+    error instanceof GeolocationPositionError
+  ) {
+    return 'Could not detect location. Please enter your address manually.';
+  }
+
+  if (error instanceof Error && error.message === 'Failed getting address') {
+    return 'Could not look up your address right now. Enter it manually if needed.';
+  }
+
+  return 'There was a problem getting your address. Make sure to fill this field!';
+}
+
 function getPosition(): Promise<GeolocationPosition> {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -48,10 +71,8 @@ export const fetchAddress = createAsyncThunk<
       // 3) Then we return an object with the data that we are interested in.
       // Payload of the FULFILLED state
       return { position, address };
-    } catch {
-      return thunkApi.rejectWithValue(
-        'There was a problem getting your address. Make sure to fill this field!'
-      );
+    } catch (error) {
+      return thunkApi.rejectWithValue(getAddressLookupErrorMessage(error));
     }
   }
 );
@@ -78,11 +99,13 @@ const userSlice = createSlice({
     builder
       .addCase(fetchAddress.pending, (state) => {
         state.status = 'loading';
+        state.error = '';
       })
       .addCase(fetchAddress.fulfilled, (state, action) => {
         state.position = action.payload.position;
         state.address = action.payload.address;
         state.status = 'idle';
+        state.error = '';
       })
       .addCase(fetchAddress.rejected, (state, action) => {
         state.status = 'failed';

@@ -4,9 +4,14 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 
 import Error from '@/components/ui/Error';
+import CartSkeleton from '@/components/ui/CartSkeleton';
+import OrderDetailSkeleton from '@/components/ui/OrderDetailSkeleton';
+import ProductDetailSkeleton from '@/components/ui/ProductDetailSkeleton';
+import ProductGridSkeleton from '@/components/ui/ProductGridSkeleton';
 import RouteSkeleton from '@/components/ui/RouteSkeleton';
 import AppLayout from '@/components/layout/AppLayout';
 import Home from '@/components/ui/Home';
+import LinkButton from '@/components/ui/LinkButton';
 import { action as createOrderAction } from '@/routes/createOrder.action';
 import { loader as orderLoader } from '@/routes/order.loader';
 import { loader as productDetailLoader } from '@/routes/productDetail.loader';
@@ -21,6 +26,16 @@ function withRouteSuspense(node: JSX.Element): JSX.Element {
   return <Suspense fallback={<RouteSkeleton />}>{node}</Suspense>;
 }
 
+function OrderRouteError(): JSX.Element {
+  return (
+    <div>
+      <h1>Order not found</h1>
+      <p>The order ID you entered doesn&apos;t match an existing order.</p>
+      <LinkButton to={ROUTES.HOME}>Search again</LinkButton>
+    </div>
+  );
+}
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -33,16 +48,31 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.PRODUCTS,
-        element: withRouteSuspense(<ProductsList />),
+        element: (
+          <Suspense fallback={<ProductGridSkeleton />}>
+            <ProductsList />
+          </Suspense>
+        ),
         errorElement: <Error />,
       },
       {
         path: ROUTES.PRODUCT_DETAIL,
-        element: withRouteSuspense(<ProductDetail />),
+        element: (
+          <Suspense fallback={<ProductDetailSkeleton />}>
+            <ProductDetail />
+          </Suspense>
+        ),
         loader: productDetailLoader,
         errorElement: <Error />,
       },
-      { path: ROUTES.CART, element: withRouteSuspense(<Cart />) },
+      {
+        path: ROUTES.CART,
+        element: (
+          <Suspense fallback={<CartSkeleton />}>
+            <Cart />
+          </Suspense>
+        ),
+      },
       {
         path: ROUTES.CREATE_ORDER,
         element: withRouteSuspense(<CreateOrder />),
@@ -50,9 +80,13 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.ORDER_DETAIL,
-        element: withRouteSuspense(<Order />),
+        element: (
+          <Suspense fallback={<OrderDetailSkeleton />}>
+            <Order />
+          </Suspense>
+        ),
         loader: orderLoader,
-        errorElement: <Error />,
+        errorElement: <OrderRouteError />,
       },
     ],
   },
