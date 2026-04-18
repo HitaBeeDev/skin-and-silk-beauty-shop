@@ -42,13 +42,13 @@ function Toast({
   return (
     <div
       className={[
-        'fixed right-4 z-[1000] flex items-center gap-3 rounded-lg px-4 py-3 shadow-sm',
-        position === 'top-right' ? 'top-4' : 'bottom-4',
+        'fixed right-4 z-[1000] flex max-w-sm items-center gap-3 rounded-2xl px-4 py-3 shadow-lg transition-transform duration-200 ease-in',
+        position === 'top-right' ? 'top-4' : 'bottom-6',
         toneStyles[tone],
       ].join(' ')}
       role="status"
     >
-      <span>{message}</span>
+      <span className="flex-1">{message}</span>
       <button
         className="rounded-md px-2 py-1 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
         onClick={onClose}

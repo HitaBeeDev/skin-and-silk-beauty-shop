@@ -1,60 +1,22 @@
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
-
 import type { CartItem } from '@/types';
-
-import {
-  deleteItem,
-  restoreDeletedItem,
-} from '@/components/features/cart/cartSlice';
-import Toast from '@/components/ui/Toast';
-import { useAppDispatch } from '@store/hooks';
 
 type DeleteItemProps = {
   product: CartItem;
+  onRemove: () => void;
 };
 
-function DeleteItem({ product }: DeleteItemProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  const [isUndoToastOpen, setIsUndoToastOpen] = useState(false);
-
+function DeleteItem({ product, onRemove }: DeleteItemProps): JSX.Element {
   return (
-    <>
-      <button
-        aria-label={`Remove ${product.name} from cart`}
-        onClick={() => {
-          dispatch(deleteItem(product.productId));
-          setIsUndoToastOpen(true);
-        }}
-      >
-        <FontAwesomeIcon
-          icon={faTrashCan}
-        />
-      </button>
-
-      <Toast
-        duration={4000}
-        message={(
-          <>
-            <span>{product.name} removed.</span>
-            <button
-              onClick={() => {
-                dispatch(restoreDeletedItem(product));
-                setIsUndoToastOpen(false);
-              }}
-              type="button"
-            >
-              Undo
-            </button>
-          </>
-        )}
-        onClose={() => setIsUndoToastOpen(false)}
-        open={isUndoToastOpen}
-        position="top-right"
-        tone="info"
-      />
-    </>
+    <button
+      aria-label={`Remove ${product.name}`}
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#8d6a5c] transition-colors duration-150 ease-in hover:bg-[#f8efe7] hover:text-[#5a4034] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
+      onClick={onRemove}
+      type="button"
+    >
+      <FontAwesomeIcon icon={faTrashCan} />
+    </button>
   );
 }
 
