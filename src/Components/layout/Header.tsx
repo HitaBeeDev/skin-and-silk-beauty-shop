@@ -16,7 +16,6 @@ type NavLinkClassNameArgs = {
 
 const shellWidthClass = 'mx-auto w-[min(100%-2rem,72rem)]';
 const brandTextClass = 'text-[#5a4034]';
-const brandSurfaceClass = 'border-[#5a403429] bg-[#f6e6da]';
 const linkBaseClass = [
   'relative inline-flex items-center gap-2 rounded-full px-4 py-[0.55rem] text-[0.95rem] font-medium no-underline',
   'text-[#6b5145] transition-[color,background-color] duration-150 ease-in',
@@ -163,13 +162,6 @@ function Header(): JSX.Element {
             className={`inline-flex items-center gap-3 rounded-full px-1 py-1 ${brandTextClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2`}
             to={ROUTES.HOME}
           >
-            <span
-              aria-hidden="true"
-              className={`inline-flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold uppercase tracking-[0.28em] ${brandSurfaceClass}`}
-            >
-              SS
-            </span>
-
             <span className={`text-lg font-semibold ${brandTextClass}`}>
               Skin &amp; Silk
             </span>

@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs } from 'react-router-dom';
-import { redirect } from 'react-router-dom';
+import { replace } from 'react-router-dom';
 
 import type { CartItem, CreateOrderPayload } from '@/types';
 
@@ -48,8 +48,8 @@ export async function action({
     const newOrder = await store.dispatch(submitOrder(order)).unwrap();
     store.dispatch(clearCart());
 
-    return redirect(
-      `${ROUTES.ORDER_CONFIRMATION.replace(':orderId', String(newOrder.id))}?toast=placed`
+    return replace(
+      ROUTES.ORDER_CONFIRMATION.replace(':orderId', String(newOrder.id))
     );
   } catch {
     return {
