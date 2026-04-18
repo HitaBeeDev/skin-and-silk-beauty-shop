@@ -186,6 +186,7 @@ function CreateOrder(): JSX.Element {
   const totalCartPrice = useAppSelector(getTotalCartPrice);
   const priorityPrice = formState.priority ? totalCartPrice * 0.2 : 0;
   const totalPrice = totalCartPrice + priorityPrice;
+  const submissionErrors = Object.values(formState.errors).filter(Boolean);
 
   useEffect(() => {
     dispatchForm({
@@ -238,6 +239,12 @@ function CreateOrder(): JSX.Element {
         Ready to place your order? Let’s make it happen!
       </p>
 
+      {submissionErrors.length > 0 ? (
+        <div aria-live="assertive" role="alert">
+          <p>Please correct the highlighted form errors before submitting.</p>
+        </div>
+      ) : null}
+
       <Form
         method="POST"
         onSubmit={(event) => {
@@ -251,10 +258,11 @@ function CreateOrder(): JSX.Element {
         }}
       >
         {/* First Name */}
-        <label>
+        <label htmlFor="customer">
           First Name
         </label>
         <input
+          id="customer"
           type="text"
           name="customer"
           value={formState.customer}
@@ -276,14 +284,15 @@ function CreateOrder(): JSX.Element {
           placeholder="Enter your first name"
         />
         {formState.errors.customer ? (
-          <p style={fieldErrorStyle}>{formState.errors.customer}</p>
+          <p role="alert" style={fieldErrorStyle}>{formState.errors.customer}</p>
         ) : null}
 
         {/* Phone Number */}
-        <label>
+        <label htmlFor="phone">
           Phone Number
         </label>
         <input
+          id="phone"
           type="tel"
           name="phone"
           value={formState.phone}
@@ -306,15 +315,16 @@ function CreateOrder(): JSX.Element {
         />
         <p>{phoneHint}</p>
         {formState.errors.phone ? (
-          <p style={fieldErrorStyle}>{formState.errors.phone}</p>
+          <p role="alert" style={fieldErrorStyle}>{formState.errors.phone}</p>
         ) : null}
 
         {/* Address */}
-        <label>
+        <label htmlFor="address">
           Address
         </label>
         <div>
           <input
+            id="address"
             ref={addressInputRef}
             type="text"
             name="address"
@@ -338,6 +348,7 @@ function CreateOrder(): JSX.Element {
           />
           {!position.latitude && !position.longitude && (
             <button
+              aria-label="Use current location to fill address"
               disabled={isLoadingAddress}
               type="button"
               onClick={(e) => {
@@ -352,18 +363,18 @@ function CreateOrder(): JSX.Element {
           )}
         </div>
         {isAddressLookupFailed && isGeolocationFailure ? (
-          <p style={fieldErrorStyle}>Couldn&apos;t detect location — enter address manually</p>
+          <p role="alert" style={fieldErrorStyle}>Couldn&apos;t detect location — enter address manually</p>
         ) : null}
         {isAddressLookupFailed && isGeocodingFailure && isGeocodingErrorVisible ? (
           <div>
-            <p style={fieldErrorStyle}>Couldn&apos;t look up your address right now. Enter it manually if needed.</p>
+            <p role="alert" style={fieldErrorStyle}>Couldn&apos;t look up your address right now. Enter it manually if needed.</p>
             <button type="button" onClick={() => setIsGeocodingErrorVisible(false)}>
               Dismiss
             </button>
           </div>
         ) : null}
         {formState.errors.address ? (
-          <p style={fieldErrorStyle}>{formState.errors.address}</p>
+          <p role="alert" style={fieldErrorStyle}>{formState.errors.address}</p>
         ) : null}
 
         {/* Bottom Section */}

@@ -7,13 +7,17 @@ import Header from '@/components/layout/Header';
 function AppLayout(): JSX.Element {
   return (
     <div>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+
       <Header />
 
       <div>
-        <main>
+        <main id="main-content">
           <ErrorBoundary
             fallback={(error) => (
-              <div>
+              <div role="alert">
                 <h1>Something went wrong.</h1>
                 <p>{error.message}</p>
               </div>

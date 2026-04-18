@@ -40,52 +40,52 @@ function Product({ product }: ProductProps): JSX.Element {
 
   return (
     <>
-      <Link to={ROUTES.PRODUCT_DETAIL.replace(':id', String(id))}>
-        <div>
+      <div>
+        <Link to={ROUTES.PRODUCT_DETAIL.replace(':id', String(id))}>
           <div>
             <div>
-              <img
-                src={mainImage}
-                alt={name}
-              />
+              <div>
+                <img
+                  src={mainImage}
+                  alt={`${name} product`}
+                />
+              </div>
             </div>
-          </div>
-
-          <div>
-            <p>
-              {name}
-            </p>
-
-            <p>
-              {description}
-            </p>
 
             <div>
-              {!soldOut ? (
-                <p>
-                  €{productUnitPrice.toFixed(2)}
-                </p>
-              ) : (
-                <p>
-                  Sold out
-                </p>
-              )}
+              <p>
+                {name}
+              </p>
 
-              {!soldOut && (
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    handleAddToCart();
-                  }}
-                >
-                  <img src={plus} alt="plus" />
-                </div>
-              )}
+              <p>
+                {description}
+              </p>
+
+              <div>
+                {!soldOut ? (
+                  <p>
+                    €{productUnitPrice.toFixed(2)}
+                  </p>
+                ) : (
+                  <p>
+                    Sold out
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+
+        {!soldOut && (
+          <button
+            aria-label={`Add ${name} to cart`}
+            onClick={handleAddToCart}
+            type="button"
+          >
+            <img src={plus} alt="" aria-hidden="true" />
+          </button>
+        )}
+      </div>
 
       <Toast
         key={toastKey}

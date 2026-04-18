@@ -53,7 +53,7 @@ function ProductDetail(): JSX.Element {
         <div>
           <img
             src={product.mainImage ?? product.images.main}
-            alt={product.name}
+            alt={`${product.name} product`}
           />
         </div>
 
@@ -68,6 +68,7 @@ function ProductDetail(): JSX.Element {
             <div>
               <div>
                 <button
+                  aria-label="Decrease quantity"
                   type="button"
                   onClick={() => setQuantity((current) => Math.max(1, current - 1))}
                 >
@@ -75,6 +76,7 @@ function ProductDetail(): JSX.Element {
                 </button>
                 <span>{quantity}</span>
                 <button
+                  aria-label="Increase quantity"
                   type="button"
                   onClick={() => setQuantity((current) => current + 1)}
                 >
@@ -111,7 +113,7 @@ function ProductDetail(): JSX.Element {
                 <div>
                   <img
                     src={relatedProduct.mainImage ?? relatedProduct.images.main}
-                    alt={relatedProduct.name}
+                    alt={`${relatedProduct.name} product`}
                   />
                   <p>{relatedProduct.name}</p>
                   <p>{formatCurrency(relatedPrice)}</p>

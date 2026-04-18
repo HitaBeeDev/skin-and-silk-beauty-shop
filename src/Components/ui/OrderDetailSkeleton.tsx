@@ -2,7 +2,7 @@ import Skeleton from '@/components/ui/Skeleton';
 
 function OrderDetailSkeleton(): JSX.Element {
   return (
-    <section aria-label="Loading order details">
+    <section aria-label="Loading order details" role="status">
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
         <Skeleton height="2rem" width="12rem" />
         <Skeleton height="1.5rem" width="8rem" />

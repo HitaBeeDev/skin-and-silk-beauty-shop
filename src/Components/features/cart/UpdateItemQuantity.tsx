@@ -20,6 +20,7 @@ function UpdateItemQuantity({
   return (
     <div>
       <button
+        aria-label="Decrease item quantity"
         onClick={() => dispatch(decreaseItemQuantity(productId))}
       >
         <p> -</p>
@@ -30,6 +31,7 @@ function UpdateItemQuantity({
       </p>
 
       <button
+        aria-label="Increase item quantity"
         onClick={() => dispatch(increaseItemQuantity(productId))}
       >
         <p> +</p>

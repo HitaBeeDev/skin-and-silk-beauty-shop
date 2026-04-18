@@ -48,10 +48,11 @@ function Header(): JSX.Element {
       <div>
         {totalCartQuantity > 0 ? (
           <NavLink
+            aria-label={`Cart with ${totalCartQuantity} items`}
             style={({ isActive }) => (isActive ? activeNavStyle : inactiveNavStyle)}
             to={ROUTES.CART}
           >
-            <img src={shoppingBag} alt="shopping bag" />
+            <img aria-hidden="true" src={shoppingBag} alt="" />
             <p
             >
               {totalCartQuantity}
@@ -62,13 +63,14 @@ function Header(): JSX.Element {
             style={({ isActive }) => (isActive ? activeNavStyle : inactiveNavStyle)}
             to={ROUTES.PRODUCTS}
           >
-            <button
-            >
-              Start Shopping
-            </button>
+            Start Shopping
           </NavLink>
         )}
       </div>
+
+      <span aria-live="polite" className="sr-only">
+        Cart now has {totalCartQuantity} item{totalCartQuantity === 1 ? '' : 's'}.
+      </span>
 
       <SearchOrder />
     </div>

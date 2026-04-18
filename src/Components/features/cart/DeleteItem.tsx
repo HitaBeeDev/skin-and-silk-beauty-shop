@@ -22,6 +22,7 @@ function DeleteItem({ product }: DeleteItemProps): JSX.Element {
   return (
     <>
       <button
+        aria-label={`Remove ${product.name} from cart`}
         onClick={() => {
           dispatch(deleteItem(product.productId));
           setIsUndoToastOpen(true);

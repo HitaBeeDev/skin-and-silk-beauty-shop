@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-
 import { ROUTES } from '@/constants/routes';
 
 import type { CartItem as CartItemModel } from '@/types';
@@ -13,6 +11,7 @@ import { getCart, getIsCartEmpty } from '@/components/features/cart/cartSelector
 import CartSkeleton from '@/components/ui/CartSkeleton';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import Error from '@/components/ui/Error';
+import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
 
 function Cart(): JSX.Element {
@@ -61,14 +60,12 @@ function Cart(): JSX.Element {
 
           <div>
             <div>
-              <Link to={ROUTES.PRODUCTS}>
-                <button
-                >
-                  Return to Menu
-                </button>
-              </Link>
+              <Button to={ROUTES.PRODUCTS} variant="secondary">
+                Return to Menu
+              </Button>
               <button
                 onClick={() => setIsClearCartModalOpen(true)}
+                type="button"
               >
                 Remove All Items
               </button>
@@ -77,11 +74,7 @@ function Cart(): JSX.Element {
             <div>
               <div
               >
-                <Link
-                  to={ROUTES.CREATE_ORDER}
-                >
-                  Order
-                </Link>
+                <Button to={ROUTES.CREATE_ORDER}>Order</Button>
               </div>
             </div>
           </div>

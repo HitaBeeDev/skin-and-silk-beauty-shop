@@ -11,17 +11,14 @@ function Home(): JSX.Element {
       <div>
         <img
           src={home}
-          alt="home"
+          alt=""
+          aria-hidden="true"
         />
 
         <div>
-          <Link to={ROUTES.PRODUCTS}>
-            <button>Start Shopping</button>
-          </Link>
+          <Link to={ROUTES.PRODUCTS}>Start Shopping</Link>
 
-          <Link to={`${ROUTES.HOME}#contact`}>
-            <button>Get in Touch</button>
-          </Link>
+          <Link to={`${ROUTES.HOME}#contact`}>Get in Touch</Link>
         </div>
       </div>
 
@@ -55,7 +52,7 @@ function Home(): JSX.Element {
 
         <div>
           <div>
-            <img src={grid} alt="beauty collage" />
+            <img src={grid} alt="" aria-hidden="true" />
 
             <div>
               <p>

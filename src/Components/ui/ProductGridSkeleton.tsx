@@ -4,6 +4,7 @@ function ProductGridSkeleton(): JSX.Element {
   return (
     <div
       aria-label="Loading products grid"
+      role="status"
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))',

@@ -26,7 +26,9 @@ function CreateUser(): JSX.Element {
         👋 Welcome! Please start by telling us your name:
       </p>
 
+      <label htmlFor="create-user-name">Full name</label>
       <input
+        id="create-user-name"
         type="text"
         placeholder="Your full name"
         value={username}

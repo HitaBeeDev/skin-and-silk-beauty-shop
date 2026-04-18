@@ -76,9 +76,12 @@ const Modal: ModalComponent = function Modal({
   children,
 }: ModalProps): JSX.Element | null {
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const lastActiveElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!open) return undefined;
+
+    lastActiveElementRef.current = document.activeElement as HTMLElement | null;
 
     const handleKeyDown = (event: KeyboardEvent | globalThis.KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
@@ -90,7 +93,10 @@ const Modal: ModalComponent = function Modal({
     );
     focusable?.focus();
 
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      lastActiveElementRef.current?.focus();
+    };
   }, [onClose, open]);
 
   if (!open) return null;
@@ -133,6 +139,14 @@ const Modal: ModalComponent = function Modal({
         role="dialog"
         style={panelStyle}
       >
+        <button
+          aria-label="Close dialog"
+          style={{ marginLeft: 'auto' }}
+          type="button"
+          onClick={onClose}
+        >
+          Close
+        </button>
         {children}
       </div>
     </div>

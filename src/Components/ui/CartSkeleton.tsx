@@ -2,7 +2,7 @@ import Skeleton from '@/components/ui/Skeleton';
 
 function CartSkeleton(): JSX.Element {
   return (
-    <section aria-label="Loading cart">
+    <section aria-label="Loading cart" role="status">
       <Skeleton height="2rem" width="14rem" />
 
       <div style={{ marginTop: '1.5rem', display: 'grid', gap: '1rem' }}>

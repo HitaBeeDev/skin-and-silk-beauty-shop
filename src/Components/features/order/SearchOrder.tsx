@@ -39,7 +39,9 @@ function SearchOrder(): JSX.Element {
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="order-search">Search order by ID</label>
         <input
+          id="order-search"
           placeholder="Search order #"
           value={query}
           onChange={(e) => setQuery(e.target.value)}

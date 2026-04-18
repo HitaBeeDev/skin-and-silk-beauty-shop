@@ -28,7 +28,7 @@ function Error({ message: explicitMessage }: ErrorProps): JSX.Element {
   );
 
   return (
-    <div>
+    <div role="alert">
       <h1>Something went wrong 😢</h1>
       <p>{message}</p>
 

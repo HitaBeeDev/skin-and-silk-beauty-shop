@@ -2,7 +2,7 @@ import Skeleton from '@/components/ui/Skeleton';
 
 function ProductDetailSkeleton(): JSX.Element {
   return (
-    <section aria-label="Loading product details">
+    <section aria-label="Loading product details" role="status">
       <Skeleton height="1rem" width="16rem" />
 
       <div
