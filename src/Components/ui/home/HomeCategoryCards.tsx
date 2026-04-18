@@ -38,9 +38,7 @@ const categoryCards = [
   },
 ] as const;
 
-function HomeCategoryCards({
-  loading,
-}: HomeCategoryCardsProps): JSX.Element {
+function HomeCategoryCards({ loading }: HomeCategoryCardsProps): JSX.Element {
   if (loading) {
     return (
       <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5 xl:grid-cols-3">
@@ -70,7 +68,7 @@ function HomeCategoryCards({
       {categoryCards.map((card) => (
         <div
           key={card.title}
-          className="relative min-h-[9.75rem] rounded-[1.1rem] bg-[#fff0f0] px-4 py-4 sm:px-5 md:min-h-[10rem] lg:px-6"
+          className="relative min-h-[9.75rem] rounded-[1.1rem] bg-[#fff0f2] px-4 py-4 sm:px-5 md:min-h-[10rem] lg:px-6"
         >
           <div className="flex items-start gap-3 sm:gap-4">
             <div className="h-[3.5rem] w-[3.5rem] shrink-0 overflow-hidden rounded-[0.6rem] border border-[#550000]/30 p-[0.55rem] sm:h-[4rem] sm:w-[4rem] sm:p-[0.6rem]">
@@ -82,7 +80,10 @@ function HomeCategoryCards({
             </div>
 
             <div className="min-w-0 flex-1 pr-1 pb-8 sm:pr-2 sm:pb-9">
-              <p className="font-['Playfair_Display',serif] text-[1.1rem] font-[400] text-[#550000] sm:text-[1.2rem] lg:text-[1.3rem]">
+              <p
+                className="font-['Playfair_Display',serif] text-[1.1rem] font-[400] text-[#550000] sm:text-[1.2rem] 
+              lg:text-[1.3rem]"
+              >
                 {card.title}
               </p>
 

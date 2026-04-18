@@ -2,13 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import { getTotalCartQuantity } from "@/components/features/cart/cartSelectors";
 import { ROUTES } from "@/constants/routes";
 import { useClickOutside } from "@/hooks";
 import { useDebounce } from "@/hooks";
+import { useAppSelector } from "@store/hooks";
 
 function Header(): JSX.Element {
   const location = useLocation();
   const navigate = useNavigate();
+  const totalCartQuantity = useAppSelector(getTotalCartQuantity);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 350);
@@ -98,7 +101,7 @@ function Header(): JSX.Element {
 
   return (
     <header className="sticky top-0 z-[60] px-3 sm:px-4">
-      <div className="rounded-[1.75rem] bg-white/90 backdrop-blur-xl">
+      <div className="rounded-[1.75rem] bg-white/10 backdrop-blur-3xl">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 sm:px-6 md:grid-cols-[1fr_auto_1fr]">
           <div className="justify-self-start">
             <Link
@@ -163,10 +166,15 @@ function Header(): JSX.Element {
 
             <Link
               aria-label="Open cart"
-              className="flex h-[1.9rem] w-[1.9rem] items-center justify-center rounded-full bg-[#550000] p-[0.45rem] 
+              className="relative flex h-[1.9rem] w-[1.9rem] items-center justify-center rounded-full bg-[#550000] p-[0.45rem] 
           hover:bg-[#900c0c] transition-all duration-300 cursor-pointer"
               to={ROUTES.CART}
             >
+              {totalCartQuantity > 0 ? (
+                <span className="absolute -top-2 -right-2 flex h-[1rem] min-w-[1rem] items-center justify-center rounded-full bg-[#ec124f] px-1 text-[0.62rem] font-[500] leading-none text-white">
+                  {totalCartQuantity}
+                </span>
+              ) : null}
               <ShoppingCart className="text-white" strokeWidth={1.8} />
             </Link>
           </div>
@@ -174,9 +182,14 @@ function Header(): JSX.Element {
           <div className="flex items-center gap-2 justify-self-end md:hidden">
             <Link
               aria-label="Open cart"
-              className="flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-full bg-[#550000] p-[0.5rem] transition-all duration-300 cursor-pointer hover:bg-[#900c0c]"
+              className="relative flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-full bg-[#550000] p-[0.5rem] transition-all duration-300 cursor-pointer hover:bg-[#900c0c]"
               to={ROUTES.CART}
             >
+              {totalCartQuantity > 0 ? (
+                <span className="absolute -top-1.5 -right-1.5 flex h-[1rem] min-w-[1rem] items-center justify-center rounded-full bg-[#ec124f] px-1 text-[0.62rem] font-[500] leading-none text-white">
+                  {totalCartQuantity}
+                </span>
+              ) : null}
               <ShoppingCart className="text-white" strokeWidth={1.8} />
             </Link>
 

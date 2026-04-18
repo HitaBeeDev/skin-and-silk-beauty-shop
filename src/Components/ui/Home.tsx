@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Product } from "@/types";
 
 import HomeCategoryCards from "@/components/ui/home/HomeCategoryCards";
+import HomeDiscountedProducts from "@/components/ui/home/HomeDiscountedProducts";
 import HomeHero from "@/components/ui/home/HomeHero";
 import { getProducts } from "@/services/productsService";
 
@@ -73,10 +74,24 @@ function Home(): JSX.Element {
     [featuredState.allItems],
   );
 
+  const discountedProducts = useMemo(
+    () =>
+      featuredState.allItems
+        .filter((product) => typeof product.compareAtPrice === "number")
+        .slice(0, 8),
+    [featuredState.allItems],
+  );
+
   return (
     <div>
+      {/* Hero section */}
       <HomeHero heroProduct={heroProduct} hotspot={heroHotspot} />
+
+      {/* Category cards */}
       <HomeCategoryCards loading={featuredState.loading} />
+
+      {/* Discounted products */}
+      <HomeDiscountedProducts products={discountedProducts} />
     </div>
   );
 }
