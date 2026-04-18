@@ -27,12 +27,11 @@ export function useProductFilters(): UseProductFiltersResult {
 
   useEffect(() => {
     const categoryFromUrl = getCategoryLabelBySlug(categorySlug) ?? DEFAULT_CATEGORY;
+    const nextCategoryParams = new URLSearchParams(searchParams);
 
-    if (!categorySlug) {
-      setSearchParams(
-        { category: CATEGORY_SLUG_BY_LABEL[categoryFromUrl] },
-        { replace: true }
-      );
+    if (nextCategoryParams.get('category') !== CATEGORY_SLUG_BY_LABEL[categoryFromUrl]) {
+      nextCategoryParams.set('category', CATEGORY_SLUG_BY_LABEL[categoryFromUrl]);
+      setSearchParams(nextCategoryParams, { replace: true });
     }
 
     if (categoryFromUrl !== activeCategory) {
@@ -41,11 +40,13 @@ export function useProductFilters(): UseProductFiltersResult {
     }
 
     void dispatch(fetchProducts(activeCategory));
-  }, [activeCategory, categorySlug, dispatch, setSearchParams]);
+  }, [activeCategory, categorySlug, dispatch, searchParams, setSearchParams]);
 
   function setCategory(category: ProductCategoryLabel): void {
     dispatch(setActiveCategory(category));
-    setSearchParams({ category: CATEGORY_SLUG_BY_LABEL[category] });
+    const nextCategoryParams = new URLSearchParams(searchParams);
+    nextCategoryParams.set('category', CATEGORY_SLUG_BY_LABEL[category]);
+    setSearchParams(nextCategoryParams);
   }
 
   return {
