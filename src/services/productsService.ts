@@ -9,13 +9,17 @@ type ProductFilters = {
 
 type RawProduct = (typeof productsResponse.data)[number];
 
-const productAssetUrls = import.meta.glob("../assets/Products/*", {
+const productAssetUrls = import.meta.glob("../assets/**/*", {
   eager: true,
   import: "default",
 }) as Record<string, string>;
 
-function resolveAsset(filename: string): string {
-  return productAssetUrls[`../assets/Products/${filename}`] ?? filename;
+function resolveAsset(assetPath: string): string {
+  return (
+    productAssetUrls[`../assets/Products/${assetPath}`] ??
+    productAssetUrls[`../assets/${assetPath}`] ??
+    assetPath
+  );
 }
 
 function hydrateProduct(product: RawProduct): Product {

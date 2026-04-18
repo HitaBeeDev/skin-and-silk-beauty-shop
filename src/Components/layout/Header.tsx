@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { Menu, ShoppingCart, X } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -99,72 +99,160 @@ function Header(): JSX.Element {
   }
 
   return (
-    <header className="sticky top-0 z-[60] bg-white/90 backdrop-blur-xl rounded-full">
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center pl-6 pr-6 pt-3 pb-3">
-        <div className="justify-self-start">
-          <Link
-            className="cursor-pointer font-['Cormorant_Garamond',serif] text-[#550000] text-[1.25rem] font-[500]"
-            to={ROUTES.HOME}
-          >
-            S & S
-          </Link>
-        </div>
+    <header className="sticky top-0 z-[60] px-3 pt-3 sm:px-4">
+      <div className="rounded-[1.75rem] bg-white/90 backdrop-blur-xl">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 sm:px-6 md:grid-cols-[1fr_auto_1fr]">
+          <div className="justify-self-start">
+            <Link
+              className="cursor-pointer font-['Cormorant_Garamond',serif] text-[#550000] text-[1.25rem] font-[500]"
+              to={ROUTES.HOME}
+            >
+              S & S
+            </Link>
+          </div>
 
-        <div className="flex flex-row items-center justify-center gap-10 justify-self-center">
-          <Link
-            className={`cursor-pointer text-[0.9rem] font-[400] ${isHomeActive ? "text-[#900c0c]" : "text-[#550000]"}`}
-            to={ROUTES.HOME}
-          >
-            Home
-          </Link>
+          <div className="hidden flex-row items-center justify-center gap-6 justify-self-center md:flex lg:gap-10">
+            <Link
+              className={`cursor-pointer text-[0.9rem] font-[400] ${isHomeActive ? "text-[#900c0c]" : "text-[#550000]"}`}
+              to={ROUTES.HOME}
+            >
+              Home
+            </Link>
 
-          <Link
-            className={`cursor-pointer text-[0.9rem] font-[400] ${isProductsActive ? "text-[#900c0c]" : "text-[#550000]"}`}
-            to={ROUTES.PRODUCTS}
-          >
-            Products
-          </Link>
+            <Link
+              className={`cursor-pointer text-[0.9rem] font-[400] ${isProductsActive ? "text-[#900c0c]" : "text-[#550000]"}`}
+              to={ROUTES.PRODUCTS}
+            >
+              Products
+            </Link>
 
-          <Link
-            className="cursor-pointer text-[0.9rem] font-[400] text-[#550000]"
-            to={`${ROUTES.HOME}#brand-story`}
-          >
-            Blog
-          </Link>
+            <Link
+              className="cursor-pointer text-[0.9rem] font-[400] text-[#550000]"
+              to={`${ROUTES.HOME}#brand-story`}
+            >
+              Blog
+            </Link>
 
-          <Link
-            className={`cursor-pointer text-[0.9rem] font-[400] ${isSaleActive ? "text-[#900c0c]" : "text-[#550000]"}`}
-            to={`${ROUTES.PRODUCTS}?category=all&sale=true`}
-          >
-            Sale
-          </Link>
-        </div>
+            <Link
+              className={`cursor-pointer text-[0.9rem] font-[400] ${isSaleActive ? "text-[#900c0c]" : "text-[#550000]"}`}
+              to={`${ROUTES.PRODUCTS}?category=all&sale=true`}
+            >
+              Sale
+            </Link>
+          </div>
 
-        <div className="flex flex-row items-center justify-center gap-3 justify-self-end">
-          <form onSubmit={handleSearchSubmit}>
-            <label className="flex h-9 w-[12rem] items-center gap-2 rounded-full bg-[#fff0f0] px-3">
-              <FontAwesomeIcon
-                className="text-[0.8rem] text-[#ae0606]"
-                icon={faMagnifyingGlass}
-              />
-              <input
-                className="w-full bg-transparent text-[0.82rem] text-[#550000] outline-none placeholder:text-[0.72rem] placeholder:text-[#ae0606]"
-                onChange={(event) => setSearchValue(event.target.value)}
-                placeholder="Search"
-                type="search"
-                value={searchValue}
-              />
-            </label>
-          </form>
+          <div className="hidden flex-row items-center justify-center gap-3 justify-self-end md:flex">
+            <form
+              className="max-w-[12rem] lg:max-w-none"
+              onSubmit={handleSearchSubmit}
+            >
+              <label className="flex h-9 w-full min-w-0 items-center gap-2 rounded-full bg-[#fff0f0] px-3 lg:w-[12rem]">
+                <FontAwesomeIcon
+                  className="text-[0.8rem] text-[#ae0606]"
+                  icon={faMagnifyingGlass}
+                />
+                <input
+                  className="w-full bg-transparent text-[0.82rem] text-[#550000] outline-none placeholder:text-[0.72rem] placeholder:text-[#ae0606]"
+                  onChange={(event) => setSearchValue(event.target.value)}
+                  placeholder="Search"
+                  type="search"
+                  value={searchValue}
+                />
+              </label>
+            </form>
 
-          <Link
-            aria-label="Open cart"
-            className="flex h-[1.9rem] w-[1.9rem] items-center justify-center rounded-full bg-[#550000] p-[0.45rem] 
+            <Link
+              aria-label="Open cart"
+              className="flex h-[1.9rem] w-[1.9rem] items-center justify-center rounded-full bg-[#550000] p-[0.45rem] 
           hover:bg-[#900c0c] transition-all duration-300 cursor-pointer"
-            to={ROUTES.CART}
+              to={ROUTES.CART}
+            >
+              <ShoppingCart className="text-white" strokeWidth={1.8} />
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2 justify-self-end md:hidden">
+            <Link
+              aria-label="Open cart"
+              className="flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-full bg-[#550000] p-[0.5rem] transition-all duration-300 cursor-pointer hover:bg-[#900c0c]"
+              to={ROUTES.CART}
+            >
+              <ShoppingCart className="text-white" strokeWidth={1.8} />
+            </Link>
+
+            <button
+              aria-controls="mobile-navigation"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              className="flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-full bg-[#fff0f0] text-[#550000] transition-colors duration-300 hover:bg-[#ffe4e4]"
+              onClick={() => setIsMobileMenuOpen((currentValue) => !currentValue)}
+              ref={mobileMenuButtonRef}
+              type="button"
+            >
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
+        </div>
+
+        <div
+          aria-hidden={!isMobileMenuOpen}
+          className={`overflow-hidden transition-[max-height,opacity,transform] duration-300 ease-out md:hidden ${
+            isMobileMenuOpen
+              ? "max-h-[32rem] translate-y-0 opacity-100"
+              : "pointer-events-none max-h-0 -translate-y-2 opacity-0"
+          }`}
+          id="mobile-navigation"
+        >
+          <div
+            className="mt-3 rounded-[1.75rem] bg-white px-4 py-4 shadow-[0_20px_60px_rgba(85,0,0,0.08)]"
+            ref={mobilePanelRef}
           >
-            <ShoppingCart className="text-white" strokeWidth={1.8} />
-          </Link>
+            <form onSubmit={handleSearchSubmit}>
+              <label className="flex h-11 w-full items-center gap-2 rounded-full bg-[#fff0f0] px-4">
+                <FontAwesomeIcon
+                  className="text-[0.8rem] text-[#ae0606]"
+                  icon={faMagnifyingGlass}
+                />
+                <input
+                  className="w-full bg-transparent text-[0.9rem] text-[#550000] outline-none placeholder:text-[0.78rem] placeholder:text-[#ae0606]"
+                  onChange={(event) => setSearchValue(event.target.value)}
+                  placeholder="Search"
+                  type="search"
+                  value={searchValue}
+                />
+              </label>
+            </form>
+
+            <nav className="mt-4 flex flex-col gap-2">
+              <Link
+                className={`rounded-full px-4 py-3 text-[0.95rem] font-[400] ${isHomeActive ? "bg-[#fff0f0] text-[#900c0c]" : "text-[#550000]"}`}
+                to={ROUTES.HOME}
+              >
+                Home
+              </Link>
+
+              <Link
+                className={`rounded-full px-4 py-3 text-[0.95rem] font-[400] ${isProductsActive ? "bg-[#fff0f0] text-[#900c0c]" : "text-[#550000]"}`}
+                to={ROUTES.PRODUCTS}
+              >
+                Products
+              </Link>
+
+              <Link
+                className="rounded-full px-4 py-3 text-[0.95rem] font-[400] text-[#550000]"
+                to={`${ROUTES.HOME}#brand-story`}
+              >
+                Blog
+              </Link>
+
+              <Link
+                className={`rounded-full px-4 py-3 text-[0.95rem] font-[400] ${isSaleActive ? "bg-[#fff0f0] text-[#900c0c]" : "text-[#550000]"}`}
+                to={`${ROUTES.PRODUCTS}?category=all&sale=true`}
+              >
+                Sale
+              </Link>
+            </nav>
+          </div>
         </div>
       </div>
     </header>

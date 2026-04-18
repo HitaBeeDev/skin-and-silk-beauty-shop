@@ -6,6 +6,18 @@ export interface ProductImageSet {
   gallery: string[];
 }
 
+export interface ProductDetails {
+  subtitle?: string;
+  size?: string;
+  overview?: string;
+  mainBenefits?: string[];
+  additionalBenefits?: string[];
+  statistics?: string[];
+  usage?: string[];
+  ingredientHighlights?: string[];
+  inci?: string;
+}
+
 export interface Product {
   id: string;
   sku: string;
@@ -23,6 +35,7 @@ export interface Product {
   unitPrice?: number;
   soldOut?: boolean;
   mainImage?: string;
+  details?: ProductDetails;
 }
 
 export interface CartItem {

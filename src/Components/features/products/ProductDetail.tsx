@@ -48,6 +48,7 @@ function ProductDetail(): JSX.Element {
   const productPrice = product.unitPrice ?? product.price;
   const isSoldOut = product.soldOut ?? !product.inStock;
   const productCategoryHref = `${ROUTES.PRODUCTS}?category=${CATEGORY_SLUG_BY_LABEL[product.category]}`;
+  const productDetails = product.details;
 
   useEffect(() => {
     if (!previousImage) return;
@@ -166,6 +167,11 @@ function ProductDetail(): JSX.Element {
             <h1 className="font-['Playfair_Display',serif] text-4xl leading-tight text-[#5a4034] sm:text-5xl">
               {product.name}
             </h1>
+            {productDetails?.subtitle ? (
+              <p className="font-['Quicksand',sans-serif] text-base text-[#6b5248] sm:text-lg">
+                {productDetails.subtitle}
+              </p>
+            ) : null}
             <div className="flex flex-wrap items-center gap-3">
               <p className="text-3xl font-semibold text-[#241915]">
                 {formatCurrency(productPrice)}
@@ -173,6 +179,11 @@ function ProductDetail(): JSX.Element {
               {product.compareAtPrice ? (
                 <p className="text-lg text-[#8c6659] line-through">
                   {formatCurrency(product.compareAtPrice)}
+                </p>
+              ) : null}
+              {productDetails?.size ? (
+                <p className="rounded-full bg-[#f6e8dd] px-3 py-1 text-sm font-medium text-[#7b584c]">
+                  {productDetails.size}
                 </p>
               ) : null}
             </div>
@@ -186,10 +197,17 @@ function ProductDetail(): JSX.Element {
             </div>
             <div className="space-y-4 font-['Quicksand',sans-serif] text-base leading-8 text-[#4d3932]">
               <p>{product.description}</p>
-              <p>
-                Layer it into your ritual for a finish that feels treated,
-                polished, and unmistakably elevated from the first application.
-              </p>
+              {productDetails?.overview ? (
+                <p>
+                  {productDetails.overview}
+                </p>
+              ) : (
+                <p>
+                  Layer it into your ritual for a finish that feels treated,
+                  polished, and unmistakably elevated from the first
+                  application.
+                </p>
+              )}
             </div>
           </div>
 
@@ -241,6 +259,103 @@ function ProductDetail(): JSX.Element {
           </div>
         </div>
       </div>
+
+      {productDetails ? (
+        <section className="mt-16 grid gap-6 lg:grid-cols-2">
+          {productDetails.mainBenefits?.length ? (
+            <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
+              <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+                Main Benefits
+              </p>
+              <ul className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+                {productDetails.mainBenefits.map((benefit) => (
+                  <li key={benefit} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8c6659]" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {productDetails.additionalBenefits?.length ? (
+            <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
+              <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+                Additional Benefits
+              </p>
+              <ul className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+                {productDetails.additionalBenefits.map((benefit) => (
+                  <li key={benefit} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8c6659]" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {productDetails.statistics?.length ? (
+            <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
+              <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+                Clinical Notes
+              </p>
+              <ul className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+                {productDetails.statistics.map((statistic) => (
+                  <li key={statistic} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8c6659]" />
+                    <span>{statistic}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {productDetails.usage?.length ? (
+            <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
+              <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+                How To Use
+              </p>
+              <ol className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+                {productDetails.usage.map((step, index) => (
+                  <li key={step} className="flex gap-3">
+                    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#f3dfd1] text-xs font-semibold text-[#7b584c]">
+                      {index + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {productDetails?.ingredientHighlights?.length ? (
+        <section className="mt-16 rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
+          <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+            Key Ingredients
+          </p>
+          <ul className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+            {productDetails.ingredientHighlights.map((ingredient) => (
+              <li key={ingredient} className="flex gap-3">
+                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8c6659]" />
+                <span>{ingredient}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {productDetails?.inci ? (
+        <section className="mt-16 rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
+          <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+            INCI
+          </p>
+          <p className="mt-4 break-words font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932]">
+            {productDetails.inci}
+          </p>
+        </section>
+      ) : null}
 
       <section className="mt-16 space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

@@ -435,9 +435,66 @@
       "inStock": true,
       "isNew": true,
       "tags": ["moisturiser", "cryo", "energising"]
+    },
+    {
+      "id": "25",
+      "sku": "SKU-25",
+      "name": "Eye Contour Cream Supreme",
+      "slug": "eye-contour-cream-supreme",
+      "category": "Skin Care",
+      "price": 295,
+      "compareAtPrice": 325,
+      "description": "A high-performance eye cream for mature skin that targets wrinkles, dark circles, puffiness, and visible lid sagging while restoring a firmer, more luminous look.",
+      "images": {
+        "main": "new/img1.webp",
+        "hover": "new/img1.webp",
+        "gallery": ["new/img1.webp"]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": ["eye cream", "anti-aging", "firming", "dark circles", "puffiness"],
+      "details": {
+        "subtitle": "Anti-aging eye cream for mature skin",
+        "size": "15 g",
+        "overview": "A carefully developed treatment created to rejuvenate and restore the eye area with focused care for fine lines, deep wrinkles, dark circles, under-eye puffiness, dryness, and loss of firmness.",
+        "mainBenefits": [
+          "Helps reveal a more youthful-looking eye area in as little as two weeks.",
+          "Reduces the look of dark circles and softens crow's feet and fine lines.",
+          "Supports a livelier, firmer, and more lifted appearance with continued use."
+        ],
+        "additionalBenefits": [
+          "Helps smooth the appearance of fine lines and deeper-set wrinkles.",
+          "Provides a visible lifting effect for slack or drooping eyelids.",
+          "Improves the look of firmness while reducing under-eye puffiness.",
+          "Boosts radiance around the eye contour for a brighter rested look.",
+          "Delivers up to 24 hours of moisture for comfort and softness.",
+          "Targets multiple visible signs of aging in the delicate eye area."
+        ],
+        "statistics": [
+          "Consumer test on 110 women reported a visible transformation in the eye area after two weeks.",
+          "After four weeks, deep wrinkles around the eye contour appeared visibly reduced.",
+          "After eight weeks, puffiness looked visibly reduced and skin firmness appeared improved.",
+          "24-hour hydration claim based on an instrumental test with 27 volunteers."
+        ],
+        "usage": [
+          "Apply in the morning after moisturizer and before sunscreen.",
+          "Apply at night as the final step of your routine.",
+          "Smooth gently across the full upper eyelid.",
+          "Tap beneath the eye and blend outward toward the hairline.",
+          "Contains vitamin A, so consider overall daily vitamin A use."
+        ],
+        "ingredientHighlights": [
+          "Actin-Fiber Technology helps reinforce firmness and a more youthful eye contour.",
+          "Five-times concentrated Lempuyang extract supports wrinkle reduction and improved firmness versus previous formulas.",
+          "Citrus unshiu peel extract helps support clarity and radiance.",
+          "Iris extract is included for soothing care.",
+          "Skin-Empowering Illuminator helps promote a radiant finish."
+        ],
+        "inci": "WATER (AQUA/EAU), GLYCERIN, CETYL ETHYLHEXANOATE, BUTYLENE GLYCOL, SQUALANE, ISODODECANE, DIPROPYLENE GLYCOL, BEHENYL ALCOHOL, DIMETHICONE, MICROCRYSTALLINE WAX, DIPHENYLSILOXY PHENYL TRIMETHICONE, BIS-DIGLYCERYL POLYACYLADIPATE-2, HYDROGENATED POLYISOBUTENE, MALTITOL, DIMETHYLACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE CROSSPOLYMER, TREHALOSE, PEG/PPG-14/7 DIMETHYL ETHER, POTASSIUM METHOXYSALICYLATE, TOCOPHERYL ACETATE, PHYTOSTERYL/OCTYLDODECYL LAUROYL GLUTAMATE, SODIUM HYALURONATE, DIPOTASSIUM GLYCYRRHIZATE, SODIUM ACETYLATED HYALURONATE, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, CITRUS UNSHIU PEEL EXTRACT, ANGELICA ACUTILOBA ROOT EXTRACT, CENTAUREA CYANUS FLOWER EXTRACT, IRIS FLORENTINA ROOT EXTRACT, SANGUISORBA OFFICINALIS ROOT EXTRACT, SERINE, GLYCINE, INOSITOL, AVERRHOA CARAMBOLA LEAF EXTRACT, CARTHAMUS TINCTORIUS (SAFFLOWER) FLOWER EXTRACT, LONICERA JAPONICA (HONEYSUCKLE) FLOWER EXTRACT, RETINYL ACETATE, RETINYL PALMITATE, HYDROLYZED SILK, ZINGIBER AROMATICUS EXTRACT, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, PAEONIA ALBIFLORA ROOT EXTRACT, BUPLEURUM FALCATUM ROOT EXTRACT, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, POTENTILLA ERECTA ROOT EXTRACT, SOPHORA ANGUSTIFOLIA ROOT EXTRACT, PERILLA OCYMOIDES LEAF EXTRACT, HYDROLYZED CONCHIOLIN PROTEIN, STEARYL ALCOHOL, HYDROGENATED PALM OIL, MYRISTYL MYRISTATE, BEHENETH-20, DIMETHICONE/PHENYL VINYL DIMETHICONE CROSSPOLYMER, ELAEIS GUINEENSIS (PALM) KERNEL OIL, ELAEIS GUINEENSIS (PALM) OIL, ALCOHOL, BEHENETH-10, THEANINE, DISODIUM EDTA, SODIUM CITRATE, BHT, SODIUM METABISULFITE, CITRIC ACID, SODIUM METAPHOSPHATE, HEXYL CINNAMAL, CITRONELLOL, ALPHA-ISOMETHYL IONONE, LIMONENE, LINALOOL, GERANIOL, BENZYL BENZOATE, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ZEA MAYS (CORN) OIL, PHENOXYETHANOL, BENZOIC ACID, FRAGRANCE (PARFUM), IRON OXIDES (CI 77492), IRON OXIDES (CI 77491)"
+      }
     }
   ],
   "meta": {
-    "total": 24
+    "total": 25
   }
 }

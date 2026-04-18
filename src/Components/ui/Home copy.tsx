@@ -7,17 +7,15 @@ import { CATEGORY_LABELS, ProductCategory } from "@/constants/categories";
 import { ROUTES } from "@/constants/routes";
 
 import ProductGrid from "@/components/features/products/ProductGrid";
-import { formatCurrency } from "@/components/utils/helpers";
 import Button from "@/components/ui/Button";
 import ErrorState from "@/components/ui/Error";
 import { getProducts } from "@/services/productsService";
-import heroImage from "@/assets/new/img1.webp";
+import heroImage from "@/assets/home4.jpg";
 import skincareImage from "@/assets/home1.jpg";
 import makeupImage from "@/assets/home2.jpg";
 import arrivalsImage from "@/assets/home3.jpg";
 
 type FeaturedState = {
-  allItems: Product[];
   items: Product[];
   loading: boolean;
   error: string | null;
@@ -41,12 +39,6 @@ const categoryCards = [
   },
 ] as const;
 
-const heroHotspot = {
-  productId: "25",
-  x: "72%",
-  y: "36%",
-} as const;
-
 function buildProductsCategoryHref(category: ProductCategory): string {
   const params = new URLSearchParams({ category });
   return `${ROUTES.PRODUCTS}?${params.toString()}`;
@@ -54,7 +46,6 @@ function buildProductsCategoryHref(category: ProductCategory): string {
 
 function Home(): JSX.Element {
   const [featuredState, setFeaturedState] = useState<FeaturedState>({
-    allItems: [],
     items: [],
     loading: true,
     error: null,
@@ -70,7 +61,6 @@ function Home(): JSX.Element {
         if (!isMounted) return;
 
         setFeaturedState({
-          allItems: response.data,
           items: response.data
             .filter((product) => product.featured)
             .slice(0, 4),
@@ -81,7 +71,6 @@ function Home(): JSX.Element {
         if (!isMounted) return;
 
         setFeaturedState({
-          allItems: [],
           items: [],
           loading: false,
           error:
@@ -102,13 +91,6 @@ function Home(): JSX.Element {
   const featuredFallback = useMemo(
     () => Array.from({ length: 4 }, (_, index) => index),
     [],
-  );
-  const heroProduct = useMemo(
-    () =>
-      featuredState.allItems.find(
-        (product) => product.id === heroHotspot.productId,
-      ),
-    [featuredState.allItems],
   );
 
   return (
@@ -156,38 +138,6 @@ function Home(): JSX.Element {
               src={heroImage}
               width={4912}
             />
-
-            {heroProduct ? (
-              <div
-                className="absolute z-10"
-                style={{ left: heroHotspot.x, top: heroHotspot.y }}
-              >
-                <Link
-                  className="group relative block -translate-x-1/2 -translate-y-1/2 focus-visible:outline-none"
-                  to={ROUTES.PRODUCT_DETAIL.replace(":id", heroProduct.id)}
-                >
-                  <span className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/60 bg-white/20 animate-ping" />
-                  <span className="relative flex h-5 w-5 items-center justify-center rounded-full border border-white/80 bg-white shadow-[0_12px_32px_rgba(36,25,21,0.28)]">
-                    <span className="h-2 w-2 rounded-full bg-[#241915]" />
-                  </span>
-
-                  <div className="pointer-events-none absolute left-[-8.5rem] top-8 w-56 rounded-[1.25rem] bg-white/96 p-3 text-left text-[#241915] opacity-0 shadow-[0_24px_60px_rgba(36,25,21,0.24)] transition-all duration-200 ease-in group-hover:pointer-events-auto group-hover:translate-y-1 group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:translate-y-1 group-focus-visible:opacity-100">
-                    <p className="font-['Quicksand',sans-serif] text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#8c6659]">
-                      {heroProduct.category}
-                    </p>
-                    <p className="mt-1 font-['Playfair_Display',serif] text-base leading-5 text-[#5a4034]">
-                      {heroProduct.name}
-                    </p>
-                    <p className="mt-2 font-['Quicksand',sans-serif] text-[0.76rem] leading-5 text-[#5b463d]">
-                      {heroProduct.description}
-                    </p>
-                    <p className="mt-3 font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.12em] text-[#5a4034]">
-                      {formatCurrency(heroProduct.price)}
-                    </p>
-                  </div>
-                </Link>
-              </div>
-            ) : null}
           </div>
         </div>
       </section>
