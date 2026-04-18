@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,8 +20,109 @@ import { formatCurrency } from '@/components/utils/helpers';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import type { CreateOrderActionData } from '@/routes/createOrder.action';
 
+type CreateOrderFormState = {
+  customer: string;
+  phone: string;
+  address: string;
+  priority: boolean;
+  errors: {
+    customer?: string;
+    phone?: string;
+    address?: string;
+  };
+};
+
+type CreateOrderFormAction =
+  | {
+      type: 'fieldChanged';
+      field: 'customer' | 'phone' | 'address';
+      value: string;
+    }
+  | {
+      type: 'priorityChanged';
+      value: boolean;
+    }
+  | {
+      type: 'setErrors';
+      errors: CreateOrderFormState['errors'];
+    }
+  | {
+      type: 'setFieldError';
+      field: 'customer' | 'phone' | 'address';
+      error?: string;
+    }
+  | {
+      type: 'syncDefaults';
+      payload: Partial<Pick<CreateOrderFormState, 'customer' | 'address'>>;
+    };
+
+function validateForm(
+  state: Pick<CreateOrderFormState, 'customer' | 'phone' | 'address'>
+): CreateOrderFormState['errors'] {
+  return {
+    customer: state.customer.trim() ? undefined : 'Please enter your first name.',
+    phone: state.phone.trim() ? undefined : 'Please enter your phone number.',
+    address: state.address.trim() ? undefined : 'Please enter your address.',
+  };
+}
+
+function createInitialState(
+  customer: string,
+  address: string
+): CreateOrderFormState {
+  return {
+    customer,
+    phone: '',
+    address,
+    priority: false,
+    errors: {},
+  };
+}
+
+function createOrderFormReducer(
+  state: CreateOrderFormState,
+  action: CreateOrderFormAction
+): CreateOrderFormState {
+  switch (action.type) {
+    case 'fieldChanged':
+      return {
+        ...state,
+        [action.field]: action.value,
+        errors: {
+          ...state.errors,
+          [action.field]: undefined,
+        },
+      };
+    case 'priorityChanged':
+      return {
+        ...state,
+        priority: action.value,
+      };
+    case 'setErrors':
+      return {
+        ...state,
+        errors: action.errors,
+      };
+    case 'setFieldError':
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          [action.field]: action.error,
+        },
+      };
+    case 'syncDefaults':
+      return {
+        ...state,
+        customer: state.customer || action.payload.customer || '',
+        address: state.address || action.payload.address || '',
+      };
+    default:
+      return state;
+  }
+}
+
 function CreateOrder(): JSX.Element {
-  const [withPriority, setWithPriority] = useState<boolean>(false);
   const username = useAppSelector(selectUsername);
   const addressStatus = useAppSelector(selectUserStatus);
   const position = useAppSelector(selectUserPosition);
@@ -33,12 +134,36 @@ function CreateOrder(): JSX.Element {
 
   const formErrors = useActionData() as CreateOrderActionData | undefined;
   const dispatch = useAppDispatch();
+  const [formState, dispatchForm] = useReducer(
+    createOrderFormReducer,
+    createInitialState(username, address)
+  );
 
   const cart = useAppSelector(getCart);
   const isCartEmpty = useAppSelector(getIsCartEmpty);
   const totalCartPrice = useAppSelector(getTotalCartPrice);
-  const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
+  const priorityPrice = formState.priority ? totalCartPrice * 0.2 : 0;
   const totalPrice = totalCartPrice + priorityPrice;
+
+  useEffect(() => {
+    dispatchForm({
+      type: 'syncDefaults',
+      payload: {
+        customer: username,
+        address,
+      },
+    });
+  }, [address, username]);
+
+  useEffect(() => {
+    if (!formErrors?.phone) return;
+
+    dispatchForm({
+      type: 'setFieldError',
+      field: 'phone',
+      error: formErrors.phone,
+    });
+  }, [formErrors?.phone]);
 
   if (isCartEmpty) return <EmptyCart />;
 
@@ -59,6 +184,15 @@ function CreateOrder(): JSX.Element {
 
       <Form
         method="POST"
+        onSubmit={(event) => {
+          const nextErrors = validateForm(formState);
+          const hasErrors = Object.values(nextErrors).some(Boolean);
+
+          if (!hasErrors) return;
+
+          event.preventDefault();
+          dispatchForm({ type: 'setErrors', errors: nextErrors });
+        }}
       >
         {/* First Name */}
         <label>
@@ -67,10 +201,18 @@ function CreateOrder(): JSX.Element {
         <input
           type="text"
           name="customer"
-          defaultValue={username}
+          value={formState.customer}
+          onChange={(event) =>
+            dispatchForm({
+              type: 'fieldChanged',
+              field: 'customer',
+              value: event.target.value,
+            })
+          }
           required
           placeholder="Enter your first name"
         />
+        {formState.errors.customer ? <p>{formState.errors.customer}</p> : null}
 
         {/* Phone Number */}
         <label>
@@ -79,9 +221,18 @@ function CreateOrder(): JSX.Element {
         <input
           type="tel"
           name="phone"
+          value={formState.phone}
+          onChange={(event) =>
+            dispatchForm({
+              type: 'fieldChanged',
+              field: 'phone',
+              value: event.target.value,
+            })
+          }
           required
           placeholder="Enter your phone number"
         />
+        {formState.errors.phone ? <p>{formState.errors.phone}</p> : null}
 
         {/* Address */}
         <label>
@@ -92,7 +243,14 @@ function CreateOrder(): JSX.Element {
             type="text"
             name="address"
             disabled={isLoadingAddress}
-            defaultValue={address}
+            value={formState.address}
+            onChange={(event) =>
+              dispatchForm({
+                type: 'fieldChanged',
+                field: 'address',
+                value: event.target.value,
+              })
+            }
             required
             placeholder="Enter your address"
           />
@@ -120,8 +278,13 @@ function CreateOrder(): JSX.Element {
               name="priority"
               id="priority"
               value="true"
-              checked={withPriority}
-              onChange={(e) => setWithPriority(e.target.checked)}
+              checked={formState.priority}
+              onChange={(event) =>
+                dispatchForm({
+                  type: 'priorityChanged',
+                  value: event.target.checked,
+                })
+              }
             />
 
             <label
@@ -154,9 +317,7 @@ function CreateOrder(): JSX.Element {
           </div>
         </div>
       </Form>
-      {formErrors?.phone ? (
-        <p>{formErrors.phone}</p>
-      ) : null}
+      {formState.errors.address ? <p>{formState.errors.address}</p> : null}
     </div>
   );
 }
