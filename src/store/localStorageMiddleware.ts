@@ -3,7 +3,7 @@ import type { Middleware } from '@reduxjs/toolkit';
 import type { CartItem, LoadingStatus } from '@/types';
 import { rollbackCart } from '@/components/features/cart/cartSlice';
 
-const CART_STORAGE_KEY = 'elan-beauty-cart';
+const CART_STORAGE_KEY = 'skin-and-silk-cart';
 
 export type CartPreloadedState = {
   items: CartItem[];

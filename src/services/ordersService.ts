@@ -1,6 +1,6 @@
 import type { CreateOrderPayload, Order } from '@/types';
 
-export const ORDERS_STORAGE_KEY = 'elan-beauty-orders';
+export const ORDERS_STORAGE_KEY = 'skin-and-silk-orders';
 
 function canUseLocalStorage(): boolean {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';

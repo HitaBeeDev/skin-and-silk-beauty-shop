@@ -5,6 +5,7 @@ type BadgeTone = 'neutral' | 'accent' | 'success' | 'warning' | 'danger';
 export type BadgeProps = {
   tone?: BadgeTone;
   children: ReactNode;
+  className?: string;
 };
 
 const toneStyles: Record<BadgeTone, string> = {
@@ -18,9 +19,11 @@ const toneStyles: Record<BadgeTone, string> = {
 /**
  * Compact status badge for cart counts, "New" product labels, and order state.
  */
-function Badge({ tone = 'neutral', children }: BadgeProps): JSX.Element {
+function Badge({ tone = 'neutral', children, className = '' }: BadgeProps): JSX.Element {
   return (
-    <span className={`inline-flex items-center justify-center rounded-full px-2 py-0.5 text-xs font-semibold ${toneStyles[tone]}`}>
+    <span
+      className={`inline-flex items-center justify-center rounded-full px-2 py-0.5 text-xs font-semibold ${toneStyles[tone]} ${className}`.trim()}
+    >
       {children}
     </span>
   );
