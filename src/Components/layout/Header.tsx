@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Menu, ShoppingCart, X } from "lucide-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { ROUTES } from "@/constants/routes";
@@ -99,7 +97,7 @@ function Header(): JSX.Element {
   }
 
   return (
-    <header className="sticky top-0 z-[60] px-3 pt-3 sm:px-4">
+    <header className="sticky top-0 z-[60] px-3 sm:px-4">
       <div className="rounded-[1.75rem] bg-white/90 backdrop-blur-xl">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 sm:px-6 md:grid-cols-[1fr_auto_1fr]">
           <div className="justify-self-start">
@@ -147,10 +145,12 @@ function Header(): JSX.Element {
               onSubmit={handleSearchSubmit}
             >
               <label className="flex h-9 w-full min-w-0 items-center gap-2 rounded-full bg-[#fff0f0] px-3 lg:w-[12rem]">
-                <FontAwesomeIcon
-                  className="text-[0.8rem] text-[#ae0606]"
-                  icon={faMagnifyingGlass}
+                <Search
+                  className="shrink-0 text-[#ae0606]"
+                  size={14}
+                  strokeWidth={2}
                 />
+
                 <input
                   className="w-full bg-transparent text-[0.82rem] text-[#550000] outline-none placeholder:text-[0.72rem] placeholder:text-[#ae0606]"
                   onChange={(event) => setSearchValue(event.target.value)}
@@ -185,7 +185,9 @@ function Header(): JSX.Element {
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               className="flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-full bg-[#fff0f0] text-[#550000] transition-colors duration-300 hover:bg-[#ffe4e4]"
-              onClick={() => setIsMobileMenuOpen((currentValue) => !currentValue)}
+              onClick={() =>
+                setIsMobileMenuOpen((currentValue) => !currentValue)
+              }
               ref={mobileMenuButtonRef}
               type="button"
             >
@@ -209,9 +211,10 @@ function Header(): JSX.Element {
           >
             <form onSubmit={handleSearchSubmit}>
               <label className="flex h-11 w-full items-center gap-2 rounded-full bg-[#fff0f0] px-4">
-                <FontAwesomeIcon
-                  className="text-[0.8rem] text-[#ae0606]"
-                  icon={faMagnifyingGlass}
+                <Search
+                  className="shrink-0 text-[#ae0606]"
+                  size={14}
+                  strokeWidth={2}
                 />
                 <input
                   className="w-full bg-transparent text-[0.9rem] text-[#550000] outline-none placeholder:text-[0.78rem] placeholder:text-[#ae0606]"
