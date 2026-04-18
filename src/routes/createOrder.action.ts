@@ -10,6 +10,7 @@ import store from '@store';
 
 export type CreateOrderActionData = {
   phone?: string;
+  formError?: string;
 };
 
 const isValidPhone = (str: string): boolean =>
@@ -43,10 +44,16 @@ export async function action({
 
   if (Object.keys(errors).length > 0) return errors;
 
-  const newOrder = await store.dispatch(submitOrder(order)).unwrap();
-  store.dispatch(clearCart());
+  try {
+    const newOrder = await store.dispatch(submitOrder(order)).unwrap();
+    store.dispatch(clearCart());
 
-  return redirect(
-    `${ROUTES.ORDER_CONFIRMATION.replace(':orderId', String(newOrder.id))}?toast=placed`
-  );
+    return redirect(
+      `${ROUTES.ORDER_CONFIRMATION.replace(':orderId', String(newOrder.id))}?toast=placed`
+    );
+  } catch {
+    return {
+      formError: 'We could not place your order right now. Please try again.',
+    };
+  }
 }
