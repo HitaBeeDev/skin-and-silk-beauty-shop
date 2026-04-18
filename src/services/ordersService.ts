@@ -32,6 +32,21 @@ export function writeOrders(orders: Order[]): void {
   window.localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
 }
 
+function calculateOrderSubtotal(order: Pick<Order, 'cart'>): number {
+  return order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+}
+
+function buildOrderPricing(
+  order: Pick<Order, 'cart' | 'priority'>
+): Pick<Order, 'orderPrice' | 'priorityPrice'> {
+  const orderPrice = calculateOrderSubtotal(order);
+
+  return {
+    orderPrice,
+    priorityPrice: order.priority ? orderPrice * 0.2 : 0,
+  };
+}
+
 function createOrderId(): string {
   return `ord_${Date.now()}`;
 }
@@ -53,6 +68,7 @@ export async function createOrder(data: CreateOrderPayload): Promise<Order> {
   const nextOrder = {
     ...data,
     id: createOrderId(),
+    ...buildOrderPricing(data),
   };
 
   orders.push(nextOrder);
@@ -78,9 +94,13 @@ export async function updateOrder(
     ...patch,
     id,
   };
+  const pricedOrder = {
+    ...updatedOrder,
+    ...buildOrderPricing(updatedOrder),
+  };
 
-  orders[orderIndex] = updatedOrder;
+  orders[orderIndex] = pricedOrder;
   writeOrders(orders);
 
-  return Promise.resolve(updatedOrder);
+  return Promise.resolve(pricedOrder);
 }

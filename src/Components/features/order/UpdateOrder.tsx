@@ -1,27 +1,19 @@
-import type { ActionFunctionArgs } from 'react-router-dom';
-import { useFetcher } from 'react-router-dom';
-
-import { upgradeOrderPriority } from '@/components/features/order/ordersSlice';
 import Button from '@/components/ui/Button';
-import store from '@store';
 
-function UpdateOrder(): JSX.Element {
-  const fetcher = useFetcher();
+type UpdateOrderProps = {
+  onUpgrade: () => void;
+  disabled?: boolean;
+};
 
+function UpdateOrder({
+  onUpgrade,
+  disabled = false,
+}: UpdateOrderProps): JSX.Element {
   return (
-    <fetcher.Form method="PATCH">
-      <Button variant="primary">Make priority</Button>
-    </fetcher.Form>
+    <Button disabled={disabled} onClick={onUpgrade} variant="primary">
+      Make priority
+    </Button>
   );
 }
 
 export default UpdateOrder;
-
-export async function action({
-  params,
-}: ActionFunctionArgs): Promise<null> {
-  if (params.orderId) {
-    await store.dispatch(upgradeOrderPriority(params.orderId)).unwrap();
-  }
-  return null;
-}

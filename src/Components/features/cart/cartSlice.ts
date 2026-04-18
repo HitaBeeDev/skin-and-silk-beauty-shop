@@ -19,6 +19,7 @@ const cartSlice = createSlice({
   initialState: initialCartState,
   reducers: {
     addItem(state, action: PayloadAction<CartItem>) {
+      state.error = null;
       const existingItem = state.items.find(
         (item) => item.productId === action.payload.productId
       );
@@ -33,12 +34,14 @@ const cartSlice = createSlice({
       state.status = 'succeeded';
     },
     deleteItem(state, action: PayloadAction<CartItem['productId']>) {
+      state.error = null;
       state.items = state.items.filter(
         (item) => item.productId !== action.payload
       );
       state.status = 'succeeded';
     },
     increaseItemQuantity(state, action: PayloadAction<CartItem['productId']>) {
+      state.error = null;
       const item = state.items.find((item) => item.productId === action.payload);
       if (!item) return;
       item.quantity++;
@@ -46,6 +49,7 @@ const cartSlice = createSlice({
       state.status = 'succeeded';
     },
     decreaseItemQuantity(state, action: PayloadAction<CartItem['productId']>) {
+      state.error = null;
       const item = state.items.find((item) => item.productId === action.payload);
       if (!item) return;
       item.quantity--;
@@ -54,8 +58,17 @@ const cartSlice = createSlice({
       state.status = 'succeeded';
     },
     clearCart(state) {
+      state.error = null;
       state.items = [];
       state.status = 'succeeded';
+    },
+    rollbackCart(
+      state,
+      action: PayloadAction<{ items: CartItem[]; error: string }>
+    ) {
+      state.items = action.payload.items;
+      state.status = 'failed';
+      state.error = action.payload.error;
     },
   },
 });
@@ -66,6 +79,7 @@ export const {
   increaseItemQuantity,
   decreaseItemQuantity,
   clearCart,
+  rollbackCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

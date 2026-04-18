@@ -2,6 +2,7 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
+  type PayloadAction,
 } from '@reduxjs/toolkit';
 
 import type { CreateOrderPayload, LoadingStatus, Order } from '@/types';
@@ -62,7 +63,36 @@ export const upgradeOrderPriority = createAsyncThunk<
 const ordersSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {},
+  reducers: {
+    upgradeOrderPriorityOptimistic(state, action: PayloadAction<string>) {
+      const order = state.orders.find((item) => item.id === action.payload);
+
+      if (!order) return;
+
+      const orderPrice =
+        order.orderPrice ?? order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+
+      order.priority = true;
+      order.orderPrice = orderPrice;
+      order.priorityPrice = orderPrice * 0.2;
+      state.error = null;
+    },
+    rollbackOrderPriorityUpgrade(state, action: PayloadAction<Order>) {
+      const existingOrderIndex = state.orders.findIndex(
+        (order) => order.id === action.payload.id
+      );
+
+      if (existingOrderIndex >= 0) {
+        state.orders[existingOrderIndex] = action.payload;
+      } else {
+        state.orders.push(action.payload);
+      }
+
+      state.error = action.payload.id
+        ? `Failed to update order ${action.payload.id}.`
+        : 'Failed to update order.';
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(submitOrder.pending, (state) => {
@@ -101,7 +131,6 @@ const ordersSlice = createSlice({
         state.error = action.payload ?? 'Failed to load order.';
       })
       .addCase(upgradeOrderPriority.pending, (state) => {
-        state.status = 'loading';
         state.error = null;
       })
       .addCase(upgradeOrderPriority.fulfilled, (state, action) => {
@@ -119,10 +148,14 @@ const ordersSlice = createSlice({
         state.status = 'succeeded';
       })
       .addCase(upgradeOrderPriority.rejected, (state, action) => {
-        state.status = 'failed';
         state.error = action.payload ?? 'Failed to update order.';
       }),
 });
+
+export const {
+  upgradeOrderPriorityOptimistic,
+  rollbackOrderPriorityUpgrade,
+} = ordersSlice.actions;
 
 export default ordersSlice.reducer;
 
@@ -147,3 +180,9 @@ export const selectCurrentOrderId = createSelector(
   [selectOrdersState],
   (ordersState) => ordersState.currentOrderId
 );
+
+export const selectOrderById =
+  (orderId: string) =>
+    createSelector([selectOrders], (orders) =>
+      orders.find((order) => order.id === orderId)
+    );

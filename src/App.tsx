@@ -5,7 +5,6 @@ import { ROUTES } from '@/constants/routes';
 
 import Error from '@/components/ui/Error';
 import RouteSkeleton from '@/components/ui/RouteSkeleton';
-import { action as updateOrderAction } from '@/components/features/order/UpdateOrder';
 import AppLayout from '@/components/layout/AppLayout';
 import Home from '@/components/ui/Home';
 import { action as createOrderAction } from '@/routes/createOrder.action';
@@ -54,7 +53,6 @@ const router = createBrowserRouter([
         element: withRouteSuspense(<Order />),
         loader: orderLoader,
         errorElement: <Error />,
-        action: updateOrderAction,
       },
     ],
   },

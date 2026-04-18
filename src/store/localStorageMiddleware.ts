@@ -1,6 +1,7 @@
 import type { Middleware } from '@reduxjs/toolkit';
 
 import type { CartItem, LoadingStatus } from '@/types';
+import { rollbackCart } from '@/components/features/cart/cartSlice';
 
 const CART_STORAGE_KEY = 'elan-beauty-cart';
 
@@ -38,11 +39,18 @@ export function loadCartState(): CartPreloadedState {
 }
 
 function shouldPersistCart(actionType: string): boolean {
-  return actionType.startsWith('cart/');
+  return [
+    'cart/addItem',
+    'cart/deleteItem',
+    'cart/increaseItemQuantity',
+    'cart/decreaseItemQuantity',
+    'cart/clearCart',
+  ].includes(actionType);
 }
 
 export const localStorageMiddleware: Middleware =
   (storeApi) => (next) => (action) => {
+    const previousItems = (storeApi.getState() as { cart: CartPreloadedState }).cart.items;
     const result = next(action);
     const actionType = typeof action === 'object' && action !== null && 'type' in action
       ? String(action.type)
@@ -53,10 +61,19 @@ export const localStorageMiddleware: Middleware =
       typeof window !== 'undefined' &&
       typeof window.localStorage !== 'undefined'
     ) {
-      window.localStorage.setItem(
-        CART_STORAGE_KEY,
-        JSON.stringify((storeApi.getState() as { cart: CartPreloadedState }).cart.items)
-      );
+      try {
+        window.localStorage.setItem(
+          CART_STORAGE_KEY,
+          JSON.stringify((storeApi.getState() as { cart: CartPreloadedState }).cart.items)
+        );
+      } catch {
+        storeApi.dispatch(
+          rollbackCart({
+            items: previousItems,
+            error: 'Failed to save your cart. Your last change was reverted.',
+          })
+        );
+      }
     }
 
     return result;
