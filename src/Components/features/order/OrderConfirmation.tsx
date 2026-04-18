@@ -1,10 +1,12 @@
-import { useLoaderData } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
 import type { Order } from '@/types';
 
 import Button from '@/components/ui/Button';
+import Toast from '@/components/ui/Toast';
 import {
   calcMinutesLeft,
   formatCurrency,
@@ -13,12 +15,26 @@ import {
 
 function OrderConfirmation(): JSX.Element {
   const order = useLoaderData() as Order;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isSuccessToastOpen, setIsSuccessToastOpen] = useState(
+    searchParams.get('toast') === 'placed'
+  );
   const subtotal =
     order.orderPrice ?? order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
   const priorityPrice =
     order.priorityPrice ?? (order.priority ? subtotal * 0.2 : 0);
   const total = subtotal + priorityPrice;
   const deliveryIn = Math.max(calcMinutesLeft(order.estimatedDelivery), 0);
+
+  useEffect(() => {
+    if (searchParams.get('toast') !== 'placed') {
+      return;
+    }
+
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete('toast');
+    setSearchParams(nextParams, { replace: true });
+  }, [searchParams, setSearchParams]);
 
   return (
     <section>
@@ -54,6 +70,15 @@ function OrderConfirmation(): JSX.Element {
           Continue shopping
         </Button>
       </div>
+
+      <Toast
+        duration={2000}
+        message="Order placed successfully."
+        onClose={() => setIsSuccessToastOpen(false)}
+        open={isSuccessToastOpen}
+        position="top-right"
+        tone="success"
+      />
     </section>
   );
 }

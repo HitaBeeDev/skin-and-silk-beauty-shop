@@ -47,6 +47,6 @@ export async function action({
   store.dispatch(clearCart());
 
   return redirect(
-    ROUTES.ORDER_CONFIRMATION.replace(':orderId', String(newOrder.id))
+    `${ROUTES.ORDER_CONFIRMATION.replace(':orderId', String(newOrder.id))}?toast=placed`
   );
 }

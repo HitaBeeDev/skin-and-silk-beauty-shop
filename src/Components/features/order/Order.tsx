@@ -39,7 +39,17 @@ function Order(): JSX.Element {
   const storedOrder = useAppSelector(selectOrderById(loadedOrder.id));
   const order = storedOrder ?? loadedOrder;
   const [isUpdatingPriority, setIsUpdatingPriority] = useState(false);
-  const [isToastOpen, setIsToastOpen] = useState(false);
+  const [toastState, setToastState] = useState<{
+    id: number;
+    open: boolean;
+    tone: 'success' | 'error';
+    message: string;
+  }>({
+    id: 0,
+    open: false,
+    tone: 'success',
+    message: '',
+  });
 
   useEffect(
     function () {
@@ -76,14 +86,25 @@ function Order(): JSX.Element {
     };
 
     setIsUpdatingPriority(true);
-    setIsToastOpen(false);
+    setToastState((current) => ({ ...current, open: false }));
     dispatch(upgradeOrderPriorityOptimistic(id));
 
     try {
       await dispatch(upgradeOrderPriority(id)).unwrap();
+      setToastState((current) => ({
+        id: current.id + 1,
+        open: true,
+        tone: 'success',
+        message: 'Priority upgraded successfully.',
+      }));
     } catch {
       dispatch(rollbackOrderPriorityUpgrade(previousOrderSnapshot));
-      setIsToastOpen(true);
+      setToastState((current) => ({
+        id: current.id + 1,
+        open: true,
+        tone: 'error',
+        message: 'Could not upgrade this order to priority. The change was reverted.',
+      }));
     } finally {
       setIsUpdatingPriority(false);
     }
@@ -170,11 +191,15 @@ function Order(): JSX.Element {
         )}
 
         <Toast
+          key={toastState.id}
           duration={4000}
-          message="Could not upgrade this order to priority. The change was reverted."
-          onClose={() => setIsToastOpen(false)}
-          open={isToastOpen}
-          tone="error"
+          message={toastState.message}
+          onClose={() =>
+            setToastState((current) => ({ ...current, open: false }))
+          }
+          open={toastState.open}
+          position="top-right"
+          tone={toastState.tone}
         />
       </div>
     </ErrorBoundary>

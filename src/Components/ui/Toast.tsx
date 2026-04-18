@@ -1,6 +1,7 @@
 import { type CSSProperties, type ReactNode, useEffect } from 'react';
 
 type ToastTone = 'success' | 'error' | 'info';
+type ToastPosition = 'top-right' | 'bottom-right';
 
 export type ToastProps = {
   tone?: ToastTone;
@@ -8,6 +9,7 @@ export type ToastProps = {
   open: boolean;
   duration?: number;
   onClose: () => void;
+  position?: ToastPosition;
 };
 
 const toneStyles: Record<ToastTone, CSSProperties> = {
@@ -26,6 +28,7 @@ function Toast({
   open,
   duration = 3000,
   onClose,
+  position = 'top-right',
 }: ToastProps): JSX.Element | null {
   useEffect(() => {
     if (!open) return undefined;
@@ -43,12 +46,14 @@ function Toast({
         ...toneStyles[tone],
         position: 'fixed',
         right: '1rem',
-        bottom: '1rem',
+        top: position === 'top-right' ? '1rem' : undefined,
+        bottom: position === 'bottom-right' ? '1rem' : undefined,
         padding: '0.75rem 1rem',
         borderRadius: '0.5rem',
         display: 'flex',
         gap: '0.75rem',
         alignItems: 'center',
+        zIndex: 1000,
       }}
     >
       <span>{message}</span>

@@ -50,6 +50,7 @@ function DeleteItem({ product }: DeleteItemProps): JSX.Element {
         )}
         onClose={() => setIsUndoToastOpen(false)}
         open={isUndoToastOpen}
+        position="top-right"
         tone="info"
       />
     </>

@@ -5,6 +5,7 @@ import { ROUTES } from '@/constants/routes';
 import { CATEGORY_SLUG_BY_LABEL } from '@/constants/categories';
 import { addItem } from '@/components/features/cart/cartSlice';
 import Breadcrumb from '@/components/ui/Breadcrumb';
+import Toast from '@/components/ui/Toast';
 import { formatCurrency } from '@/components/utils/helpers';
 import type { ProductDetailLoaderData } from '@/routes/productDetail.loader';
 import { useAppDispatch } from '@store/hooks';
@@ -13,6 +14,8 @@ function ProductDetail(): JSX.Element {
   const { product, relatedProducts } = useLoaderData() as ProductDetailLoaderData;
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(1);
+  const [isAddedToastOpen, setIsAddedToastOpen] = useState(false);
+  const [toastKey, setToastKey] = useState(0);
 
   const productPrice = product.unitPrice ?? product.price;
   const isSoldOut = product.soldOut ?? !product.inStock;
@@ -28,6 +31,8 @@ function ProductDetail(): JSX.Element {
         mainImage: product.mainImage ?? product.images.main,
       })
     );
+    setToastKey((current) => current + 1);
+    setIsAddedToastOpen(true);
   }
 
   return (
@@ -116,6 +121,16 @@ function ProductDetail(): JSX.Element {
           })}
         </div>
       </section>
+
+      <Toast
+        key={toastKey}
+        duration={2000}
+        message={`${quantity} ${product.name} added to cart.`}
+        onClose={() => setIsAddedToastOpen(false)}
+        open={isAddedToastOpen}
+        position="top-right"
+        tone="success"
+      />
     </section>
   );
 }
