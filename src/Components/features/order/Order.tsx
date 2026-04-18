@@ -22,10 +22,12 @@ import {
 } from '@/components/utils/helpers';
 import OrderItem from '@/components/features/order/OrderItem';
 import UpdateOrder from '@/components/features/order/UpdateOrder';
+import Breadcrumb from '@/components/ui/Breadcrumb';
 import Error from '@/components/ui/Error';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import OrderDetailSkeleton from '@/components/ui/OrderDetailSkeleton';
 import Toast from '@/components/ui/Toast';
+import { ROUTES } from '@/constants/routes';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 function Order(): JSX.Element {
@@ -97,6 +99,14 @@ function Order(): JSX.Element {
       resetKey={location.pathname}
     >
       <div>
+        <Breadcrumb
+          items={[
+            { label: 'Home', to: ROUTES.HOME },
+            { label: 'Orders' },
+            { label: `#${id}` },
+          ]}
+        />
+
         <div>
           <h2>Order #{id} status</h2>
 

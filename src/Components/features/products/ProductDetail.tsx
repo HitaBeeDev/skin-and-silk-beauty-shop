@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
+import { CATEGORY_SLUG_BY_LABEL } from '@/constants/categories';
 import { addItem } from '@/components/features/cart/cartSlice';
+import Breadcrumb from '@/components/ui/Breadcrumb';
 import { formatCurrency } from '@/components/utils/helpers';
 import type { ProductDetailLoaderData } from '@/routes/productDetail.loader';
 import { useAppDispatch } from '@store/hooks';
@@ -30,15 +32,17 @@ function ProductDetail(): JSX.Element {
 
   return (
     <section>
-      <nav aria-label="Breadcrumb">
-        <Link to={ROUTES.HOME}>Home</Link>
-        {' > '}
-        <Link to={ROUTES.PRODUCTS}>Products</Link>
-        {' > '}
-        <span>{product.category}</span>
-        {' > '}
-        <span>{product.name}</span>
-      </nav>
+      <Breadcrumb
+        items={[
+          { label: 'Home', to: ROUTES.HOME },
+          { label: 'Products', to: ROUTES.PRODUCTS },
+          {
+            label: product.category,
+            to: `${ROUTES.PRODUCTS}?category=${CATEGORY_SLUG_BY_LABEL[product.category]}`,
+          },
+          { label: product.name },
+        ]}
+      />
 
       <div>
         <div>

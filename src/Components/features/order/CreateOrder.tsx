@@ -3,6 +3,7 @@ import { Form, useActionData, useNavigation } from 'react-router-dom';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { ROUTES } from '@/constants/routes';
 import EmptyCart from '@/components/features/cart/EmptyCart';
 import {
   getCart,
@@ -18,6 +19,7 @@ import {
   selectUsername,
 } from '@/components/features/user/userSlice';
 import Spinner from '@/components/ui/Spinner';
+import LinkButton from '@/components/ui/LinkButton';
 import { formatCurrency } from '@/components/utils/helpers';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import type { CreateOrderActionData } from '@/routes/createOrder.action';
@@ -230,6 +232,8 @@ function CreateOrder(): JSX.Element {
 
   return (
     <div>
+      <LinkButton to={ROUTES.CART}>&larr; Back to cart</LinkButton>
+
       <p>
         Ready to place your order? Let’s make it happen!
       </p>

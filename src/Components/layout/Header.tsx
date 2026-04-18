@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { type CSSProperties } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 import { ROUTES } from '@/constants/routes';
 
@@ -6,6 +7,16 @@ import { getTotalCartQuantity } from '@/components/features/cart/cartSelectors';
 import SearchOrder from '@/components/features/order/SearchOrder';
 import shoppingBag from '@/assets/shoppingBag.svg';
 import { useAppSelector } from '@store/hooks';
+
+const activeNavStyle: CSSProperties = {
+  fontWeight: 700,
+  textDecoration: 'underline',
+};
+
+const inactiveNavStyle: CSSProperties = {
+  fontWeight: 500,
+  textDecoration: 'none',
+};
 
 function Header(): JSX.Element {
   const totalCartQuantity = useAppSelector(getTotalCartQuantity);
@@ -19,38 +30,43 @@ function Header(): JSX.Element {
           Skin & Silk
         </Link>
 
-        <p
+        <NavLink
+          style={({ isActive }) => (isActive ? activeNavStyle : inactiveNavStyle)}
+          to={ROUTES.HOME}
         >
-          Our Story
-        </p>
+          Home
+        </NavLink>
 
-        <p
+        <NavLink
+          style={({ isActive }) => (isActive ? activeNavStyle : inactiveNavStyle)}
+          to={ROUTES.PRODUCTS}
         >
-          Our Products
-        </p>
-
-        <p
-        >
-          Customer Reviews
-        </p>
+          Products
+        </NavLink>
       </div>
 
       <div>
         {totalCartQuantity > 0 ? (
-          <Link to={ROUTES.CART}>
+          <NavLink
+            style={({ isActive }) => (isActive ? activeNavStyle : inactiveNavStyle)}
+            to={ROUTES.CART}
+          >
             <img src={shoppingBag} alt="shopping bag" />
             <p
             >
               {totalCartQuantity}
             </p>
-          </Link>
+          </NavLink>
         ) : (
-          <Link to={ROUTES.PRODUCTS}>
+          <NavLink
+            style={({ isActive }) => (isActive ? activeNavStyle : inactiveNavStyle)}
+            to={ROUTES.PRODUCTS}
+          >
             <button
             >
               Start Shopping
             </button>
-          </Link>
+          </NavLink>
         )}
       </div>
 
