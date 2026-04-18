@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import Skeleton from '@/components/ui/Skeleton';
+import Skeleton from "@/components/ui/Skeleton";
 
 const meta = {
-  title: 'UI/Skeleton',
+  title: "UI/Skeleton",
   component: Skeleton,
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 } satisfies Meta<typeof Skeleton>;
 
@@ -23,7 +23,7 @@ export const ProductCardShape: Story = {
         <Skeleton className="h-4 w-[85%] rounded-full" />
         <div className="mt-2 flex items-center justify-between">
           <Skeleton className="h-4 w-20 rounded-full" />
-          <Skeleton circle className="h-11 w-11" />
+          <Skeleton isCircle className="h-11 w-11" />
         </div>
       </div>
     </div>
@@ -31,5 +31,5 @@ export const ProductCardShape: Story = {
 };
 
 export const Circle: Story = {
-  render: () => <Skeleton circle className="h-16 w-16" />,
+  render: () => <Skeleton isCircle className="h-16 w-16" />,
 };

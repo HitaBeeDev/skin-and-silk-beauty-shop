@@ -1,5 +1,5 @@
-import { useRouteError } from 'react-router-dom';
-import LinkButton from '@/components/ui/LinkButton';
+import { useRouteError } from "react-router-dom";
+import LinkButton from "@/components/ui/LinkButton";
 
 type ErrorProps = {
   message?: string;
@@ -7,25 +7,25 @@ type ErrorProps = {
 
 function hasStringProp(
   value: unknown,
-  key: 'data' | 'message'
+  key: "data" | "message",
 ): value is Record<typeof key, string> {
   return (
-    typeof value === 'object' &&
+    typeof value === "object" &&
     value !== null &&
     key in value &&
-    typeof (value as Record<string, unknown>)[key] === 'string'
+    typeof (value as Record<string, unknown>)[key] === "string"
   );
 }
 
 function Error({ message: explicitMessage }: ErrorProps): JSX.Element {
   const error = useRouteError();
-  const message = explicitMessage ?? (
-    hasStringProp(error, 'data')
+  const message =
+    explicitMessage ??
+    (hasStringProp(error, "data")
       ? error.data
-      : hasStringProp(error, 'message')
+      : hasStringProp(error, "message")
         ? error.message
-        : 'Something went wrong.'
-  );
+        : "Something went wrong.");
 
   return (
     <div role="alert">

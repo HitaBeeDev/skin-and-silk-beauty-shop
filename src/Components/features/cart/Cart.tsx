@@ -1,28 +1,28 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from "@/constants/routes";
 
-import type { CartItem as CartItemModel } from '@/types';
+import type { CartItem as CartItemModel } from "@/types";
 
-import { useAppDispatch, useAppSelector } from '@store/hooks';
-import CartItem from '@/components/features/cart/CartItem';
-import EmptyCart from '@/components/features/cart/EmptyCart';
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import CartItem from "@/components/features/cart/CartItem";
+import EmptyCart from "@/components/features/cart/EmptyCart";
 import {
   clearCart,
   deleteItem,
   restoreDeletedItem,
-} from '@/components/features/cart/cartSlice';
+} from "@/components/features/cart/cartSlice";
 import {
   getCart,
   getIsCartEmpty,
   getTotalCartPrice,
-} from '@/components/features/cart/cartSelectors';
-import ErrorBoundary from '@/components/ui/ErrorBoundary';
-import Button from '@/components/ui/Button';
-import Error from '@/components/ui/Error';
-import Modal from '@/components/ui/Modal';
-import Toast from '@/components/ui/Toast';
-import { formatCurrency } from '@/components/utils/helpers';
+} from "@/components/features/cart/cartSelectors";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
+import Button from "@/components/ui/Button";
+import Error from "@/components/ui/Error";
+import Modal from "@/components/ui/Modal";
+import Toast from "@/components/ui/Toast";
+import { formatCurrency } from "@/components/utils/helpers";
 
 function Cart(): JSX.Element {
   const cart = useAppSelector(getCart);
@@ -30,7 +30,8 @@ function Cart(): JSX.Element {
   const totalCartPrice = useAppSelector(getTotalCartPrice);
   const dispatch = useAppDispatch();
   const [isClearCartModalOpen, setIsClearCartModalOpen] = useState(false);
-  const [recentlyRemovedItem, setRecentlyRemovedItem] = useState<CartItemModel | null>(null);
+  const [recentlyRemovedItem, setRecentlyRemovedItem] =
+    useState<CartItemModel | null>(null);
   const [isUndoToastOpen, setIsUndoToastOpen] = useState(false);
 
   function handleRemoveItem(product: CartItemModel): void {
@@ -52,9 +53,9 @@ function Cart(): JSX.Element {
   return (
     <ErrorBoundary
       fallback={(error) => (
-        <Error message={error.message || 'The cart could not be rendered.'} />
+        <Error message={error.message || "The cart could not be rendered."} />
       )}
-      resetKey={`${cart.length}-${cart.map((item) => item.productId).join(',')}`}
+      resetKey={`${cart.length}-${cart.map((item) => item.productId).join(",")}`}
     >
       <section className="mx-auto w-[min(100%-2rem,72rem)] px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-10">
@@ -118,8 +119,8 @@ function Cart(): JSX.Element {
         </div>
 
         <Modal
+          isOpen={isClearCartModalOpen}
           onClose={() => setIsClearCartModalOpen(false)}
-          open={isClearCartModalOpen}
         >
           <Modal.Header>
             <h2 className="font-['Playfair_Display',serif] text-3xl text-[#5a4034]">
@@ -128,7 +129,8 @@ function Cart(): JSX.Element {
           </Modal.Header>
           <Modal.Body>
             <p className="text-sm leading-7 text-[#5b463d]">
-              This will clear your bag and remove every product from the order summary.
+              This will clear your bag and remove every product from the order
+              summary.
             </p>
           </Modal.Body>
           <Modal.Footer>
@@ -154,9 +156,10 @@ function Cart(): JSX.Element {
 
         <Toast
           duration={4000}
-          message={(
+          isOpen={isUndoToastOpen}
+          message={
             <div className="flex items-center gap-3">
-              <span>{recentlyRemovedItem?.name ?? 'Item'} removed.</span>
+              <span>{recentlyRemovedItem?.name ?? "Item"} removed.</span>
               <button
                 className="rounded-md px-2 py-1 font-semibold underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
                 onClick={handleUndoRemove}
@@ -165,12 +168,11 @@ function Cart(): JSX.Element {
                 Undo
               </button>
             </div>
-          )}
+          }
           onClose={() => {
             setIsUndoToastOpen(false);
             setRecentlyRemovedItem(null);
           }}
-          open={isUndoToastOpen}
           position="bottom-right"
           tone="info"
         />

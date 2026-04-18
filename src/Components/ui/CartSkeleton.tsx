@@ -1,4 +1,4 @@
-import Skeleton from '@/components/ui/Skeleton';
+import Skeleton from "@/components/ui/Skeleton";
 
 function CartSkeleton(): JSX.Element {
   return (
@@ -14,7 +14,7 @@ function CartSkeleton(): JSX.Element {
             <Skeleton className="h-4 w-3/4" />
             <Skeleton className="h-4 w-16" />
             <Skeleton className="h-8 w-24" />
-            <Skeleton circle className="h-8 w-8" />
+            <Skeleton isCircle className="h-8 w-8" />
           </div>
         ))}
       </div>

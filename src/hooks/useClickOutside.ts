@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 type SupportedEvent = MouseEvent | TouchEvent;
 
 export function useClickOutside<T extends HTMLElement>(
   ref: React.RefObject<T | null>,
   handler: (event: SupportedEvent) => void,
-  enabled = true
+  enabled = true,
 ): void {
   useEffect(() => {
     if (!enabled) return;
@@ -18,12 +18,12 @@ export function useClickOutside<T extends HTMLElement>(
       handler(event);
     }
 
-    document.addEventListener('mousedown', handleEvent);
-    document.addEventListener('touchstart', handleEvent);
+    document.addEventListener("mousedown", handleEvent);
+    document.addEventListener("touchstart", handleEvent);
 
     return () => {
-      document.removeEventListener('mousedown', handleEvent);
-      document.removeEventListener('touchstart', handleEvent);
+      document.removeEventListener("mousedown", handleEvent);
+      document.removeEventListener("touchstart", handleEvent);
     };
   }, [enabled, handler, ref]);
 }

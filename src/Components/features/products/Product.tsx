@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-import plus from '@/assets/plus.svg';
+import plus from "@/assets/plus.svg";
 
-import type { Product as ProductModel } from '@/types';
+import type { Product as ProductModel } from "@/types";
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from "@/constants/routes";
 
-import { addItem } from '@/components/features/cart/cartSlice';
-import { formatCurrency } from '@/components/utils/helpers';
-import Badge from '@/components/ui/Badge';
-import Toast from '@/components/ui/Toast';
-import { useAppDispatch } from '@store/hooks';
+import { addItem } from "@/components/features/cart/cartSlice";
+import { formatCurrency } from "@/components/utils/helpers";
+import Badge from "@/components/ui/Badge";
+import Toast from "@/components/ui/Toast";
+import { useAppDispatch } from "@store/hooks";
 
 type ProductProps = {
   product: ProductModel;
@@ -45,7 +45,7 @@ function Product({ product }: ProductProps): JSX.Element {
         unitPrice: productUnitPrice,
         totalPrice: productUnitPrice,
         mainImage,
-      })
+      }),
     );
     setToastKey((current) => current + 1);
     setIsAddedToastOpen(true);
@@ -62,17 +62,19 @@ function Product({ product }: ProductProps): JSX.Element {
 
         <Link
           className="flex h-full flex-col no-underline"
-          to={ROUTES.PRODUCT_DETAIL.replace(':id', String(id))}
+          to={ROUTES.PRODUCT_DETAIL.replace(":id", String(id))}
         >
           <div className="flex h-full flex-col">
             <div className="relative overflow-hidden bg-[#fbf3ec]">
               <div className="relative aspect-[4/5]">
                 <img
                   className={[
-                    'absolute inset-0 h-full w-full object-cover transition-[transform,opacity] duration-300 ease-in',
-                    hasHoverImage ? 'opacity-100 group-hover:opacity-0' : 'opacity-100',
-                    'group-hover:scale-[1.04]',
-                  ].join(' ')}
+                    "absolute inset-0 h-full w-full object-cover transition-[transform,opacity] duration-300 ease-in",
+                    hasHoverImage
+                      ? "opacity-100 group-hover:opacity-0"
+                      : "opacity-100",
+                    "group-hover:scale-[1.04]",
+                  ].join(" ")}
                   src={mainImage}
                   alt={`${name} product`}
                 />
@@ -99,9 +101,7 @@ function Product({ product }: ProductProps): JSX.Element {
                 {name}
               </p>
 
-              <p className="text-sm leading-6 text-[#5b463d]">
-                {description}
-              </p>
+              <p className="text-sm leading-6 text-[#5b463d]">{description}</p>
 
               <div className="mt-auto pt-2">
                 {!soldOut ? (
@@ -144,9 +144,9 @@ function Product({ product }: ProductProps): JSX.Element {
       <Toast
         key={toastKey}
         duration={2000}
+        isOpen={isAddedToastOpen}
         message={`${name} added to cart.`}
         onClose={() => setIsAddedToastOpen(false)}
-        open={isAddedToastOpen}
         position="top-right"
         tone="success"
       />

@@ -1,8 +1,8 @@
-import type { LoaderFunctionArgs } from 'react-router-dom';
+import type { LoaderFunctionArgs } from "react-router-dom";
 
-import type { Product } from '@/types';
+import type { Product } from "@/types";
 
-import { getProductById, getProducts } from '@/services/productsService';
+import { getProductById, getProducts } from "@/services/productsService";
 
 export type ProductDetailLoaderData = {
   product: Product;
@@ -15,18 +15,20 @@ export async function loader({
   const productId = params.id;
 
   if (!productId) {
-    throw new Response('Product not found.', { status: 404 });
+    throw new Response("Product not found.", { status: 404 });
   }
 
   try {
     const product = await getProductById(productId);
-    const relatedProductsResponse = await getProducts({ category: product.category });
+    const relatedProductsResponse = await getProducts({
+      category: product.category,
+    });
     const relatedProducts = relatedProductsResponse.data
       .filter((relatedProduct) => relatedProduct.id !== product.id)
       .slice(0, 4);
 
     return { product, relatedProducts };
   } catch {
-    throw new Response('Product not found.', { status: 404 });
+    throw new Response("Product not found.", { status: 404 });
   }
 }

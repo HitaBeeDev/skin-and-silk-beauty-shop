@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from "@/constants/routes";
 
 import {
   getTotalCartPrice,
   getTotalCartQuantity,
-} from '@/components/features/cart/cartSelectors';
-import { formatCurrency } from '@/components/utils/helpers';
-import { useAppSelector } from '@store/hooks';
+} from "@/components/features/cart/cartSelectors";
+import { formatCurrency } from "@/components/utils/helpers";
+import { useAppSelector } from "@store/hooks";
 
 function CartOverview(): JSX.Element | null {
   const totalCartQuantity = useAppSelector(getTotalCartQuantity);

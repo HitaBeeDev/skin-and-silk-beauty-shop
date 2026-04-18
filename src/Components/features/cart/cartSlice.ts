@@ -1,6 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-import type { CartItem, LoadingStatus } from '@/types';
+import type { CartItem, LoadingStatus } from "@/types";
 
 type CartState = {
   items: CartItem[];
@@ -10,79 +10,85 @@ type CartState = {
 
 export const initialCartState: CartState = {
   items: [],
-  status: 'idle',
+  status: "idle",
   error: null,
 };
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState: initialCartState,
   reducers: {
     addItem(state, action: PayloadAction<CartItem>) {
       state.error = null;
       const existingItem = state.items.find(
-        (item) => item.productId === action.payload.productId
+        (item) => item.productId === action.payload.productId,
       );
 
       if (existingItem) {
         existingItem.quantity += action.payload.quantity;
-        existingItem.totalPrice = existingItem.quantity * existingItem.unitPrice;
+        existingItem.totalPrice =
+          existingItem.quantity * existingItem.unitPrice;
         return;
       }
 
       state.items.push(action.payload);
-      state.status = 'succeeded';
+      state.status = "succeeded";
     },
-    deleteItem(state, action: PayloadAction<CartItem['productId']>) {
+    deleteItem(state, action: PayloadAction<CartItem["productId"]>) {
       state.error = null;
       state.items = state.items.filter(
-        (item) => item.productId !== action.payload
+        (item) => item.productId !== action.payload,
       );
-      state.status = 'succeeded';
+      state.status = "succeeded";
     },
     restoreDeletedItem(state, action: PayloadAction<CartItem>) {
       state.error = null;
       const existingItem = state.items.find(
-        (item) => item.productId === action.payload.productId
+        (item) => item.productId === action.payload.productId,
       );
 
       if (existingItem) {
         existingItem.quantity += action.payload.quantity;
-        existingItem.totalPrice = existingItem.quantity * existingItem.unitPrice;
+        existingItem.totalPrice =
+          existingItem.quantity * existingItem.unitPrice;
         return;
       }
 
       state.items.push(action.payload);
-      state.status = 'succeeded';
+      state.status = "succeeded";
     },
-    increaseItemQuantity(state, action: PayloadAction<CartItem['productId']>) {
+    increaseItemQuantity(state, action: PayloadAction<CartItem["productId"]>) {
       state.error = null;
-      const item = state.items.find((item) => item.productId === action.payload);
+      const item = state.items.find(
+        (item) => item.productId === action.payload,
+      );
       if (!item) return;
       item.quantity++;
       item.totalPrice = item.quantity * item.unitPrice;
-      state.status = 'succeeded';
+      state.status = "succeeded";
     },
-    decreaseItemQuantity(state, action: PayloadAction<CartItem['productId']>) {
+    decreaseItemQuantity(state, action: PayloadAction<CartItem["productId"]>) {
       state.error = null;
-      const item = state.items.find((item) => item.productId === action.payload);
+      const item = state.items.find(
+        (item) => item.productId === action.payload,
+      );
       if (!item) return;
       item.quantity--;
       item.totalPrice = item.quantity * item.unitPrice;
       if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);
-      state.status = 'succeeded';
+      state.status = "succeeded";
     },
     clearCart(state) {
       state.error = null;
       state.items = [];
-      state.status = 'succeeded';
+      state.status = "succeeded";
     },
     rollbackCart(
       state,
-      action: PayloadAction<{ items: CartItem[]; error: string }>
+      action: PayloadAction<{ items: CartItem[]; error: string }>,
     ) {
       state.items = action.payload.items;
-      state.status = 'failed';
+      state.status = "failed";
       state.error = action.payload.error;
     },
   },

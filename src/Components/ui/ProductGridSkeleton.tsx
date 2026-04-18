@@ -1,4 +1,4 @@
-import Skeleton from '@/components/ui/Skeleton';
+import Skeleton from "@/components/ui/Skeleton";
 
 function ProductGridSkeleton(): JSX.Element {
   return (
@@ -21,7 +21,7 @@ function ProductGridSkeleton(): JSX.Element {
             <Skeleton className="h-4 w-[88%] rounded-full" />
             <div className="mt-2 flex items-center justify-between">
               <Skeleton className="h-4 w-[5.5rem] rounded-full" />
-              <Skeleton circle className="h-11 w-11" />
+              <Skeleton isCircle className="h-11 w-11" />
             </div>
           </div>
         </div>

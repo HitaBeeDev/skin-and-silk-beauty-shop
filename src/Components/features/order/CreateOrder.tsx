@@ -1,32 +1,32 @@
-import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { Form, Navigate, useActionData, useNavigation } from 'react-router-dom';
+import { useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { Form, Navigate, useActionData, useNavigation } from "react-router-dom";
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from "@/constants/routes";
 
-import type { CartItem } from '@/types';
+import type { CartItem } from "@/types";
 
 import {
   getCart,
   getIsCartEmpty,
   getTotalCartPrice,
-} from '@/components/features/cart/cartSelectors';
+} from "@/components/features/cart/cartSelectors";
 import {
   fetchAddress,
   selectUserAddress,
   selectUserPosition,
   selectUserStatus,
   selectUsername,
-} from '@/components/features/user/userSlice';
-import Button from '@/components/ui/Button';
-import LinkButton from '@/components/ui/LinkButton';
-import Spinner from '@/components/ui/Spinner';
-import Toast from '@/components/ui/Toast';
-import { formatCurrency } from '@/components/utils/helpers';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
-import type { CreateOrderActionData } from '@/routes/createOrder.action';
+} from "@/components/features/user/userSlice";
+import Button from "@/components/ui/Button";
+import LinkButton from "@/components/ui/LinkButton";
+import Spinner from "@/components/ui/Spinner";
+import Toast from "@/components/ui/Toast";
+import { formatCurrency } from "@/components/utils/helpers";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import type { CreateOrderActionData } from "@/routes/createOrder.action";
 
-const phoneHint = 'e.g. +1 555 000 0000';
-const formFieldIds = ['customer', 'phone', 'address'] as const;
+const phoneHint = "e.g. +1 555 000 0000";
+const formFieldIds = ["customer", "phone", "address"] as const;
 
 type FieldName = (typeof formFieldIds)[number];
 
@@ -42,53 +42,66 @@ type CreateOrderFormState = {
 };
 
 type CreateOrderFormAction =
-  | { type: 'fieldChanged'; field: FieldName; value: string; revalidate: boolean }
-  | { type: 'fieldBlurred'; field: FieldName }
-  | { type: 'priorityChanged'; value: boolean }
-  | { type: 'setErrors'; errors: CreateOrderFormState['errors'] }
-  | { type: 'markAllTouched' }
-  | { type: 'syncDefaults'; payload: Partial<Pick<CreateOrderFormState, 'customer' | 'address'>> }
-  | { type: 'autofillAddress'; value: string }
-  | { type: 'setSummaryOpen'; value: boolean }
-  | { type: 'clearAutofillFlash' };
+  | {
+      type: "fieldChanged";
+      field: FieldName;
+      value: string;
+      revalidate: boolean;
+    }
+  | { type: "fieldBlurred"; field: FieldName }
+  | { type: "priorityChanged"; value: boolean }
+  | { type: "setErrors"; errors: CreateOrderFormState["errors"] }
+  | { type: "markAllTouched" }
+  | {
+      type: "syncDefaults";
+      payload: Partial<Pick<CreateOrderFormState, "customer" | "address">>;
+    }
+  | { type: "autofillAddress"; value: string }
+  | { type: "setSummaryOpen"; value: boolean }
+  | { type: "clearAutofillFlash" };
 
 const isValidPhone = (value: string): boolean =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-    value
+    value,
   );
 
 function validateField(field: FieldName, value: string): string | undefined {
   const trimmedValue = value.trim();
 
-  if (field === 'customer') {
-    return trimmedValue ? undefined : 'Please enter your full name.';
+  if (field === "customer") {
+    return trimmedValue ? undefined : "Please enter your full name.";
   }
 
-  if (field === 'address') {
-    return trimmedValue ? undefined : 'Please enter your delivery address.';
+  if (field === "address") {
+    return trimmedValue ? undefined : "Please enter your delivery address.";
   }
 
   if (!trimmedValue) {
-    return 'Please enter your phone number.';
+    return "Please enter your phone number.";
   }
 
   return isValidPhone(trimmedValue)
     ? undefined
-    : 'Please use a valid phone number so we can reach you about delivery.';
+    : "Please use a valid phone number so we can reach you about delivery.";
 }
 
-function validateForm(state: Pick<CreateOrderFormState, FieldName>): CreateOrderFormState['errors'] {
+function validateForm(
+  state: Pick<CreateOrderFormState, FieldName>,
+): CreateOrderFormState["errors"] {
   return {
-    customer: validateField('customer', state.customer),
-    phone: validateField('phone', state.phone),
-    address: validateField('address', state.address),
+    customer: validateField("customer", state.customer),
+    phone: validateField("phone", state.phone),
+    address: validateField("address", state.address),
   };
 }
 
-function createInitialState(customer: string, address: string): CreateOrderFormState {
+function createInitialState(
+  customer: string,
+  address: string,
+): CreateOrderFormState {
   return {
     customer,
-    phone: '',
+    phone: "",
     address,
     priority: false,
     touched: {
@@ -104,10 +117,10 @@ function createInitialState(customer: string, address: string): CreateOrderFormS
 
 function createOrderFormReducer(
   state: CreateOrderFormState,
-  action: CreateOrderFormAction
+  action: CreateOrderFormAction,
 ): CreateOrderFormState {
   switch (action.type) {
-    case 'fieldChanged': {
+    case "fieldChanged": {
       const nextState = {
         ...state,
         [action.field]: action.value,
@@ -115,7 +128,8 @@ function createOrderFormReducer(
 
       return {
         ...nextState,
-        autofilledAddress: action.field === 'address' ? false : state.autofilledAddress,
+        autofilledAddress:
+          action.field === "address" ? false : state.autofilledAddress,
         errors: {
           ...state.errors,
           [action.field]: action.revalidate
@@ -124,7 +138,7 @@ function createOrderFormReducer(
         },
       };
     }
-    case 'fieldBlurred':
+    case "fieldBlurred":
       return {
         ...state,
         touched: {
@@ -136,17 +150,17 @@ function createOrderFormReducer(
           [action.field]: validateField(action.field, state[action.field]),
         },
       };
-    case 'priorityChanged':
+    case "priorityChanged":
       return {
         ...state,
         priority: action.value,
       };
-    case 'setErrors':
+    case "setErrors":
       return {
         ...state,
         errors: action.errors,
       };
-    case 'markAllTouched':
+    case "markAllTouched":
       return {
         ...state,
         touched: {
@@ -155,13 +169,13 @@ function createOrderFormReducer(
           address: true,
         },
       };
-    case 'syncDefaults':
+    case "syncDefaults":
       return {
         ...state,
-        customer: state.customer || action.payload.customer || '',
-        address: state.address || action.payload.address || '',
+        customer: state.customer || action.payload.customer || "",
+        address: state.address || action.payload.address || "",
       };
-    case 'autofillAddress':
+    case "autofillAddress":
       return {
         ...state,
         address: action.value,
@@ -172,15 +186,15 @@ function createOrderFormReducer(
         },
         errors: {
           ...state.errors,
-          address: validateField('address', action.value),
+          address: validateField("address", action.value),
         },
       };
-    case 'setSummaryOpen':
+    case "setSummaryOpen":
       return {
         ...state,
         isSummaryOpen: action.value,
       };
-    case 'clearAutofillFlash':
+    case "clearAutofillFlash":
       return {
         ...state,
         autofilledAddress: false,
@@ -233,7 +247,8 @@ function OrderSummary({
             className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 text-sm text-[#4d3932]"
           >
             <span>
-              {item.name} <span className="text-[#8c6659]">× {item.quantity}</span>
+              {item.name}{" "}
+              <span className="text-[#8c6659]">× {item.quantity}</span>
             </span>
             <span className="font-semibold text-[#241915]">
               {formatCurrency(item.totalPrice)}
@@ -277,22 +292,25 @@ function CreateOrder(): JSX.Element {
   const [isErrorToastOpen, setIsErrorToastOpen] = useState(false);
   const [formState, dispatchForm] = useReducer(
     createOrderFormReducer,
-    createInitialState(username, address)
+    createInitialState(username, address),
   );
 
-  const isSubmitting = navigation.state === 'submitting';
-  const isLoadingAddress = addressStatus === 'loading';
+  const isSubmitting = navigation.state === "submitting";
+  const isLoadingAddress = addressStatus === "loading";
   const subtotal = totalCartPrice;
   const priorityPrice = formState.priority ? subtotal * 0.2 : 0;
   const totalPrice = subtotal + priorityPrice;
-  const hasVisibleErrors = formFieldIds.some((field) => Boolean(formState.errors[field]));
-  const geolocationInlineError = addressStatus === 'failed'
-    ? "Couldn't detect your location — enter address manually"
-    : '';
+  const hasVisibleErrors = formFieldIds.some((field) =>
+    Boolean(formState.errors[field]),
+  );
+  const geolocationInlineError =
+    addressStatus === "failed"
+      ? "Couldn't detect your location — enter address manually"
+      : "";
 
   useEffect(() => {
     dispatchForm({
-      type: 'syncDefaults',
+      type: "syncDefaults",
       payload: {
         customer: username,
         address,
@@ -303,14 +321,14 @@ function CreateOrder(): JSX.Element {
   useEffect(() => {
     if (!address) return;
 
-    dispatchForm({ type: 'autofillAddress', value: address });
+    dispatchForm({ type: "autofillAddress", value: address });
   }, [address]);
 
   useEffect(() => {
     if (!formState.autofilledAddress) return;
 
     const timeoutId = window.setTimeout(() => {
-      dispatchForm({ type: 'clearAutofillFlash' });
+      dispatchForm({ type: "clearAutofillFlash" });
     }, 400);
 
     return () => window.clearTimeout(timeoutId);
@@ -325,9 +343,9 @@ function CreateOrder(): JSX.Element {
   useEffect(() => {
     if (!actionData?.phone) return;
 
-    dispatchForm({ type: 'markAllTouched' });
+    dispatchForm({ type: "markAllTouched" });
     dispatchForm({
-      type: 'setErrors',
+      type: "setErrors",
       errors: {
         ...formState.errors,
         phone: actionData.phone,
@@ -343,7 +361,7 @@ function CreateOrder(): JSX.Element {
 
   const encodedPosition = useMemo(() => {
     if (!position.latitude || !position.longitude) {
-      return '';
+      return "";
     }
 
     return `${position.latitude},${position.longitude}`;
@@ -373,12 +391,15 @@ function CreateOrder(): JSX.Element {
               aria-expanded={formState.isSummaryOpen}
               className="flex w-full items-center justify-between px-5 py-4 text-left font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.2em] text-[#5a4034] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
               onClick={() =>
-                dispatchForm({ type: 'setSummaryOpen', value: !formState.isSummaryOpen })
+                dispatchForm({
+                  type: "setSummaryOpen",
+                  value: !formState.isSummaryOpen,
+                })
               }
               type="button"
             >
               <span>Order Summary</span>
-              <span>{formState.isSummaryOpen ? 'Hide' : 'Show'}</span>
+              <span>{formState.isSummaryOpen ? "Hide" : "Show"}</span>
             </button>
             {formState.isSummaryOpen ? (
               <div className="px-5 pb-5">
@@ -405,8 +426,8 @@ function CreateOrder(): JSX.Element {
                 if (!hasErrors) return;
 
                 event.preventDefault();
-                dispatchForm({ type: 'markAllTouched' });
-                dispatchForm({ type: 'setErrors', errors: nextErrors });
+                dispatchForm({ type: "markAllTouched" });
+                dispatchForm({ type: "setErrors", errors: nextErrors });
               }}
             >
               {hasVisibleErrors ? (
@@ -429,16 +450,20 @@ function CreateOrder(): JSX.Element {
                 <input
                   className={[
                     "w-full rounded-2xl border bg-white px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,opacity] duration-200 ease-in placeholder:text-[#9c8f8f]",
-                    formState.errors.customer ? 'border-[#b42318]' : 'border-[#d9c0ae]',
-                    'focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20',
-                  ].join(' ')}
+                    formState.errors.customer
+                      ? "border-[#b42318]"
+                      : "border-[#d9c0ae]",
+                    "focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20",
+                  ].join(" ")}
                   id="customer"
                   name="customer"
-                  onBlur={() => dispatchForm({ type: 'fieldBlurred', field: 'customer' })}
+                  onBlur={() =>
+                    dispatchForm({ type: "fieldBlurred", field: "customer" })
+                  }
                   onChange={(event) =>
                     dispatchForm({
-                      type: 'fieldChanged',
-                      field: 'customer',
+                      type: "fieldChanged",
+                      field: "customer",
                       value: event.target.value,
                       revalidate: formState.touched.customer,
                     })
@@ -449,10 +474,10 @@ function CreateOrder(): JSX.Element {
                   value={formState.customer}
                 />
                 <p
-                  className={`text-sm text-[#b42318] transition-opacity duration-200 ease-in ${formState.errors.customer ? 'opacity-100' : 'opacity-0'}`}
-                  role={formState.errors.customer ? 'alert' : undefined}
+                  className={`text-sm text-[#b42318] transition-opacity duration-200 ease-in ${formState.errors.customer ? "opacity-100" : "opacity-0"}`}
+                  role={formState.errors.customer ? "alert" : undefined}
                 >
-                  {formState.errors.customer ?? ' '}
+                  {formState.errors.customer ?? " "}
                 </p>
               </div>
 
@@ -466,16 +491,20 @@ function CreateOrder(): JSX.Element {
                 <input
                   className={[
                     "w-full rounded-2xl border bg-white px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,opacity] duration-200 ease-in placeholder:text-[#9c8f8f]",
-                    formState.errors.phone ? 'border-[#b42318]' : 'border-[#d9c0ae]',
-                    'focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20',
-                  ].join(' ')}
+                    formState.errors.phone
+                      ? "border-[#b42318]"
+                      : "border-[#d9c0ae]",
+                    "focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20",
+                  ].join(" ")}
                   id="phone"
                   name="phone"
-                  onBlur={() => dispatchForm({ type: 'fieldBlurred', field: 'phone' })}
+                  onBlur={() =>
+                    dispatchForm({ type: "fieldBlurred", field: "phone" })
+                  }
                   onChange={(event) =>
                     dispatchForm({
-                      type: 'fieldChanged',
-                      field: 'phone',
+                      type: "fieldChanged",
+                      field: "phone",
                       value: event.target.value,
                       revalidate: formState.touched.phone,
                     })
@@ -487,10 +516,10 @@ function CreateOrder(): JSX.Element {
                 />
                 <p className="text-sm text-[#8c6659]">{phoneHint}</p>
                 <p
-                  className={`text-sm text-[#b42318] transition-opacity duration-200 ease-in ${formState.errors.phone ? 'opacity-100' : 'opacity-0'}`}
-                  role={formState.errors.phone ? 'alert' : undefined}
+                  className={`text-sm text-[#b42318] transition-opacity duration-200 ease-in ${formState.errors.phone ? "opacity-100" : "opacity-0"}`}
+                  role={formState.errors.phone ? "alert" : undefined}
                 >
-                  {formState.errors.phone ?? ' '}
+                  {formState.errors.phone ?? " "}
                 </p>
               </div>
 
@@ -505,17 +534,21 @@ function CreateOrder(): JSX.Element {
                   <textarea
                     className={[
                       "min-h-32 w-full rounded-2xl border px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,background-color,opacity] duration-200 ease-in placeholder:text-[#9c8f8f]",
-                      formState.errors.address ? 'border-[#b42318]' : 'border-[#d9c0ae]',
-                      formState.autofilledAddress ? 'bg-[#f6e6da]' : 'bg-white',
-                      'focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20',
-                    ].join(' ')}
+                      formState.errors.address
+                        ? "border-[#b42318]"
+                        : "border-[#d9c0ae]",
+                      formState.autofilledAddress ? "bg-[#f6e6da]" : "bg-white",
+                      "focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20",
+                    ].join(" ")}
                     id="address"
                     name="address"
-                    onBlur={() => dispatchForm({ type: 'fieldBlurred', field: 'address' })}
+                    onBlur={() =>
+                      dispatchForm({ type: "fieldBlurred", field: "address" })
+                    }
                     onChange={(event) =>
                       dispatchForm({
-                        type: 'fieldChanged',
-                        field: 'address',
+                        type: "fieldChanged",
+                        field: "address",
                         value: event.target.value,
                         revalidate: formState.touched.address,
                       })
@@ -528,7 +561,9 @@ function CreateOrder(): JSX.Element {
                   <Button
                     className="self-start"
                     disabled={isLoadingAddress}
-                    leftIcon={isLoadingAddress ? <Spinner size="sm" /> : <MapPinIcon />}
+                    leftIcon={
+                      isLoadingAddress ? <Spinner size="sm" /> : <MapPinIcon />
+                    }
                     onClick={() => {
                       void dispatch(fetchAddress());
                     }}
@@ -544,10 +579,10 @@ function CreateOrder(): JSX.Element {
                   </p>
                 ) : null}
                 <p
-                  className={`text-sm text-[#b42318] transition-opacity duration-200 ease-in ${formState.errors.address ? 'opacity-100' : 'opacity-0'}`}
-                  role={formState.errors.address ? 'alert' : undefined}
+                  className={`text-sm text-[#b42318] transition-opacity duration-200 ease-in ${formState.errors.address ? "opacity-100" : "opacity-0"}`}
+                  role={formState.errors.address ? "alert" : undefined}
                 >
-                  {formState.errors.address ?? ' '}
+                  {formState.errors.address ?? " "}
                 </p>
               </div>
 
@@ -558,19 +593,20 @@ function CreateOrder(): JSX.Element {
                       Priority delivery
                     </p>
                     <p className="mt-1 text-sm text-[#6a5147]">
-                      Add {formatCurrency(subtotal * 0.2)} for priority delivery.
+                      Add {formatCurrency(subtotal * 0.2)} for priority
+                      delivery.
                     </p>
                   </div>
                   <button
                     aria-checked={formState.priority}
                     className={[
-                      'relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-200 ease-in',
-                      formState.priority ? 'bg-[#5a4034]' : 'bg-[#d9c0ae]',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5a4034] focus-visible:ring-offset-2',
-                    ].join(' ')}
+                      "relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-200 ease-in",
+                      formState.priority ? "bg-[#5a4034]" : "bg-[#d9c0ae]",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5a4034] focus-visible:ring-offset-2",
+                    ].join(" ")}
                     onClick={() =>
                       dispatchForm({
-                        type: 'priorityChanged',
+                        type: "priorityChanged",
                         value: !formState.priority,
                       })
                     }
@@ -578,7 +614,7 @@ function CreateOrder(): JSX.Element {
                     type="button"
                   >
                     <span
-                      className={`inline-block h-6 w-6 rounded-full bg-white shadow-sm transition-transform duration-200 ease-in ${formState.priority ? 'translate-x-7' : 'translate-x-1'}`}
+                      className={`inline-block h-6 w-6 rounded-full bg-white shadow-sm transition-transform duration-200 ease-in ${formState.priority ? "translate-x-7" : "translate-x-1"}`}
                     />
                   </button>
                 </div>
@@ -597,12 +633,14 @@ function CreateOrder(): JSX.Element {
 
               <Button
                 disabled={isSubmitting || isLoadingAddress}
-                fullWidth
-                loading={isSubmitting}
+                isFullWidth
+                isLoading={isSubmitting}
                 size="lg"
                 type="submit"
               >
-                {isSubmitting ? 'Placing order...' : `Order now from ${formatCurrency(totalPrice)}`}
+                {isSubmitting
+                  ? "Placing order..."
+                  : `Order now from ${formatCurrency(totalPrice)}`}
               </Button>
             </Form>
           </div>
@@ -620,9 +658,11 @@ function CreateOrder(): JSX.Element {
 
       <Toast
         duration={4000}
-        message={actionData?.formError ?? 'We could not place your order right now.'}
+        isOpen={isErrorToastOpen}
+        message={
+          actionData?.formError ?? "We could not place your order right now."
+        }
         onClose={() => setIsErrorToastOpen(false)}
-        open={isErrorToastOpen}
         position="bottom-right"
         tone="error"
       />

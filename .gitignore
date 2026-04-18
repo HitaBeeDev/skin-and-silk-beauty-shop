@@ -17,6 +17,9 @@ CLAUDE.md
 project-overview.md
 project-checklist.md
 
+# Claude Code
+.claude/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

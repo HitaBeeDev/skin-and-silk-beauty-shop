@@ -1,34 +1,34 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from "@/constants/routes";
 
-import { getTotalCartQuantity } from '@/components/features/cart/cartSelectors';
-import Badge from '@/components/ui/Badge';
-import shoppingBag from '@/assets/shoppingBag.svg';
-import { useClickOutside } from '@/hooks';
-import { useAppSelector } from '@store/hooks';
+import { getTotalCartQuantity } from "@/components/features/cart/cartSelectors";
+import Badge from "@/components/ui/Badge";
+import shoppingBag from "@/assets/shoppingBag.svg";
+import { useClickOutside } from "@/hooks";
+import { useAppSelector } from "@store/hooks";
 
 type NavLinkClassNameArgs = {
   isActive: boolean;
 };
 
-const shellWidthClass = 'mx-auto w-[min(100%-2rem,72rem)]';
-const brandTextClass = 'text-[#5a4034]';
+const shellWidthClass = "mx-auto w-[min(100%-2rem,72rem)]";
+const brandTextClass = "text-[#5a4034]";
 const linkBaseClass = [
-  'relative inline-flex items-center gap-2 rounded-full px-4 py-[0.55rem] text-[0.95rem] font-medium no-underline',
-  'text-[#6b5145] transition-[color,background-color] duration-150 ease-in',
-  'hover:text-[#5a4034]',
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
-].join(' ');
+  "relative inline-flex items-center gap-2 rounded-full px-4 py-[0.55rem] text-[0.95rem] font-medium no-underline",
+  "text-[#6b5145] transition-[color,background-color] duration-150 ease-in",
+  "hover:text-[#5a4034]",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2",
+].join(" ");
 
 function navLinkClassName({ isActive }: NavLinkClassNameArgs): string {
   return [
     linkBaseClass,
     isActive
       ? "font-bold text-[#5a4034] after:absolute after:right-4 after:bottom-[0.35rem] after:left-4 after:h-[2px] after:rounded-full after:bg-current after:content-['']"
-      : '',
-  ].join(' ');
+      : "",
+  ].join(" ");
 }
 
 function Header(): JSX.Element {
@@ -50,7 +50,7 @@ function Header(): JSX.Element {
 
       setIsMobileMenuOpen(false);
     },
-    isMobileMenuOpen
+    isMobileMenuOpen,
   );
 
   useEffect(() => {
@@ -63,27 +63,27 @@ function Header(): JSX.Element {
     }
 
     handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
 
     function handleKeyDown(event: KeyboardEvent): void {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsMobileMenuOpen(false);
       }
     }
 
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMobileMenuOpen]);
 
@@ -116,29 +116,31 @@ function Header(): JSX.Element {
     );
   }
 
-  function renderCartLink(className = ''): JSX.Element {
+  function renderCartLink(className = ""): JSX.Element {
     return (
       <NavLink
-        aria-label={`Cart with ${totalCartQuantity} item${totalCartQuantity === 1 ? '' : 's'}`}
+        aria-label={`Cart with ${totalCartQuantity} item${totalCartQuantity === 1 ? "" : "s"}`}
         className={({ isActive }) =>
           [
             className,
             linkBaseClass,
             isActive
               ? "font-bold text-[#5a4034] after:absolute after:right-4 after:bottom-[0.35rem] after:left-4 after:h-[2px] after:rounded-full after:bg-current after:content-['']"
-              : '',
-          ].join(' ')
+              : "",
+          ].join(" ")
         }
         to={ROUTES.CART}
       >
         <img aria-hidden="true" className="h-5 w-5" src={shoppingBag} alt="" />
         <span>Cart</span>
         <Badge
-          className={totalCartQuantity > 0 ? 'min-w-[1.45rem]' : 'hidden min-w-[1.45rem]'}
+          className={
+            totalCartQuantity > 0 ? "min-w-[1.45rem]" : "hidden min-w-[1.45rem]"
+          }
           tone="accent"
         >
           <span
-            className={`transition-transform duration-200 ease-in ${isBadgePulsing ? 'scale-[1.3]' : 'scale-100'}`}
+            className={`transition-transform duration-200 ease-in ${isBadgePulsing ? "scale-[1.3]" : "scale-100"}`}
           >
             {totalCartQuantity}
           </span>
@@ -150,10 +152,12 @@ function Header(): JSX.Element {
   return (
     <header
       className={[
-        'sticky top-0 z-[60] border-b border-transparent bg-white/88 backdrop-blur-[18px]',
-        'transition-[box-shadow,border-color,background-color] duration-200 ease-in',
-        isScrolled ? 'border-[#5a403429] shadow-[0_18px_40px_-30px_rgba(36,25,21,0.12)]' : '',
-      ].join(' ')}
+        "sticky top-0 z-[60] border-b border-transparent bg-white/88 backdrop-blur-[18px]",
+        "transition-[box-shadow,border-color,background-color] duration-200 ease-in",
+        isScrolled
+          ? "border-[#5a403429] shadow-[0_18px_40px_-30px_rgba(36,25,21,0.12)]"
+          : "",
+      ].join(" ")}
     >
       <div className={`${shellWidthClass} flex flex-col gap-4 py-4`}>
         <div className="flex items-center justify-between gap-4">
@@ -166,8 +170,11 @@ function Header(): JSX.Element {
             </span>
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-2 md:flex">
-            {renderNavLink(ROUTES.PRODUCTS, 'Products')}
+          <nav
+            aria-label="Primary"
+            className="hidden items-center gap-2 md:flex"
+          >
+            {renderNavLink(ROUTES.PRODUCTS, "Products")}
             {renderCartLink()}
           </nav>
 
@@ -180,7 +187,12 @@ function Header(): JSX.Element {
             ref={mobileMenuButtonRef}
             type="button"
           >
-            <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
+            <svg
+              aria-hidden="true"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
               <path
                 d="M4 7h16M4 12h16M4 17h16"
                 stroke="currentColor"
@@ -190,30 +202,31 @@ function Header(): JSX.Element {
             </svg>
           </button>
         </div>
-
       </div>
 
       <div
-        aria-hidden={isMobileMenuOpen ? 'false' : 'true'}
+        aria-hidden={isMobileMenuOpen ? "false" : "true"}
         className={[
-          'fixed inset-0 bg-[rgba(36,25,21,0.48)] transition-opacity duration-200 ease-in md:hidden',
-          isMobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
-        ].join(' ')}
+          "fixed inset-0 bg-[rgba(36,25,21,0.48)] transition-opacity duration-200 ease-in md:hidden",
+          isMobileMenuOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0",
+        ].join(" ")}
       />
 
       <div
         aria-modal="true"
-        aria-hidden={isMobileMenuOpen ? 'false' : 'true'}
-        className={`fixed inset-0 z-[61] md:hidden ${isMobileMenuOpen ? '' : 'pointer-events-none'}`}
+        aria-hidden={isMobileMenuOpen ? "false" : "true"}
+        className={`fixed inset-0 z-[61] md:hidden ${isMobileMenuOpen ? "" : "pointer-events-none"}`}
         id="mobile-navigation"
         role="dialog"
       >
         <div
           className={[
-            'fixed inset-y-0 right-0 flex w-[min(100%,24rem)] flex-col gap-8 bg-[linear-gradient(180deg,rgba(255,250,245,0.98),rgba(255,244,236,0.98))] px-6 py-6 shadow-[-24px_0_48px_-32px_rgba(36,25,21,0.28)]',
-            'transition-transform duration-200 ease-in',
-            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full',
-          ].join(' ')}
+            "fixed inset-y-0 right-0 flex w-[min(100%,24rem)] flex-col gap-8 bg-[linear-gradient(180deg,rgba(255,250,245,0.98),rgba(255,244,236,0.98))] px-6 py-6 shadow-[-24px_0_48px_-32px_rgba(36,25,21,0.28)]",
+            "transition-transform duration-200 ease-in",
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full",
+          ].join(" ")}
           ref={mobilePanelRef}
         >
           <div className="flex items-center justify-between gap-4">
@@ -227,7 +240,12 @@ function Header(): JSX.Element {
               onClick={() => setIsMobileMenuOpen(false)}
               type="button"
             >
-              <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24">
+              <svg
+                aria-hidden="true"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
                 <path
                   d="M6 6l12 12M18 6L6 18"
                   stroke="currentColor"
@@ -239,14 +257,15 @@ function Header(): JSX.Element {
           </div>
 
           <nav aria-label="Mobile" className="flex flex-col gap-3">
-            {renderNavLink(ROUTES.PRODUCTS, 'Products')}
-            {renderCartLink('self-start')}
+            {renderNavLink(ROUTES.PRODUCTS, "Products")}
+            {renderCartLink("self-start")}
           </nav>
         </div>
       </div>
 
       <span aria-live="polite" className="sr-only">
-        Cart now has {totalCartQuantity} item{totalCartQuantity === 1 ? '' : 's'}.
+        Cart now has {totalCartQuantity} item
+        {totalCartQuantity === 1 ? "" : "s"}.
       </span>
     </header>
   );

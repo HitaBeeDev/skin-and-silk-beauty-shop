@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function getInitialValue<T>(key: string, initialValue: T): T {
-  if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
+  if (
+    typeof window === "undefined" ||
+    typeof window.localStorage === "undefined"
+  ) {
     return initialValue;
   }
 
@@ -18,9 +21,11 @@ function getInitialValue<T>(key: string, initialValue: T): T {
 
 export function useLocalStorage<T>(
   key: string,
-  initialValue: T
+  initialValue: T,
 ): [T, (value: T) => void] {
-  const [value, setValue] = useState<T>(() => getInitialValue(key, initialValue));
+  const [value, setValue] = useState<T>(() =>
+    getInitialValue(key, initialValue),
+  );
 
   useEffect(() => {
     setValue(getInitialValue(key, initialValue));
@@ -29,7 +34,10 @@ export function useLocalStorage<T>(
   function updateValue(nextValue: T): void {
     setValue(nextValue);
 
-    if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') {
+    if (
+      typeof window === "undefined" ||
+      typeof window.localStorage === "undefined"
+    ) {
       return;
     }
 

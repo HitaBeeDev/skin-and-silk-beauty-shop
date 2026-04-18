@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import type { ReactNode } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 type LinkButtonProps = {
   children: ReactNode;
@@ -9,7 +9,7 @@ type LinkButtonProps = {
 function LinkButton({ children, to }: LinkButtonProps): JSX.Element {
   const navigate = useNavigate();
 
-  if (to === '-1')
+  if (to === "-1")
     return (
       <button
         className="rounded-md px-2 py-1 text-[#5A4034] underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"

@@ -1,9 +1,11 @@
-import type { CreateOrderPayload, Order } from '@/types';
+import type { CreateOrderPayload, Order } from "@/types";
 
-export const ORDERS_STORAGE_KEY = 'skin-and-silk-orders';
+export const ORDERS_STORAGE_KEY = "skin-and-silk-orders";
 
 function canUseLocalStorage(): boolean {
-  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+  return (
+    typeof window !== "undefined" && typeof window.localStorage !== "undefined"
+  );
 }
 
 export function readOrders(): Order[] {
@@ -32,13 +34,13 @@ export function writeOrders(orders: Order[]): void {
   window.localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
 }
 
-function calculateOrderSubtotal(order: Pick<Order, 'cart'>): number {
+function calculateOrderSubtotal(order: Pick<Order, "cart">): number {
   return order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
 }
 
 function buildOrderPricing(
-  order: Pick<Order, 'cart' | 'priority'>
-): Pick<Order, 'orderPrice' | 'priorityPrice'> {
+  order: Pick<Order, "cart" | "priority">,
+): Pick<Order, "orderPrice" | "priorityPrice"> {
   const orderPrice = calculateOrderSubtotal(order);
 
   return {
@@ -80,7 +82,7 @@ export async function createOrder(data: CreateOrderPayload): Promise<Order> {
 /** Simulates `PATCH /api/orders/:id`. */
 export async function updateOrder(
   id: string,
-  patch: Partial<Order>
+  patch: Partial<Order>,
 ): Promise<Order> {
   const orders = readOrders();
   const orderIndex = orders.findIndex((item) => item.id === id);

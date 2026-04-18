@@ -1,4 +1,4 @@
-type SpinnerSize = 'sm' | 'md' | 'lg';
+type SpinnerSize = "sm" | "md" | "lg";
 
 export type SpinnerProps = {
   size?: SpinnerSize;
@@ -6,17 +6,17 @@ export type SpinnerProps = {
 };
 
 const sizeMap: Record<SpinnerSize, string> = {
-  sm: 'text-sm',
-  md: 'text-base',
-  lg: 'text-lg',
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-lg",
 };
 
 /**
  * Accessible loading indicator with screen-reader text via `role="status"`.
  */
 function Spinner({
-  size = 'md',
-  label = 'Loading',
+  size = "md",
+  label = "Loading",
 }: SpinnerProps): JSX.Element {
   return (
     <span

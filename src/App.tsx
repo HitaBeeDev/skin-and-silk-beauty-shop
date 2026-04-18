@@ -1,29 +1,35 @@
-import { Suspense, lazy } from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Suspense, lazy } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from "@/constants/routes";
 
-import Error from '@/components/ui/Error';
-import CartSkeleton from '@/components/ui/CartSkeleton';
-import OrderDetailSkeleton from '@/components/ui/OrderDetailSkeleton';
-import ProductDetailSkeleton from '@/components/ui/ProductDetailSkeleton';
-import ProductGridSkeleton from '@/components/ui/ProductGridSkeleton';
-import RouteSkeleton from '@/components/ui/RouteSkeleton';
-import AppLayout from '@/components/layout/AppLayout';
-import Home from '@/components/ui/Home';
-import LinkButton from '@/components/ui/LinkButton';
-import { action as createOrderAction } from '@/routes/createOrder.action';
-import { loader as orderLoader } from '@/routes/order.loader';
-import { loader as productDetailLoader } from '@/routes/productDetail.loader';
+import Error from "@/components/ui/Error";
+import CartSkeleton from "@/components/ui/CartSkeleton";
+import OrderDetailSkeleton from "@/components/ui/OrderDetailSkeleton";
+import ProductDetailSkeleton from "@/components/ui/ProductDetailSkeleton";
+import ProductGridSkeleton from "@/components/ui/ProductGridSkeleton";
+import RouteSkeleton from "@/components/ui/RouteSkeleton";
+import AppLayout from "@/components/layout/AppLayout";
+import Home from "@/components/ui/Home";
+import LinkButton from "@/components/ui/LinkButton";
+import { action as createOrderAction } from "@/routes/createOrder.action";
+import { loader as orderLoader } from "@/routes/order.loader";
+import { loader as productDetailLoader } from "@/routes/productDetail.loader";
 
-const ProductsList = lazy(() => import('@/components/features/products/ProductsList'));
-const ProductDetail = lazy(() => import('@/components/features/products/ProductDetail'));
-const Cart = lazy(() => import('@/components/features/cart/Cart'));
-const CreateOrder = lazy(() => import('@/components/features/order/CreateOrder'));
-const OrderConfirmation = lazy(
-  () => import('@/components/features/order/OrderConfirmation')
+const ProductsList = lazy(
+  () => import("@/components/features/products/ProductsList"),
 );
-const Order = lazy(() => import('@/components/features/order/Order'));
+const ProductDetail = lazy(
+  () => import("@/components/features/products/ProductDetail"),
+);
+const Cart = lazy(() => import("@/components/features/cart/Cart"));
+const CreateOrder = lazy(
+  () => import("@/components/features/order/CreateOrder"),
+);
+const OrderConfirmation = lazy(
+  () => import("@/components/features/order/OrderConfirmation"),
+);
+const Order = lazy(() => import("@/components/features/order/Order"));
 
 function withRouteSuspense(node: JSX.Element): JSX.Element {
   return <Suspense fallback={<RouteSkeleton />}>{node}</Suspense>;
@@ -50,8 +56,8 @@ function ProductRouteError(): JSX.Element {
         Product not found
       </h1>
       <p className="mt-3 max-w-xl text-sm leading-7 text-[#5b463d]">
-        The product you opened is no longer available from this catalog view. Browse the full
-        collection to continue exploring.
+        The product you opened is no longer available from this catalog view.
+        Browse the full collection to continue exploring.
       </p>
       <div className="mt-6">
         <LinkButton to={ROUTES.PRODUCTS}>Browse Products</LinkButton>

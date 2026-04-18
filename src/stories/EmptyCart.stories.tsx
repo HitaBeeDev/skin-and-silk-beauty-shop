@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import EmptyCart from '@/components/features/cart/EmptyCart';
+import EmptyCart from "@/components/features/cart/EmptyCart";
 
 const meta = {
-  title: 'Commerce/EmptyCart',
+  title: "Commerce/EmptyCart",
   component: EmptyCart,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof EmptyCart>;
 

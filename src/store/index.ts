@@ -1,10 +1,13 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import ordersReducer from '@/components/features/order/ordersSlice';
-import cartReducer from '@/components/features/cart/cartSlice';
-import productsReducer from '@/components/features/products/productsSlice';
-import userReducer from '@/components/features/user/userSlice';
-import { loadCartState, localStorageMiddleware } from '@/store/localStorageMiddleware';
+import ordersReducer from "@/components/features/order/ordersSlice";
+import cartReducer from "@/components/features/cart/cartSlice";
+import productsReducer from "@/components/features/products/productsSlice";
+import userReducer from "@/components/features/user/userSlice";
+import {
+  loadCartState,
+  localStorageMiddleware,
+} from "@/store/localStorageMiddleware";
 
 const rootReducer = combineReducers({
   user: userReducer,

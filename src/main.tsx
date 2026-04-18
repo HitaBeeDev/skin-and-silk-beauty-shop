@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 
-import App from '@/App';
-import '@/tailwind.css';
-import store from '@store';
+import App from "@/App";
+import "@/tailwind.css";
+import store from "@store";
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 
 if (!rootElement) {
-  throw new Error('Root element not found');
+  throw new Error("Root element not found");
 }
 
 ReactDOM.createRoot(rootElement).render(
@@ -17,5 +17,5 @@ ReactDOM.createRoot(rootElement).render(
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

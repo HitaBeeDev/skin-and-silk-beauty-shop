@@ -1,25 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ROUTES } from '@/constants/routes';
-import Button from '@/components/ui/Button';
+import { ROUTES } from "@/constants/routes";
+import Button from "@/components/ui/Button";
 
 const meta = {
-  title: 'UI/Button',
+  title: "UI/Button",
   component: Button,
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const variants = ['primary', 'secondary', 'ghost', 'danger', 'link'] as const;
-const sizes = ['sm', 'md', 'lg'] as const;
+const variants = ["primary", "secondary", "ghost", "danger", "link"] as const;
+const sizes = ["sm", "md", "lg"] as const;
 
 export const VariantAndSizeMatrix: Story = {
   args: {
-    children: 'Button',
+    children: "Button",
   },
   render: () => (
     <div className="grid gap-6">
@@ -43,7 +43,7 @@ export const VariantAndSizeMatrix: Story = {
 
 export const LinkButtonStory: Story = {
   args: {
-    children: 'Shop the collection',
+    children: "Shop the collection",
   },
   render: () => (
     <Button size="lg" to={ROUTES.PRODUCTS} variant="primary">
@@ -54,14 +54,14 @@ export const LinkButtonStory: Story = {
 
 export const LoadingState: Story = {
   args: {
-    children: 'Loading',
+    children: "Loading",
   },
   render: () => (
     <div className="flex gap-3">
-      <Button loading variant="primary">
+      <Button isLoading variant="primary">
         Saving
       </Button>
-      <Button loading variant="secondary">
+      <Button isLoading variant="secondary">
         Loading
       </Button>
     </div>

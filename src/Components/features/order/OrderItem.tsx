@@ -1,6 +1,6 @@
-import type { CartItem } from '@/types';
+import type { CartItem } from "@/types";
 
-import { formatCurrency } from '@/components/utils/helpers';
+import { formatCurrency } from "@/components/utils/helpers";
 
 type OrderItemProps = {
   item: CartItem;
@@ -23,9 +23,7 @@ function OrderItem({
         </p>
         <p>{formatCurrency(totalPrice)}</p>
       </div>
-      <p>
-        {isLoadingIngredients ? 'Loading...' : ingredients.join(', ')}
-      </p>
+      <p>{isLoadingIngredients ? "Loading..." : ingredients.join(", ")}</p>
     </li>
   );
 }

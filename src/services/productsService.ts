@@ -1,7 +1,7 @@
-import productsResponse from '@/services/mockData/products.json';
+import productsResponse from "@/services/mockData/products.json";
 
-import type { ApiResponse, Product } from '@/types';
-import { CATEGORY_LABELS, ProductCategory } from '@/constants/categories';
+import type { ApiResponse, Product } from "@/types";
+import { CATEGORY_LABELS, ProductCategory } from "@/constants/categories";
 
 type ProductFilters = {
   category?: string;
@@ -9,9 +9,9 @@ type ProductFilters = {
 
 type RawProduct = (typeof productsResponse.data)[number];
 
-const productAssetUrls = import.meta.glob('../assets/Products/*', {
+const productAssetUrls = import.meta.glob("../assets/Products/*", {
   eager: true,
-  import: 'default',
+  import: "default",
 }) as Record<string, string>;
 
 function resolveAsset(filename: string): string {
@@ -34,11 +34,14 @@ function hydrateProduct(product: RawProduct): Product {
 
 /** Simulates `GET /api/products`. */
 export async function getProducts(
-  filters?: ProductFilters
+  filters?: ProductFilters,
 ): Promise<ApiResponse<Product[]>> {
   const products = productsResponse.data
     .filter((product) => {
-      if (!filters?.category || filters.category === CATEGORY_LABELS[ProductCategory.All]) {
+      if (
+        !filters?.category ||
+        filters.category === CATEGORY_LABELS[ProductCategory.All]
+      ) {
         return true;
       }
 

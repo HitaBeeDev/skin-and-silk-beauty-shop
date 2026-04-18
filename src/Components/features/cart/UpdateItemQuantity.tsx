@@ -1,13 +1,13 @@
-import type { CartItem } from '@/types';
+import type { CartItem } from "@/types";
 
 import {
   decreaseItemQuantity,
   increaseItemQuantity,
-} from '@/components/features/cart/cartSlice';
-import { useAppDispatch } from '@store/hooks';
+} from "@/components/features/cart/cartSlice";
+import { useAppDispatch } from "@store/hooks";
 
 type UpdateItemQuantityProps = {
-  productId: CartItem['productId'];
+  productId: CartItem["productId"];
   currentQuantity: number;
   productName: string;
   onRemove: () => void;
@@ -24,7 +24,11 @@ function UpdateItemQuantity({
   return (
     <div className="inline-flex items-center rounded-full border border-[#d9c0ae] bg-white">
       <button
-        aria-label={currentQuantity === 1 ? `Remove ${productName}` : 'Decrease item quantity'}
+        aria-label={
+          currentQuantity === 1
+            ? `Remove ${productName}`
+            : "Decrease item quantity"
+        }
         className="inline-flex h-11 w-11 items-center justify-center text-xl text-[#5a4034] transition-colors duration-150 ease-in hover:bg-[#f8efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
         onClick={() => {
           if (currentQuantity === 1) {

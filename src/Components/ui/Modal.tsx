@@ -1,11 +1,11 @@
-import { type KeyboardEvent, type ReactNode, useEffect, useRef } from 'react';
+import { type KeyboardEvent, type ReactNode, useEffect, useRef } from "react";
 
 type ModalCompositionProps = {
   children: ReactNode;
 };
 
 export type ModalProps = {
-  open: boolean;
+  isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
 };
@@ -32,7 +32,7 @@ type ModalComponent = ((props: ModalProps) => JSX.Element | null) & {
  * Accessible modal dialog with Escape handling, focus trap, and backdrop close.
  */
 const Modal: ModalComponent = function Modal({
-  open,
+  isOpen,
   onClose,
   children,
 }: ModalProps): JSX.Element | null {
@@ -40,36 +40,36 @@ const Modal: ModalComponent = function Modal({
   const lastActiveElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (!open) return undefined;
+    if (!isOpen) return undefined;
 
     lastActiveElementRef.current = document.activeElement as HTMLElement | null;
 
     const handleKeyDown = (event: KeyboardEvent | globalThis.KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === "Escape") onClose();
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     const focusable = panelRef.current?.querySelector<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     );
     focusable?.focus();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
       lastActiveElementRef.current?.focus();
     };
-  }, [onClose, open]);
+  }, [isOpen, onClose]);
 
-  if (!open) return null;
+  if (!isOpen) return null;
 
   const trapFocus = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== 'Tab' || !panelRef.current) return;
+    if (event.key !== "Tab" || !panelRef.current) return;
 
     const focusableElements = Array.from(
       panelRef.current.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      )
-    ).filter((element) => !element.hasAttribute('disabled'));
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((element) => !element.hasAttribute("disabled"));
 
     if (!focusableElements.length) return;
 

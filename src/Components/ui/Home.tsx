@@ -1,22 +1,19 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
-import type { Product } from '@/types';
+import type { Product } from "@/types";
 
-import {
-  CATEGORY_LABELS,
-  ProductCategory,
-} from '@/constants/categories';
-import { ROUTES } from '@/constants/routes';
+import { CATEGORY_LABELS, ProductCategory } from "@/constants/categories";
+import { ROUTES } from "@/constants/routes";
 
-import ProductGrid from '@/components/features/products/ProductGrid';
-import Button from '@/components/ui/Button';
-import ErrorState from '@/components/ui/Error';
-import { getProducts } from '@/services/productsService';
-import heroImage from '@/assets/home4.jpg';
-import skincareImage from '@/assets/home1.jpg';
-import makeupImage from '@/assets/home2.jpg';
-import arrivalsImage from '@/assets/home3.jpg';
+import ProductGrid from "@/components/features/products/ProductGrid";
+import Button from "@/components/ui/Button";
+import ErrorState from "@/components/ui/Error";
+import { getProducts } from "@/services/productsService";
+import heroImage from "@/assets/home4.jpg";
+import skincareImage from "@/assets/home1.jpg";
+import makeupImage from "@/assets/home2.jpg";
+import arrivalsImage from "@/assets/home3.jpg";
 
 type FeaturedState = {
   items: Product[];
@@ -64,7 +61,9 @@ function Home(): JSX.Element {
         if (!isMounted) return;
 
         setFeaturedState({
-          items: response.data.filter((product) => product.featured).slice(0, 4),
+          items: response.data
+            .filter((product) => product.featured)
+            .slice(0, 4),
           loading: false,
           error: null,
         });
@@ -74,7 +73,10 @@ function Home(): JSX.Element {
         setFeaturedState({
           items: [],
           loading: false,
-          error: error instanceof Error ? error.message : 'Failed to load featured products.',
+          error:
+            error instanceof Error
+              ? error.message
+              : "Failed to load featured products.",
         });
       }
     }
@@ -88,7 +90,7 @@ function Home(): JSX.Element {
 
   const featuredFallback = useMemo(
     () => Array.from({ length: 4 }, (_, index) => index),
-    []
+    [],
   );
 
   return (
@@ -102,11 +104,13 @@ function Home(): JSX.Element {
                 Skin &amp; Silk
               </p>
               <h1 className="font-['Playfair_Display',serif] text-4xl leading-tight text-[#fff7f0] sm:text-5xl lg:text-6xl">
-                A refined ritual for luminous skin, polished color, and modern indulgence.
+                A refined ritual for luminous skin, polished color, and modern
+                indulgence.
               </h1>
               <p className="mt-5 max-w-lg font-['Quicksand',sans-serif] text-base leading-7 text-[#f2ddcc] sm:text-lg">
-                Discover prestige skincare, editorial makeup, and elevated essentials curated
-                to make every routine feel considered, tactile, and beautifully complete.
+                Discover prestige skincare, editorial makeup, and elevated
+                essentials curated to make every routine feel considered,
+                tactile, and beautifully complete.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button size="lg" to={ROUTES.PRODUCTS} variant="primary">
@@ -149,8 +153,8 @@ function Home(): JSX.Element {
                 Featured Products
               </h2>
               <p className="mt-3 font-['Quicksand',sans-serif] text-base leading-7 text-[#5b463d]">
-                Four signatures from the collection, selected to anchor a complete routine with
-                texture, treatment, and a polished finish.
+                Four signatures from the collection, selected to anchor a
+                complete routine with texture, treatment, and a polished finish.
               </p>
             </div>
             <Link
@@ -173,7 +177,9 @@ function Home(): JSX.Element {
             </div>
           ) : null}
 
-          {featuredState.error ? <ErrorState message={featuredState.error} /> : null}
+          {featuredState.error ? (
+            <ErrorState message={featuredState.error} />
+          ) : null}
 
           {!featuredState.loading && !featuredState.error ? (
             <ProductGrid products={featuredState.items} />
@@ -250,13 +256,14 @@ function Home(): JSX.Element {
 
           <div className="space-y-4 font-['Quicksand',sans-serif] text-base leading-8 text-[#4d3932]">
             <p>
-              We curate formulas, textures, and finishes that bring a couture sensibility to the
-              everyday, pairing treatment-first skincare with makeup that looks polished in every
-              light.
+              We curate formulas, textures, and finishes that bring a couture
+              sensibility to the everyday, pairing treatment-first skincare with
+              makeup that looks polished in every light.
             </p>
             <p>
-              The result is a tighter, more considered edit: products chosen for performance,
-              ceremony, and the quiet confidence that comes from a routine designed with taste.
+              The result is a tighter, more considered edit: products chosen for
+              performance, ceremony, and the quiet confidence that comes from a
+              routine designed with taste.
             </p>
           </div>
         </div>

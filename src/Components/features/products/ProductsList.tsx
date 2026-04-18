@@ -1,32 +1,34 @@
-import { Suspense, lazy, useMemo, useState, useTransition } from 'react';
+import { Suspense, lazy, useMemo, useState, useTransition } from "react";
 
 import {
   CATEGORY_OPTIONS,
   DEFAULT_CATEGORY,
   type ProductCategoryLabel,
-} from '@/constants/categories';
-import { ROUTES } from '@/constants/routes';
+} from "@/constants/categories";
+import { ROUTES } from "@/constants/routes";
 
 import {
   fetchProducts,
   selectProducts,
   selectProductsError,
   selectProductsStatus,
-} from '@/components/features/products/productsSlice';
-import Button from '@/components/ui/Button';
-import ErrorBoundary from '@/components/ui/ErrorBoundary';
-import ProductGridSkeleton from '@/components/ui/ProductGridSkeleton';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { useProductFilters } from '@hooks/useProductFilters';
+} from "@/components/features/products/productsSlice";
+import Button from "@/components/ui/Button";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
+import ProductGridSkeleton from "@/components/ui/ProductGridSkeleton";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { useProductFilters } from "@hooks/useProductFilters";
 
-const ProductGrid = lazy(() => import('@/components/features/products/ProductGrid'));
+const ProductGrid = lazy(
+  () => import("@/components/features/products/ProductGrid"),
+);
 
-type SortOption = 'newest' | 'price-asc' | 'price-desc';
+type SortOption = "newest" | "price-asc" | "price-desc";
 
 const sortOptions: Array<{ value: SortOption; label: string }> = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'price-asc', label: 'Price: Low to High' },
-  { value: 'price-desc', label: 'Price: High to Low' },
+  { value: "newest", label: "Newest" },
+  { value: "price-asc", label: "Price: Low to High" },
+  { value: "price-desc", label: "Price: High to Low" },
 ];
 
 function ProductsList(): JSX.Element {
@@ -35,20 +37,26 @@ function ProductsList(): JSX.Element {
   const productsStatus = useAppSelector(selectProductsStatus);
   const productsError = useAppSelector(selectProductsError);
   const { activeCategory, setCategory } = useProductFilters();
-  const [sortOrder, setSortOrder] = useState<SortOption>('newest');
+  const [sortOrder, setSortOrder] = useState<SortOption>("newest");
   const [gridResetKey, setGridResetKey] = useState(0);
   const [isPending, startTransition] = useTransition();
-  const activeIndex = CATEGORY_OPTIONS.findIndex(({ label }) => label === activeCategory);
+  const activeIndex = CATEGORY_OPTIONS.findIndex(
+    ({ label }) => label === activeCategory,
+  );
 
   const sortedProducts = useMemo(() => {
     const nextProducts = [...products];
 
     switch (sortOrder) {
-      case 'price-asc':
-        return nextProducts.sort((a, b) => (a.unitPrice ?? a.price) - (b.unitPrice ?? b.price));
-      case 'price-desc':
-        return nextProducts.sort((a, b) => (b.unitPrice ?? b.price) - (a.unitPrice ?? a.price));
-      case 'newest':
+      case "price-asc":
+        return nextProducts.sort(
+          (a, b) => (a.unitPrice ?? a.price) - (b.unitPrice ?? b.price),
+        );
+      case "price-desc":
+        return nextProducts.sort(
+          (a, b) => (b.unitPrice ?? b.price) - (a.unitPrice ?? a.price),
+        );
+      case "newest":
       default:
         return nextProducts.sort((a, b) => {
           if (a.isNew === b.isNew) {
@@ -68,10 +76,14 @@ function ProductsList(): JSX.Element {
 
   function handleRetry(): void {
     setGridResetKey((current) => current + 1);
-    void dispatch(fetchProducts(activeCategory === DEFAULT_CATEGORY ? undefined : activeCategory));
+    void dispatch(
+      fetchProducts(
+        activeCategory === DEFAULT_CATEGORY ? undefined : activeCategory,
+      ),
+    );
   }
 
-  if (productsStatus === 'loading' && !products.length) {
+  if (productsStatus === "loading" && !products.length) {
     return (
       <section className="mx-auto w-[min(100%-2rem,72rem)] px-4 py-16 sm:px-6 lg:px-8">
         <ProductGridSkeleton />
@@ -79,7 +91,7 @@ function ProductsList(): JSX.Element {
     );
   }
 
-  if (productsStatus === 'failed') {
+  if (productsStatus === "failed") {
     return (
       <section className="mx-auto w-[min(100%-2rem,72rem)] px-4 py-16 sm:px-6 lg:px-8">
         <div
@@ -90,7 +102,7 @@ function ProductsList(): JSX.Element {
             Products couldn&apos;t be loaded
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#5b463d]">
-            {productsError ?? 'Failed to load products.'}
+            {productsError ?? "Failed to load products."}
           </p>
           <div className="mt-6">
             <Button onClick={handleRetry} type="button">
@@ -114,7 +126,8 @@ function ProductsList(): JSX.Element {
               Filter by category, then refine by finish and price.
             </h1>
             <p className="mt-3 font-['Quicksand',sans-serif] text-base leading-7 text-[#5b463d]">
-              Showing {sortedProducts.length} product{sortedProducts.length === 1 ? '' : 's'}
+              Showing {sortedProducts.length} product
+              {sortedProducts.length === 1 ? "" : "s"}
             </p>
           </div>
 
@@ -129,7 +142,9 @@ function ProductsList(): JSX.Element {
               <select
                 className="w-full appearance-none rounded-full border border-[#d9c0ae] bg-white px-4 py-3 pr-11 font-['Quicksand',sans-serif] text-sm text-[#5a4034] shadow-[0_14px_32px_-26px_rgba(36,25,21,0.4)] transition-colors duration-150 ease-in focus:border-[#5a4034] focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2"
                 id="products-sort"
-                onChange={(event) => setSortOrder(event.target.value as SortOption)}
+                onChange={(event) =>
+                  setSortOrder(event.target.value as SortOption)
+                }
                 value={sortOrder}
               >
                 {sortOptions.map((option) => (
@@ -171,10 +186,14 @@ function ProductsList(): JSX.Element {
                 aria-current={activeCategory === label}
                 className={[
                   "relative z-10 rounded-[1.2rem] px-3 py-3 text-center font-['Quicksand',sans-serif] text-xs font-semibold transition-colors duration-150 ease-in sm:px-4 sm:text-sm",
-                  activeCategory === label ? 'text-white' : 'text-[#5a4034] hover:text-[#3f2d25]',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
-                ].join(' ')}
-                onClick={() => handleCategoryChange(label as ProductCategoryLabel)}
+                  activeCategory === label
+                    ? "text-white"
+                    : "text-[#5a4034] hover:text-[#3f2d25]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2",
+                ].join(" ")}
+                onClick={() =>
+                  handleCategoryChange(label as ProductCategoryLabel)
+                }
                 type="button"
               >
                 {label}
@@ -186,7 +205,7 @@ function ProductsList(): JSX.Element {
         <Suspense fallback={<ProductGridSkeleton />}>
           <div
             aria-busy={isPending}
-            className={`transition-opacity duration-200 ease-in ${isPending ? 'opacity-50' : 'opacity-100'}`}
+            className={`transition-opacity duration-200 ease-in ${isPending ? "opacity-50" : "opacity-100"}`}
           >
             <ErrorBoundary
               fallback={(error) => (
@@ -198,10 +217,13 @@ function ProductsList(): JSX.Element {
                     The product grid hit an issue
                   </h2>
                   <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#5b463d]">
-                    {error.message || 'The product grid could not be rendered.'}
+                    {error.message || "The product grid could not be rendered."}
                   </p>
                   <div className="mt-6">
-                    <Button onClick={() => setGridResetKey((current) => current + 1)} type="button">
+                    <Button
+                      onClick={() => setGridResetKey((current) => current + 1)}
+                      type="button"
+                    >
                       Retry Grid
                     </Button>
                   </div>
@@ -217,8 +239,8 @@ function ProductsList(): JSX.Element {
                     No products in this category
                   </h2>
                   <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-[#5b463d]">
-                    Shift back to the full collection to browse every skincare, makeup, and new
-                    arrival currently available.
+                    Shift back to the full collection to browse every skincare,
+                    makeup, and new arrival currently available.
                   </p>
                   <div className="mt-6">
                     <Button to={ROUTES.PRODUCTS} variant="secondary">

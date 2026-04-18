@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 type Coordinates = {
   latitude: number;
@@ -18,8 +18,8 @@ export function useGeolocation(): UseGeolocationResult {
   const [isLoading, setIsLoading] = useState(false);
 
   async function getPosition(): Promise<Coordinates | null> {
-    if (typeof navigator === 'undefined' || !navigator.geolocation) {
-      const nextError = 'Geolocation is not supported by this browser.';
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+      const nextError = "Geolocation is not supported by this browser.";
       setError(nextError);
       return null;
     }
@@ -31,7 +31,7 @@ export function useGeolocation(): UseGeolocationResult {
       const geolocationPosition = await new Promise<GeolocationPosition>(
         (resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
-        }
+        },
       );
 
       const nextPosition = {
@@ -45,7 +45,7 @@ export function useGeolocation(): UseGeolocationResult {
       const nextError =
         caughtError instanceof GeolocationPositionError
           ? caughtError.message
-          : 'Unable to retrieve your location.';
+          : "Unable to retrieve your location.";
 
       setError(nextError);
       return null;

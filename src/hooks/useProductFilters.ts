@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import {
   CATEGORY_SLUG_BY_LABEL,
   DEFAULT_CATEGORY,
   getCategoryLabelBySlug,
   type ProductCategoryLabel,
-} from '@/constants/categories';
+} from "@/constants/categories";
 import {
   fetchProducts,
   selectActiveCategory,
   setActiveCategory,
-} from '@/components/features/products/productsSlice';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
+} from "@/components/features/products/productsSlice";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 
 type UseProductFiltersResult = {
   activeCategory: ProductCategoryLabel;
@@ -23,14 +23,21 @@ export function useProductFilters(): UseProductFiltersResult {
   const dispatch = useAppDispatch();
   const activeCategory = useAppSelector(selectActiveCategory);
   const [searchParams, setSearchParams] = useSearchParams();
-  const categorySlug = searchParams.get('category');
+  const categorySlug = searchParams.get("category");
 
   useEffect(() => {
-    const categoryFromUrl = getCategoryLabelBySlug(categorySlug) ?? DEFAULT_CATEGORY;
+    const categoryFromUrl =
+      getCategoryLabelBySlug(categorySlug) ?? DEFAULT_CATEGORY;
     const nextCategoryParams = new URLSearchParams(searchParams);
 
-    if (nextCategoryParams.get('category') !== CATEGORY_SLUG_BY_LABEL[categoryFromUrl]) {
-      nextCategoryParams.set('category', CATEGORY_SLUG_BY_LABEL[categoryFromUrl]);
+    if (
+      nextCategoryParams.get("category") !==
+      CATEGORY_SLUG_BY_LABEL[categoryFromUrl]
+    ) {
+      nextCategoryParams.set(
+        "category",
+        CATEGORY_SLUG_BY_LABEL[categoryFromUrl],
+      );
       setSearchParams(nextCategoryParams, { replace: true });
     }
 
@@ -45,7 +52,7 @@ export function useProductFilters(): UseProductFiltersResult {
   function setCategory(category: ProductCategoryLabel): void {
     dispatch(setActiveCategory(category));
     const nextCategoryParams = new URLSearchParams(searchParams);
-    nextCategoryParams.set('category', CATEGORY_SLUG_BY_LABEL[category]);
+    nextCategoryParams.set("category", CATEGORY_SLUG_BY_LABEL[category]);
     setSearchParams(nextCategoryParams);
   }
 

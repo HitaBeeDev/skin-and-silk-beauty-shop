@@ -1,31 +1,31 @@
-import { useMemo, useState } from 'react';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import { useMemo, useState } from "react";
+import { useLoaderData, useLocation } from "react-router-dom";
 
-import type { Order as OrderModel } from '@/types';
+import type { Order as OrderModel } from "@/types";
 
 import {
   rollbackOrderPriorityUpgrade,
   selectOrderById,
   upgradeOrderPriority,
   upgradeOrderPriorityOptimistic,
-} from '@/components/features/order/ordersSlice';
-import Badge from '@/components/ui/Badge';
-import Breadcrumb from '@/components/ui/Breadcrumb';
-import Button from '@/components/ui/Button';
-import Error from '@/components/ui/Error';
-import ErrorBoundary from '@/components/ui/ErrorBoundary';
-import Toast from '@/components/ui/Toast';
-import { formatCurrency, formatDate } from '@/components/utils/helpers';
-import { ROUTES } from '@/constants/routes';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
+} from "@/components/features/order/ordersSlice";
+import Badge from "@/components/ui/Badge";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import Button from "@/components/ui/Button";
+import Error from "@/components/ui/Error";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
+import Toast from "@/components/ui/Toast";
+import { formatCurrency, formatDate } from "@/components/utils/helpers";
+import { ROUTES } from "@/constants/routes";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 
 function formatOrderConfirmationId(orderId: string): string {
-  const numericPart = orderId.replace(/\D/g, '');
-  return `#ORD-${numericPart.slice(-5).padStart(5, '0')}`;
+  const numericPart = orderId.replace(/\D/g, "");
+  return `#ORD-${numericPart.slice(-5).padStart(5, "0")}`;
 }
 
 function parseOrderCreatedAt(orderId: string, fallbackDate: string): Date {
-  const timestamp = Number(orderId.replace('ord_', ''));
+  const timestamp = Number(orderId.replace("ord_", ""));
 
   if (Number.isFinite(timestamp) && timestamp > 0) {
     return new Date(timestamp);
@@ -36,35 +36,35 @@ function parseOrderCreatedAt(orderId: string, fallbackDate: string): Date {
 
 function getStatusMeta(status: string): {
   label: string;
-  tone: 'warning' | 'accent' | 'success' | 'danger' | 'neutral';
+  tone: "warning" | "accent" | "success" | "danger" | "neutral";
   className: string;
 } {
   switch (status.toLowerCase()) {
-    case 'preparing':
+    case "preparing":
       return {
-        label: 'Preparing',
-        tone: 'neutral',
-        className: 'bg-blue-100 text-blue-800',
+        label: "Preparing",
+        tone: "neutral",
+        className: "bg-blue-100 text-blue-800",
       };
-    case 'out for delivery':
+    case "out for delivery":
       return {
-        label: 'Out for Delivery',
-        tone: 'neutral',
-        className: 'bg-purple-100 text-purple-800',
+        label: "Out for Delivery",
+        tone: "neutral",
+        className: "bg-purple-100 text-purple-800",
       };
-    case 'delivered':
+    case "delivered":
       return {
-        label: 'Delivered',
-        tone: 'success',
-        className: '',
+        label: "Delivered",
+        tone: "success",
+        className: "",
       };
-    case 'pending':
-    case 'new':
+    case "pending":
+    case "new":
     default:
       return {
-        label: 'Pending',
-        tone: 'warning',
-        className: '',
+        label: "Pending",
+        tone: "warning",
+        className: "",
       };
   }
 }
@@ -78,24 +78,28 @@ function Order(): JSX.Element {
   const [isUpdatingPriority, setIsUpdatingPriority] = useState(false);
   const [toastState, setToastState] = useState<{
     id: number;
-    open: boolean;
-    tone: 'success' | 'error';
+    isOpen: boolean;
+    tone: "success" | "error";
     message: string;
   }>({
     id: 0,
-    open: false,
-    tone: 'success',
-    message: '',
+    isOpen: false,
+    tone: "success",
+    message: "",
   });
 
   const statusMeta = useMemo(() => getStatusMeta(order.status), [order.status]);
-  const orderIdLabel = useMemo(() => formatOrderConfirmationId(order.id), [order.id]);
+  const orderIdLabel = useMemo(
+    () => formatOrderConfirmationId(order.id),
+    [order.id],
+  );
   const placedAt = useMemo(
     () => parseOrderCreatedAt(order.id, order.estimatedDelivery),
-    [order.estimatedDelivery, order.id]
+    [order.estimatedDelivery, order.id],
   );
   const subtotal =
-    order.orderPrice ?? order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+    order.orderPrice ??
+    order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
   const priorityPrice =
     order.priorityPrice ?? (order.priority ? subtotal * 0.2 : 0);
   const total = subtotal + priorityPrice;
@@ -107,24 +111,25 @@ function Order(): JSX.Element {
     };
 
     setIsUpdatingPriority(true);
-    setToastState((current) => ({ ...current, open: false }));
+    setToastState((current) => ({ ...current, isOpen: false }));
     dispatch(upgradeOrderPriorityOptimistic(order.id));
 
     try {
       await dispatch(upgradeOrderPriority(order.id)).unwrap();
       setToastState((current) => ({
         id: current.id + 1,
-        open: true,
-        tone: 'success',
-        message: 'Upgraded to priority delivery.',
+        isOpen: true,
+        tone: "success",
+        message: "Upgraded to priority delivery.",
       }));
     } catch {
       dispatch(rollbackOrderPriorityUpgrade(previousOrderSnapshot));
       setToastState((current) => ({
         id: current.id + 1,
-        open: true,
-        tone: 'error',
-        message: 'Could not upgrade this order to priority. The change was reverted.',
+        isOpen: true,
+        tone: "error",
+        message:
+          "Could not upgrade this order to priority. The change was reverted.",
       }));
     } finally {
       setIsUpdatingPriority(false);
@@ -135,7 +140,7 @@ function Order(): JSX.Element {
     <ErrorBoundary
       fallback={(error) => (
         <Error
-          message={error.message || 'The order details could not be rendered.'}
+          message={error.message || "The order details could not be rendered."}
         />
       )}
       resetKey={location.pathname}
@@ -144,8 +149,8 @@ function Order(): JSX.Element {
         <div className="space-y-8">
           <Breadcrumb
             items={[
-              { label: 'Home', to: ROUTES.HOME },
-              { label: 'Orders', to: ROUTES.HOME },
+              { label: "Home", to: ROUTES.HOME },
+              { label: "Orders", to: ROUTES.HOME },
               { label: orderIdLabel },
             ]}
           />
@@ -166,8 +171,12 @@ function Order(): JSX.Element {
                     </p>
                   </div>
                   <Badge
-                    className={statusMeta.className ? `px-3 py-1 text-sm ${statusMeta.className}` : 'px-3 py-1 text-sm'}
-                    tone={statusMeta.className ? 'neutral' : statusMeta.tone}
+                    className={
+                      statusMeta.className
+                        ? `px-3 py-1 text-sm ${statusMeta.className}`
+                        : "px-3 py-1 text-sm"
+                    }
+                    tone={statusMeta.className ? "neutral" : statusMeta.tone}
                   >
                     {statusMeta.label}
                   </Badge>
@@ -183,19 +192,25 @@ function Order(): JSX.Element {
                     <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8c6659]">
                       Name
                     </dt>
-                    <dd className="mt-2 text-base text-[#241915]">{order.customer}</dd>
+                    <dd className="mt-2 text-base text-[#241915]">
+                      {order.customer}
+                    </dd>
                   </div>
                   <div>
                     <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8c6659]">
                       Phone
                     </dt>
-                    <dd className="mt-2 text-base text-[#241915]">{order.phone}</dd>
+                    <dd className="mt-2 text-base text-[#241915]">
+                      {order.phone}
+                    </dd>
                   </div>
                   <div className="sm:col-span-2">
                     <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8c6659]">
                       Delivery address
                     </dt>
-                    <dd className="mt-2 text-base leading-7 text-[#241915]">{order.address}</dd>
+                    <dd className="mt-2 text-base leading-7 text-[#241915]">
+                      {order.address}
+                    </dd>
                   </div>
                 </dl>
               </div>
@@ -208,11 +223,15 @@ function Order(): JSX.Element {
                   {order.cart.map((item, index) => (
                     <div
                       key={item.productId}
-                      className={`grid grid-cols-[minmax(0,1.4fr)_auto_auto] gap-4 px-1 py-4 ${index < order.cart.length - 1 ? 'border-b border-[#ead9ca]' : ''}`}
+                      className={`grid grid-cols-[minmax(0,1.4fr)_auto_auto] gap-4 px-1 py-4 ${index < order.cart.length - 1 ? "border-b border-[#ead9ca]" : ""}`}
                     >
                       <div>
-                        <p className="font-medium text-[#241915]">{item.name}</p>
-                        <p className="mt-1 text-sm text-[#8c6659]">Qty {item.quantity}</p>
+                        <p className="font-medium text-[#241915]">
+                          {item.name}
+                        </p>
+                        <p className="mt-1 text-sm text-[#8c6659]">
+                          Qty {item.quantity}
+                        </p>
                       </div>
                       <p className="text-right text-sm text-[#5b463d]">
                         {formatCurrency(item.unitPrice)}
@@ -251,7 +270,8 @@ function Order(): JSX.Element {
                 {!order.priority ? (
                   <div className="mt-4 space-y-3">
                     <p className="text-sm leading-7 text-[#5b463d]">
-                      Standard delivery is active. Upgrade if you want this order prioritized.
+                      Standard delivery is active. Upgrade if you want this
+                      order prioritized.
                     </p>
                     <Button
                       disabled={isUpdatingPriority}
@@ -260,7 +280,9 @@ function Order(): JSX.Element {
                       }}
                       variant="secondary"
                     >
-                      {isUpdatingPriority ? 'Upgrading...' : 'Upgrade to Priority'}
+                      {isUpdatingPriority
+                        ? "Upgrading..."
+                        : "Upgrade to Priority"}
                     </Button>
                   </div>
                 ) : (
@@ -278,11 +300,11 @@ function Order(): JSX.Element {
         <Toast
           key={toastState.id}
           duration={4000}
+          isOpen={toastState.isOpen}
           message={toastState.message}
           onClose={() =>
-            setToastState((current) => ({ ...current, open: false }))
+            setToastState((current) => ({ ...current, isOpen: false }))
           }
-          open={toastState.open}
           position="bottom-right"
           tone={toastState.tone}
         />

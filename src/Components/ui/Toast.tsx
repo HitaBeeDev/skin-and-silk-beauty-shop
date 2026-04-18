@@ -1,21 +1,21 @@
-import { type ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect } from "react";
 
-type ToastTone = 'success' | 'error' | 'info';
-type ToastPosition = 'top-right' | 'bottom-right';
+type ToastTone = "success" | "error" | "info";
+type ToastPosition = "top-right" | "bottom-right";
 
 export type ToastProps = {
   tone?: ToastTone;
   message: ReactNode;
-  open: boolean;
+  isOpen: boolean;
   duration?: number;
   onClose: () => void;
   position?: ToastPosition;
 };
 
 const toneStyles: Record<ToastTone, string> = {
-  success: 'bg-green-100 text-green-800',
-  error: 'bg-red-100 text-red-800',
-  info: 'bg-blue-100 text-blue-800',
+  success: "bg-green-100 text-green-800",
+  error: "bg-red-100 text-red-800",
+  info: "bg-blue-100 text-blue-800",
 };
 
 /**
@@ -23,29 +23,29 @@ const toneStyles: Record<ToastTone, string> = {
  * Auto-dismisses and also exposes a manual close button.
  */
 function Toast({
-  tone = 'info',
+  tone = "info",
   message,
-  open,
+  isOpen,
   duration = 3000,
   onClose,
-  position = 'top-right',
+  position = "top-right",
 }: ToastProps): JSX.Element | null {
   useEffect(() => {
-    if (!open) return undefined;
+    if (!isOpen) return undefined;
 
     const timeoutId = window.setTimeout(onClose, duration);
     return () => window.clearTimeout(timeoutId);
-  }, [duration, onClose, open]);
+  }, [duration, isOpen, onClose]);
 
-  if (!open) return null;
+  if (!isOpen) return null;
 
   return (
     <div
       className={[
-        'fixed right-4 z-[1000] flex max-w-sm items-center gap-3 rounded-2xl px-4 py-3 shadow-lg transition-transform duration-200 ease-in',
-        position === 'top-right' ? 'top-4' : 'bottom-6',
+        "fixed right-4 z-[1000] flex max-w-sm items-center gap-3 rounded-2xl px-4 py-3 shadow-lg transition-transform duration-200 ease-in",
+        position === "top-right" ? "top-4" : "bottom-6",
         toneStyles[tone],
-      ].join(' ')}
+      ].join(" ")}
       role="status"
     >
       <span className="flex-1">{message}</span>

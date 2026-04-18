@@ -13,17 +13,11 @@
       "images": {
         "main": "product1.png",
         "hover": "product1.png",
-        "gallery": [
-          "product1.png"
-        ]
+        "gallery": ["product1.png"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "hydrating",
-        "lotion",
-        "radiance"
-      ]
+      "tags": ["hydrating", "lotion", "radiance"]
     },
     {
       "id": "2",
@@ -37,17 +31,11 @@
       "images": {
         "main": "product2.avif",
         "hover": "product2.avif",
-        "gallery": [
-          "product2.avif"
-        ]
+        "gallery": ["product2.avif"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "night cream",
-        "anti-aging",
-        "moisturizer"
-      ]
+      "tags": ["night cream", "anti-aging", "moisturizer"]
     },
     {
       "id": "3",
@@ -61,17 +49,11 @@
       "images": {
         "main": "product3.webp",
         "hover": "product3.webp",
-        "gallery": [
-          "product3.webp"
-        ]
+        "gallery": ["product3.webp"]
       },
       "inStock": true,
       "isNew": false,
-      "tags": [
-        "cream",
-        "rich",
-        "barrier care"
-      ]
+      "tags": ["cream", "rich", "barrier care"]
     },
     {
       "id": "4",
@@ -86,17 +68,11 @@
       "images": {
         "main": "product4.jpg",
         "hover": "product4.jpg",
-        "gallery": [
-          "product4.jpg"
-        ]
+        "gallery": ["product4.jpg"]
       },
       "inStock": true,
       "isNew": false,
-      "tags": [
-        "serum",
-        "anti-aging",
-        "ceramides"
-      ]
+      "tags": ["serum", "anti-aging", "ceramides"]
     },
     {
       "id": "13",
@@ -110,17 +86,11 @@
       "images": {
         "main": "product13.avif",
         "hover": "product13.avif",
-        "gallery": [
-          "product13.avif"
-        ]
+        "gallery": ["product13.avif"]
       },
       "inStock": false,
       "isNew": false,
-      "tags": [
-        "cream",
-        "hydration",
-        "luxury"
-      ]
+      "tags": ["cream", "hydration", "luxury"]
     },
     {
       "id": "14",
@@ -134,17 +104,11 @@
       "images": {
         "main": "product14.avif",
         "hover": "product14.avif",
-        "gallery": [
-          "product14.avif"
-        ]
+        "gallery": ["product14.avif"]
       },
       "inStock": true,
       "isNew": false,
-      "tags": [
-        "lip care",
-        "volumizing",
-        "shine"
-      ]
+      "tags": ["lip care", "volumizing", "shine"]
     },
     {
       "id": "15",
@@ -159,17 +123,11 @@
       "images": {
         "main": "product15.avif",
         "hover": "product15.avif",
-        "gallery": [
-          "product15.avif"
-        ]
+        "gallery": ["product15.avif"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "lip care",
-        "treatment",
-        "softening"
-      ]
+      "tags": ["lip care", "treatment", "softening"]
     },
     {
       "id": "16",
@@ -183,17 +141,11 @@
       "images": {
         "main": "product16.avif",
         "hover": "product16.avif",
-        "gallery": [
-          "product16.avif"
-        ]
+        "gallery": ["product16.avif"]
       },
       "inStock": false,
       "isNew": false,
-      "tags": [
-        "cleanser",
-        "micellar",
-        "makeup remover"
-      ]
+      "tags": ["cleanser", "micellar", "makeup remover"]
     },
     {
       "id": "5",
@@ -207,17 +159,11 @@
       "images": {
         "main": "product5.jpg",
         "hover": "product5.jpg",
-        "gallery": [
-          "product5.jpg"
-        ]
+        "gallery": ["product5.jpg"]
       },
       "inStock": false,
       "isNew": false,
-      "tags": [
-        "lip balm",
-        "primer",
-        "makeup prep"
-      ]
+      "tags": ["lip balm", "primer", "makeup prep"]
     },
     {
       "id": "6",
@@ -232,17 +178,11 @@
       "images": {
         "main": "product6.webp",
         "hover": "product6.webp",
-        "gallery": [
-          "product6.webp"
-        ]
+        "gallery": ["product6.webp"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "foundation",
-        "gel",
-        "buildable coverage"
-      ]
+      "tags": ["foundation", "gel", "buildable coverage"]
     },
     {
       "id": "7",
@@ -256,17 +196,11 @@
       "images": {
         "main": "product7.png",
         "hover": "product7.png",
-        "gallery": [
-          "product7.png"
-        ]
+        "gallery": ["product7.png"]
       },
       "inStock": false,
       "isNew": false,
-      "tags": [
-        "lipstick",
-        "satin",
-        "color"
-      ]
+      "tags": ["lipstick", "satin", "color"]
     },
     {
       "id": "8",
@@ -280,17 +214,11 @@
       "images": {
         "main": "product8.png",
         "hover": "product8.png",
-        "gallery": [
-          "product8.png"
-        ]
+        "gallery": ["product8.png"]
       },
       "inStock": true,
       "isNew": false,
-      "tags": [
-        "eyeshadow",
-        "palette",
-        "quad"
-      ]
+      "tags": ["eyeshadow", "palette", "quad"]
     },
     {
       "id": "17",
@@ -304,17 +232,11 @@
       "images": {
         "main": "product17.jpg",
         "hover": "product17.jpg",
-        "gallery": [
-          "product17.jpg"
-        ]
+        "gallery": ["product17.jpg"]
       },
       "inStock": true,
       "isNew": false,
-      "tags": [
-        "foundation",
-        "radiance",
-        "coverage"
-      ]
+      "tags": ["foundation", "radiance", "coverage"]
     },
     {
       "id": "18",
@@ -328,17 +250,11 @@
       "images": {
         "main": "product18.jpg",
         "hover": "product18.jpg",
-        "gallery": [
-          "product18.jpg"
-        ]
+        "gallery": ["product18.jpg"]
       },
       "inStock": false,
       "isNew": false,
-      "tags": [
-        "foundation",
-        "liquid",
-        "coverage"
-      ]
+      "tags": ["foundation", "liquid", "coverage"]
     },
     {
       "id": "23",
@@ -352,17 +268,11 @@
       "images": {
         "main": "product23.png",
         "hover": "product23.png",
-        "gallery": [
-          "product23.png"
-        ]
+        "gallery": ["product23.png"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "blush",
-        "powder",
-        "cheeks"
-      ]
+      "tags": ["blush", "powder", "cheeks"]
     },
     {
       "id": "24",
@@ -376,17 +286,11 @@
       "images": {
         "main": "product24.png",
         "hover": "product24.png",
-        "gallery": [
-          "product24.png"
-        ]
+        "gallery": ["product24.png"]
       },
       "inStock": false,
       "isNew": true,
-      "tags": [
-        "blush",
-        "cream",
-        "argan oil"
-      ]
+      "tags": ["blush", "cream", "argan oil"]
     },
     {
       "id": "9",
@@ -400,17 +304,11 @@
       "images": {
         "main": "product9.png",
         "hover": "product9.png",
-        "gallery": [
-          "product9.png"
-        ]
+        "gallery": ["product9.png"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "brush",
-        "tool",
-        "foundation"
-      ]
+      "tags": ["brush", "tool", "foundation"]
     },
     {
       "id": "10",
@@ -424,17 +322,11 @@
       "images": {
         "main": "product10.png",
         "hover": "product10.png",
-        "gallery": [
-          "product10.png"
-        ]
+        "gallery": ["product10.png"]
       },
       "inStock": false,
       "isNew": true,
-      "tags": [
-        "eyeshadow",
-        "duo",
-        "argan oil"
-      ]
+      "tags": ["eyeshadow", "duo", "argan oil"]
     },
     {
       "id": "11",
@@ -448,17 +340,11 @@
       "images": {
         "main": "product11.png",
         "hover": "product11.png",
-        "gallery": [
-          "product11.png"
-        ]
+        "gallery": ["product11.png"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "lip color",
-        "glossy",
-        "hydrating"
-      ]
+      "tags": ["lip color", "glossy", "hydrating"]
     },
     {
       "id": "12",
@@ -472,17 +358,11 @@
       "images": {
         "main": "product12.png",
         "hover": "product12.png",
-        "gallery": [
-          "product12.png"
-        ]
+        "gallery": ["product12.png"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "foundation",
-        "cushion",
-        "natural finish"
-      ]
+      "tags": ["foundation", "cushion", "natural finish"]
     },
     {
       "id": "19",
@@ -496,17 +376,11 @@
       "images": {
         "main": "product19.webp",
         "hover": "product19.webp",
-        "gallery": [
-          "product19.webp"
-        ]
+        "gallery": ["product19.webp"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "serum",
-        "repair",
-        "ageing"
-      ]
+      "tags": ["serum", "repair", "ageing"]
     },
     {
       "id": "20",
@@ -520,17 +394,11 @@
       "images": {
         "main": "product20.webp",
         "hover": "product20.webp",
-        "gallery": [
-          "product20.webp"
-        ]
+        "gallery": ["product20.webp"]
       },
       "inStock": false,
       "isNew": true,
-      "tags": [
-        "retinol",
-        "patches",
-        "wrinkles"
-      ]
+      "tags": ["retinol", "patches", "wrinkles"]
     },
     {
       "id": "21",
@@ -544,17 +412,11 @@
       "images": {
         "main": "product21.webp",
         "hover": "product21.webp",
-        "gallery": [
-          "product21.webp"
-        ]
+        "gallery": ["product21.webp"]
       },
       "inStock": false,
       "isNew": true,
-      "tags": [
-        "eye cream",
-        "firming",
-        "brightening"
-      ]
+      "tags": ["eye cream", "firming", "brightening"]
     },
     {
       "id": "22",
@@ -568,17 +430,11 @@
       "images": {
         "main": "product22.webp",
         "hover": "product22.webp",
-        "gallery": [
-          "product22.webp"
-        ]
+        "gallery": ["product22.webp"]
       },
       "inStock": true,
       "isNew": true,
-      "tags": [
-        "moisturiser",
-        "cryo",
-        "energising"
-      ]
+      "tags": ["moisturiser", "cryo", "energising"]
     }
   ],
   "meta": {

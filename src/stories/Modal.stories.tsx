@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 
-import Button from '@/components/ui/Button';
-import Modal from '@/components/ui/Modal';
+import Button from "@/components/ui/Button";
+import Modal from "@/components/ui/Modal";
 
 const meta = {
-  title: 'UI/Modal',
+  title: "UI/Modal",
   component: Modal,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof Modal>;
 
@@ -19,7 +19,7 @@ export const Default: Story = {
   args: {
     children: null,
     onClose: () => undefined,
-    open: true,
+    isOpen: true,
   },
   render: () => {
     function ModalStory(): JSX.Element {
@@ -30,7 +30,7 @@ export const Default: Story = {
           <Button onClick={() => setOpen(true)} type="button">
             Open modal
           </Button>
-          <Modal onClose={() => setOpen(false)} open={open}>
+          <Modal isOpen={open} onClose={() => setOpen(false)}>
             <Modal.Header>
               <h2 className="font-['Playfair_Display',serif] text-3xl text-[#5a4034]">
                 Remove all items?
@@ -42,10 +42,18 @@ export const Default: Story = {
               </p>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={() => setOpen(false)} type="button" variant="ghost">
+              <Button
+                onClick={() => setOpen(false)}
+                type="button"
+                variant="ghost"
+              >
                 Cancel
               </Button>
-              <Button onClick={() => setOpen(false)} type="button" variant="danger">
+              <Button
+                onClick={() => setOpen(false)}
+                type="button"
+                variant="danger"
+              >
                 Confirm
               </Button>
             </Modal.Footer>

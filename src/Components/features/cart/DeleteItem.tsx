@@ -1,6 +1,6 @@
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { CartItem } from '@/types';
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { CartItem } from "@/types";
 
 type DeleteItemProps = {
   product: CartItem;

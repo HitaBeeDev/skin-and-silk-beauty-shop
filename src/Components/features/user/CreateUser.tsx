@@ -1,14 +1,14 @@
-import { type FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { type FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from "@/constants/routes";
 
-import { updateName } from '@/components/features/user/userSlice';
-import Button from '@/components/ui/Button';
-import { useAppDispatch } from '@store/hooks';
+import { updateName } from "@/components/features/user/userSlice";
+import Button from "@/components/ui/Button";
+import { useAppDispatch } from "@store/hooks";
 
 function CreateUser(): JSX.Element {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -22,9 +22,7 @@ function CreateUser(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit}>
-      <p>
-        👋 Welcome! Please start by telling us your name:
-      </p>
+      <p>👋 Welcome! Please start by telling us your name:</p>
 
       <label htmlFor="create-user-name">Full name</label>
       <input

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
 import {
   addItem as addCartItem,
@@ -6,18 +6,18 @@ import {
   decreaseItemQuantity,
   deleteItem,
   increaseItemQuantity,
-} from '@/components/features/cart/cartSlice';
-import { getCart } from '@/components/features/cart/cartSelectors';
-import type { CartItem } from '@/types';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
+} from "@/components/features/cart/cartSlice";
+import { getCart } from "@/components/features/cart/cartSelectors";
+import type { CartItem } from "@/types";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 
 type UseCartResult = {
   items: CartItem[];
   totalItems: number;
   totalPrice: number;
   addItem: (item: CartItem) => void;
-  removeItem: (productId: CartItem['productId']) => void;
-  updateQuantity: (productId: CartItem['productId'], quantity: number) => void;
+  removeItem: (productId: CartItem["productId"]) => void;
+  updateQuantity: (productId: CartItem["productId"], quantity: number) => void;
   clearCart: () => void;
   isEmpty: boolean;
 };
@@ -28,24 +28,24 @@ export function useCart(): UseCartResult {
 
   const totalItems = useMemo(
     () => items.reduce<number>((sum, item) => sum + item.quantity, 0),
-    [items]
+    [items],
   );
   const totalPrice = useMemo(
     () => items.reduce<number>((sum, item) => sum + item.totalPrice, 0),
-    [items]
+    [items],
   );
 
   function addItem(item: CartItem): void {
     dispatch(addCartItem(item));
   }
 
-  function removeItem(productId: CartItem['productId']): void {
+  function removeItem(productId: CartItem["productId"]): void {
     dispatch(deleteItem(productId));
   }
 
   function updateQuantity(
-    productId: CartItem['productId'],
-    quantity: number
+    productId: CartItem["productId"],
+    quantity: number,
   ): void {
     const nextQuantity = Math.max(0, Math.trunc(quantity));
     const existingItem = items.find((item) => item.productId === productId);

@@ -3,14 +3,14 @@ import {
   createSelector,
   createSlice,
   type PayloadAction,
-} from '@reduxjs/toolkit';
+} from "@reduxjs/toolkit";
 
-import type { Product, LoadingStatus } from '@/types';
-import type { RootState } from '@store';
-import type { ProductCategoryLabel } from '@/constants/categories';
+import type { Product, LoadingStatus } from "@/types";
+import type { RootState } from "@store";
+import type { ProductCategoryLabel } from "@/constants/categories";
 
-import { DEFAULT_CATEGORY } from '@/constants/categories';
-import { getProducts } from '@/services/productsService';
+import { DEFAULT_CATEGORY } from "@/constants/categories";
+import { getProducts } from "@/services/productsService";
 
 type ProductsState = {
   items: Product[];
@@ -21,7 +21,7 @@ type ProductsState = {
 
 const initialState: ProductsState = {
   items: [],
-  status: 'idle',
+  status: "idle",
   error: null,
   activeCategory: DEFAULT_CATEGORY,
 };
@@ -30,19 +30,17 @@ export const fetchProducts = createAsyncThunk<
   Product[],
   ProductCategoryLabel | undefined,
   { rejectValue: string }
->('products/fetchProducts', async (category, thunkApi) => {
+>("products/fetchProducts", async (category, thunkApi) => {
   try {
-    const response = await getProducts(
-      category ? { category } : undefined
-    );
+    const response = await getProducts(category ? { category } : undefined);
     return response.data;
   } catch {
-    return thunkApi.rejectWithValue('Failed to load products.');
+    return thunkApi.rejectWithValue("Failed to load products.");
   }
 });
 
 const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
     setActiveCategory(state, action: PayloadAction<ProductCategoryLabel>) {
@@ -52,16 +50,16 @@ const productsSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
         state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.items = action.payload;
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload ?? 'Failed to load products.';
+        state.status = "failed";
+        state.error = action.payload ?? "Failed to load products.";
       }),
 });
 
@@ -73,20 +71,20 @@ const selectProductsState = (state: RootState) => state.products;
 
 export const selectProducts = createSelector(
   [selectProductsState],
-  (productsState) => productsState.items
+  (productsState) => productsState.items,
 );
 
 export const selectProductsStatus = createSelector(
   [selectProductsState],
-  (productsState) => productsState.status
+  (productsState) => productsState.status,
 );
 
 export const selectProductsError = createSelector(
   [selectProductsState],
-  (productsState) => productsState.error
+  (productsState) => productsState.error,
 );
 
 export const selectActiveCategory = createSelector(
   [selectProductsState],
-  (productsState) => productsState.activeCategory
+  (productsState) => productsState.activeCategory,
 );

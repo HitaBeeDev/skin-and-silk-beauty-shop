@@ -3,12 +3,17 @@ import {
   createSelector,
   createSlice,
   type PayloadAction,
-} from '@reduxjs/toolkit';
+} from "@reduxjs/toolkit";
 
-import type { CreateOrderPayload, LoadingStatus, Order } from '@/types';
-import type { RootState } from '@store';
+import type { CreateOrderPayload, LoadingStatus, Order } from "@/types";
+import type { RootState } from "@store";
 
-import { createOrder, getOrder, readOrders, updateOrder } from '@/services/ordersService';
+import {
+  createOrder,
+  getOrder,
+  readOrders,
+  updateOrder,
+} from "@/services/ordersService";
 
 type OrdersState = {
   orders: Order[];
@@ -19,7 +24,7 @@ type OrdersState = {
 
 const initialState: OrdersState = {
   orders: readOrders(),
-  status: 'idle',
+  status: "idle",
   error: null,
   currentOrderId: null,
 };
@@ -28,11 +33,11 @@ export const submitOrder = createAsyncThunk<
   Order,
   CreateOrderPayload,
   { rejectValue: string }
->('orders/submitOrder', async (payload, thunkApi) => {
+>("orders/submitOrder", async (payload, thunkApi) => {
   try {
     return await createOrder(payload);
   } catch {
-    return thunkApi.rejectWithValue('Failed to submit order.');
+    return thunkApi.rejectWithValue("Failed to submit order.");
   }
 });
 
@@ -40,7 +45,7 @@ export const loadOrder = createAsyncThunk<
   Order,
   string,
   { rejectValue: string }
->('orders/loadOrder', async (id, thunkApi) => {
+>("orders/loadOrder", async (id, thunkApi) => {
   try {
     return await getOrder(id);
   } catch {
@@ -52,7 +57,7 @@ export const upgradeOrderPriority = createAsyncThunk<
   Order,
   string,
   { rejectValue: string }
->('orders/upgradeOrderPriority', async (id, thunkApi) => {
+>("orders/upgradeOrderPriority", async (id, thunkApi) => {
   try {
     return await updateOrder(id, { priority: true });
   } catch {
@@ -61,7 +66,7 @@ export const upgradeOrderPriority = createAsyncThunk<
 });
 
 const ordersSlice = createSlice({
-  name: 'orders',
+  name: "orders",
   initialState,
   reducers: {
     upgradeOrderPriorityOptimistic(state, action: PayloadAction<string>) {
@@ -70,7 +75,8 @@ const ordersSlice = createSlice({
       if (!order) return;
 
       const orderPrice =
-        order.orderPrice ?? order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+        order.orderPrice ??
+        order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
 
       order.priority = true;
       order.orderPrice = orderPrice;
@@ -79,7 +85,7 @@ const ordersSlice = createSlice({
     },
     rollbackOrderPriorityUpgrade(state, action: PayloadAction<Order>) {
       const existingOrderIndex = state.orders.findIndex(
-        (order) => order.id === action.payload.id
+        (order) => order.id === action.payload.id,
       );
 
       if (existingOrderIndex >= 0) {
@@ -90,31 +96,31 @@ const ordersSlice = createSlice({
 
       state.error = action.payload.id
         ? `Failed to update order ${action.payload.id}.`
-        : 'Failed to update order.';
+        : "Failed to update order.";
     },
   },
   extraReducers: (builder) =>
     builder
       .addCase(submitOrder.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
         state.error = null;
       })
       .addCase(submitOrder.fulfilled, (state, action) => {
         state.orders.push(action.payload);
         state.currentOrderId = action.payload.id;
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(submitOrder.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload ?? 'Failed to submit order.';
+        state.status = "failed";
+        state.error = action.payload ?? "Failed to submit order.";
       })
       .addCase(loadOrder.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
         state.error = null;
       })
       .addCase(loadOrder.fulfilled, (state, action) => {
         const existingOrderIndex = state.orders.findIndex(
-          (order) => order.id === action.payload.id
+          (order) => order.id === action.payload.id,
         );
 
         if (existingOrderIndex >= 0) {
@@ -124,18 +130,18 @@ const ordersSlice = createSlice({
         }
 
         state.currentOrderId = action.payload.id;
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(loadOrder.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload ?? 'Failed to load order.';
+        state.status = "failed";
+        state.error = action.payload ?? "Failed to load order.";
       })
       .addCase(upgradeOrderPriority.pending, (state) => {
         state.error = null;
       })
       .addCase(upgradeOrderPriority.fulfilled, (state, action) => {
         const existingOrderIndex = state.orders.findIndex(
-          (order) => order.id === action.payload.id
+          (order) => order.id === action.payload.id,
         );
 
         if (existingOrderIndex >= 0) {
@@ -145,17 +151,15 @@ const ordersSlice = createSlice({
         }
 
         state.currentOrderId = action.payload.id;
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(upgradeOrderPriority.rejected, (state, action) => {
-        state.error = action.payload ?? 'Failed to update order.';
+        state.error = action.payload ?? "Failed to update order.";
       }),
 });
 
-export const {
-  upgradeOrderPriorityOptimistic,
-  rollbackOrderPriorityUpgrade,
-} = ordersSlice.actions;
+export const { upgradeOrderPriorityOptimistic, rollbackOrderPriorityUpgrade } =
+  ordersSlice.actions;
 
 export default ordersSlice.reducer;
 
@@ -163,26 +167,25 @@ const selectOrdersState = (state: RootState) => state.orders;
 
 export const selectOrders = createSelector(
   [selectOrdersState],
-  (ordersState) => ordersState.orders
+  (ordersState) => ordersState.orders,
 );
 
 export const selectOrdersStatus = createSelector(
   [selectOrdersState],
-  (ordersState) => ordersState.status
+  (ordersState) => ordersState.status,
 );
 
 export const selectOrdersError = createSelector(
   [selectOrdersState],
-  (ordersState) => ordersState.error
+  (ordersState) => ordersState.error,
 );
 
 export const selectCurrentOrderId = createSelector(
   [selectOrdersState],
-  (ordersState) => ordersState.currentOrderId
+  (ordersState) => ordersState.currentOrderId,
 );
 
-export const selectOrderById =
-  (orderId: string) =>
-    createSelector([selectOrders], (orders) =>
-      orders.find((order) => order.id === orderId)
-    );
+export const selectOrderById = (orderId: string) =>
+  createSelector([selectOrders], (orders) =>
+    orders.find((order) => order.id === orderId),
+  );

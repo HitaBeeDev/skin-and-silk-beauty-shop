@@ -1,4 +1,4 @@
-export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
+export type LoadingStatus = "idle" | "loading" | "succeeded" | "failed";
 
 export interface ProductImageSet {
   main: string;
@@ -77,4 +77,4 @@ export interface ApiResponse<T> {
   };
 }
 
-export type CreateOrderPayload = Omit<Order, 'id'>;
+export type CreateOrderPayload = Omit<Order, "id">;

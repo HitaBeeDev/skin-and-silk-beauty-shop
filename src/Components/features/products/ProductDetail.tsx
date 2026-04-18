@@ -1,26 +1,29 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 
-import { CATEGORY_SLUG_BY_LABEL } from '@/constants/categories';
-import { ROUTES } from '@/constants/routes';
+import { CATEGORY_SLUG_BY_LABEL } from "@/constants/categories";
+import { ROUTES } from "@/constants/routes";
 
-import { addItem } from '@/components/features/cart/cartSlice';
-import ProductCard from '@/components/features/products/Product';
-import Badge from '@/components/ui/Badge';
-import Breadcrumb from '@/components/ui/Breadcrumb';
-import Button from '@/components/ui/Button';
-import Toast from '@/components/ui/Toast';
-import { formatCurrency } from '@/components/utils/helpers';
-import type { ProductDetailLoaderData } from '@/routes/productDetail.loader';
-import { useAppDispatch } from '@store/hooks';
+import { addItem } from "@/components/features/cart/cartSlice";
+import ProductCard from "@/components/features/products/Product";
+import Badge from "@/components/ui/Badge";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import Button from "@/components/ui/Button";
+import Toast from "@/components/ui/Toast";
+import { formatCurrency } from "@/components/utils/helpers";
+import type { ProductDetailLoaderData } from "@/routes/productDetail.loader";
+import { useAppDispatch } from "@store/hooks";
 
 function ProductDetail(): JSX.Element {
-  const { product, relatedProducts } = useLoaderData() as ProductDetailLoaderData;
+  const { product, relatedProducts } =
+    useLoaderData() as ProductDetailLoaderData;
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(1);
   const [isAddedToastOpen, setIsAddedToastOpen] = useState(false);
   const [toastKey, setToastKey] = useState(0);
-  const [selectedImage, setSelectedImage] = useState(product.mainImage ?? product.images.main);
+  const [selectedImage, setSelectedImage] = useState(
+    product.mainImage ?? product.images.main,
+  );
   const [previousImage, setPreviousImage] = useState<string | null>(null);
   const [isImageVisible, setIsImageVisible] = useState(true);
   const [isCartFlashActive, setIsCartFlashActive] = useState(false);
@@ -32,9 +35,14 @@ function ProductDetail(): JSX.Element {
           product.mainImage ?? product.images.main,
           product.images.hover,
           ...product.images.gallery,
-        ])
+        ]),
       ).filter(Boolean),
-    [product.images.gallery, product.images.hover, product.images.main, product.mainImage]
+    [
+      product.images.gallery,
+      product.images.hover,
+      product.images.main,
+      product.mainImage,
+    ],
   );
 
   const productPrice = product.unitPrice ?? product.price;
@@ -84,7 +92,7 @@ function ProductDetail(): JSX.Element {
         unitPrice: productPrice,
         totalPrice: productPrice * quantity,
         mainImage: product.mainImage ?? product.images.main,
-      })
+      }),
     );
     setToastKey((current) => current + 1);
     setIsAddedToastOpen(true);
@@ -95,8 +103,8 @@ function ProductDetail(): JSX.Element {
     <section className="mx-auto w-[min(100%-2rem,72rem)] px-4 py-16 sm:px-6 lg:px-8">
       <Breadcrumb
         items={[
-          { label: 'Home', to: ROUTES.HOME },
-          { label: 'Products', to: ROUTES.PRODUCTS },
+          { label: "Home", to: ROUTES.HOME },
+          { label: "Products", to: ROUTES.PRODUCTS },
           { label: product.category, to: productCategoryHref },
           { label: product.name },
         ]}
@@ -116,7 +124,7 @@ function ProductDetail(): JSX.Element {
               ) : null}
               <img
                 alt={`${product.name} product in ${product.category.toLowerCase()} packaging`}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-150 ease-in ${isImageVisible ? 'opacity-100' : 'opacity-0'}`}
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-150 ease-in ${isImageVisible ? "opacity-100" : "opacity-0"}`}
                 src={selectedImage}
               />
             </div>
@@ -131,10 +139,10 @@ function ProductDetail(): JSX.Element {
                   key={image}
                   aria-label={`Show image ${index + 1} of ${product.name}`}
                   className={[
-                    'shrink-0 overflow-hidden rounded-2xl border-2 bg-[#fbf3ec] transition-colors duration-150 ease-in',
-                    isActive ? 'border-[#5a4034]' : 'border-transparent',
-                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
-                  ].join(' ')}
+                    "shrink-0 overflow-hidden rounded-2xl border-2 bg-[#fbf3ec] transition-colors duration-150 ease-in",
+                    isActive ? "border-[#5a4034]" : "border-transparent",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2",
+                  ].join(" ")}
                   onClick={() => handleImageChange(image)}
                   type="button"
                 >
@@ -171,16 +179,16 @@ function ProductDetail(): JSX.Element {
             <div>
               <Badge
                 className="px-3 py-1 text-sm"
-                tone={isSoldOut ? 'danger' : 'success'}
+                tone={isSoldOut ? "danger" : "success"}
               >
-                {isSoldOut ? 'Sold Out' : 'In Stock'}
+                {isSoldOut ? "Sold Out" : "In Stock"}
               </Badge>
             </div>
             <div className="space-y-4 font-['Quicksand',sans-serif] text-base leading-8 text-[#4d3932]">
               <p>{product.description}</p>
               <p>
-                Layer it into your ritual for a finish that feels treated, polished, and
-                unmistakably elevated from the first application.
+                Layer it into your ritual for a finish that feels treated,
+                polished, and unmistakably elevated from the first application.
               </p>
             </div>
           </div>
@@ -191,7 +199,9 @@ function ProductDetail(): JSX.Element {
                 <button
                   aria-label="Decrease quantity"
                   className="inline-flex h-11 w-11 items-center justify-center text-xl text-[#5a4034] transition-colors duration-150 ease-in hover:bg-[#f8efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
-                  onClick={() => setQuantity((current) => Math.max(1, current - 1))}
+                  onClick={() =>
+                    setQuantity((current) => Math.max(1, current - 1))
+                  }
                   type="button"
                 >
                   −
@@ -211,20 +221,22 @@ function ProductDetail(): JSX.Element {
 
               <Button
                 className={[
-                  'min-w-[14rem] active:scale-[0.97]',
-                  isCartFlashActive ? 'border-green-600 bg-green-600 text-white' : '',
-                ].join(' ')}
+                  "min-w-[14rem] active:scale-[0.97]",
+                  isCartFlashActive
+                    ? "border-green-600 bg-green-600 text-white"
+                    : "",
+                ].join(" ")}
                 disabled={isSoldOut}
                 onClick={handleAddToCart}
                 size="lg"
                 type="button"
               >
-                {isSoldOut ? 'Currently Sold Out' : `Add ${quantity} to Cart`}
+                {isSoldOut ? "Currently Sold Out" : `Add ${quantity} to Cart`}
               </Button>
             </div>
             <p className="font-['Quicksand',sans-serif] text-sm leading-6 text-[#6a5147]">
-              Cart updates instantly, so you can keep building your routine without waiting on a
-              blocking state.
+              Cart updates instantly, so you can keep building your routine
+              without waiting on a blocking state.
             </p>
           </div>
         </div>
@@ -265,9 +277,9 @@ function ProductDetail(): JSX.Element {
       <Toast
         key={toastKey}
         duration={2000}
+        isOpen={isAddedToastOpen}
         message={`${quantity} ${product.name} added to cart.`}
         onClose={() => setIsAddedToastOpen(false)}
-        open={isAddedToastOpen}
         position="top-right"
         tone="success"
       />
