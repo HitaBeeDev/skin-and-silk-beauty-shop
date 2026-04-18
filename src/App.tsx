@@ -39,6 +39,23 @@ function OrderRouteError(): JSX.Element {
   );
 }
 
+function ProductRouteError(): JSX.Element {
+  return (
+    <div className="mx-auto flex w-[min(100%-2rem,48rem)] flex-col items-center px-4 py-20 text-center sm:px-6 lg:px-8">
+      <h1 className="font-['Playfair_Display',serif] text-4xl text-[#5a4034]">
+        Product not found
+      </h1>
+      <p className="mt-3 max-w-xl text-sm leading-7 text-[#5b463d]">
+        The product you opened is no longer available from this catalog view. Browse the full
+        collection to continue exploring.
+      </p>
+      <div className="mt-6">
+        <LinkButton to={ROUTES.PRODUCTS}>Browse Products</LinkButton>
+      </div>
+    </div>
+  );
+}
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -66,7 +83,7 @@ const router = createBrowserRouter([
           </Suspense>
         ),
         loader: productDetailLoader,
-        errorElement: <Error />,
+        errorElement: <ProductRouteError />,
       },
       {
         path: ROUTES.CART,

@@ -18,6 +18,7 @@ type BaseButtonProps = {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   children: ReactNode;
+  className?: string;
 };
 
 type ButtonAsButtonProps = BaseButtonProps &
@@ -63,6 +64,7 @@ function Button(props: ButtonProps): JSX.Element {
     fullWidth = false,
     leftIcon,
     rightIcon,
+    className = '',
   } = props;
 
   const sharedClassName = [
@@ -72,6 +74,7 @@ function Button(props: ButtonProps): JSX.Element {
     fullWidth ? 'w-full' : '',
     loading ? 'cursor-wait opacity-70' : 'cursor-pointer',
     'disabled:cursor-not-allowed disabled:opacity-70',
+    className,
   ].join(' ');
 
   const content = (
