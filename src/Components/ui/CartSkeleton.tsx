@@ -3,38 +3,26 @@ import Skeleton from '@/components/ui/Skeleton';
 function CartSkeleton(): JSX.Element {
   return (
     <section aria-label="Loading cart" role="status">
-      <Skeleton height="2rem" width="14rem" />
+      <Skeleton className="h-8 w-56" />
 
-      <div style={{ marginTop: '1.5rem', display: 'grid', gap: '1rem' }}>
+      <div className="mt-6 grid gap-4">
         {Array.from({ length: 3 }).map((_, index) => (
           <div
             key={index}
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr auto auto auto',
-              gap: '1rem',
-              alignItems: 'center',
-            }}
+            className="grid grid-cols-[1fr_auto_auto_auto] items-center gap-4"
           >
-            <Skeleton height="1rem" width="75%" />
-            <Skeleton height="1rem" width="4rem" />
-            <Skeleton height="2rem" width="6rem" />
-            <Skeleton circle height="2rem" width="2rem" />
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-16" />
+            <Skeleton className="h-8 w-24" />
+            <Skeleton circle className="h-8 w-8" />
           </div>
         ))}
       </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: '1.5rem',
-          gap: '1rem',
-        }}
-      >
-        <Skeleton height="2.5rem" width="10rem" />
-        <Skeleton height="2.5rem" width="8rem" />
-        <Skeleton height="2.5rem" width="6rem" />
+      <div className="mt-6 flex justify-between gap-4">
+        <Skeleton className="h-10 w-40" />
+        <Skeleton className="h-10 w-32" />
+        <Skeleton className="h-10 w-24" />
       </div>
     </section>
   );

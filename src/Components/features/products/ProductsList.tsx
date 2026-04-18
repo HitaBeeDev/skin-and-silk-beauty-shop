@@ -48,13 +48,15 @@ function ProductsList(): JSX.Element {
 
         <div>
           {CATEGORY_OPTIONS.map(({ label }) => (
-            <p
+            <button
               key={label}
               aria-current={activeCategory === label}
+              className="rounded-md px-2 py-1 text-[#5A4034] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
               onClick={() => handleCategoryChange(label as ProductCategoryLabel)}
+              type="button"
             >
               {label}
-            </p>
+            </button>
           ))}
         </div>
       </div>
@@ -65,10 +67,7 @@ function ProductsList(): JSX.Element {
         <div>
           <div
             aria-busy={isPending}
-            style={{
-              opacity: isPending ? 0.65 : 1,
-              transition: 'opacity 150ms ease',
-            }}
+            className={`transition-opacity duration-150 ${isPending ? 'opacity-65' : 'opacity-100'}`}
           >
             {isPending ? <p>Updating products…</p> : null}
             <ErrorBoundary

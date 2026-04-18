@@ -5,34 +5,23 @@ function ProductGridSkeleton(): JSX.Element {
     <div
       aria-label="Loading products grid"
       role="status"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))',
-        gap: '1.5rem',
-      }}
+      className="grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-6"
     >
       {Array.from({ length: 6 }).map((_, index) => (
         <div key={index}>
-          <Skeleton height="14rem" />
-          <div style={{ marginTop: '0.75rem' }}>
-            <Skeleton height="1.25rem" width="70%" />
+          <Skeleton className="h-56" />
+          <div className="mt-3">
+            <Skeleton className="h-5 w-[70%]" />
           </div>
-          <div style={{ marginTop: '0.5rem' }}>
-            <Skeleton height="0.9rem" width="100%" />
+          <div className="mt-2">
+            <Skeleton className="h-4 w-full" />
           </div>
-          <div style={{ marginTop: '0.35rem' }}>
-            <Skeleton height="0.9rem" width="85%" />
+          <div className="mt-1.5">
+            <Skeleton className="h-4 w-[85%]" />
           </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: '0.9rem',
-            }}
-          >
-            <Skeleton height="1rem" width="4.5rem" />
-            <Skeleton circle height="2rem" width="2rem" />
+          <div className="mt-4 flex items-center justify-between">
+            <Skeleton className="h-4 w-[4.5rem]" />
+            <Skeleton circle className="h-8 w-8" />
           </div>
         </div>
       ))}

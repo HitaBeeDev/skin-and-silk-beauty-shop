@@ -1,9 +1,5 @@
-import type { CSSProperties } from 'react';
-
 export type SkeletonProps = {
   className?: string;
-  width?: CSSProperties['width'];
-  height?: CSSProperties['height'];
   circle?: boolean;
 };
 
@@ -13,22 +9,16 @@ export type SkeletonProps = {
  */
 function Skeleton({
   className,
-  width = '100%',
-  height = '1rem',
   circle = false,
 }: SkeletonProps): JSX.Element {
   return (
     <div
       aria-hidden="true"
-      className={className}
-      style={{
-        width,
-        height,
-        borderRadius: circle ? '999px' : '0.5rem',
-        background:
-          'linear-gradient(90deg, rgba(230,230,230,1) 0%, rgba(245,245,245,1) 50%, rgba(230,230,230,1) 100%)',
-        backgroundSize: '200% 100%',
-      }}
+      className={[
+        'animate-pulse bg-gradient-to-r from-zinc-200 via-zinc-100 to-zinc-200 bg-[length:200%_100%]',
+        circle ? 'rounded-full' : 'rounded-lg',
+        className ?? 'h-4 w-full',
+      ].join(' ')}
     />
   );
 }

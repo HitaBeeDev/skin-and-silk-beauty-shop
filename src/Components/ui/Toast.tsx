@@ -1,4 +1,4 @@
-import { type CSSProperties, type ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 
 type ToastTone = 'success' | 'error' | 'info';
 type ToastPosition = 'top-right' | 'bottom-right';
@@ -12,10 +12,10 @@ export type ToastProps = {
   position?: ToastPosition;
 };
 
-const toneStyles: Record<ToastTone, CSSProperties> = {
-  success: { backgroundColor: '#dcfce7', color: '#166534' },
-  error: { backgroundColor: '#fee2e2', color: '#991b1b' },
-  info: { backgroundColor: '#dbeafe', color: '#1d4ed8' },
+const toneStyles: Record<ToastTone, string> = {
+  success: 'bg-green-100 text-green-800',
+  error: 'bg-red-100 text-red-800',
+  info: 'bg-blue-100 text-blue-800',
 };
 
 /**
@@ -41,23 +41,19 @@ function Toast({
 
   return (
     <div
+      className={[
+        'fixed right-4 z-[1000] flex items-center gap-3 rounded-lg px-4 py-3 shadow-sm',
+        position === 'top-right' ? 'top-4' : 'bottom-4',
+        toneStyles[tone],
+      ].join(' ')}
       role="status"
-      style={{
-        ...toneStyles[tone],
-        position: 'fixed',
-        right: '1rem',
-        top: position === 'top-right' ? '1rem' : undefined,
-        bottom: position === 'bottom-right' ? '1rem' : undefined,
-        padding: '0.75rem 1rem',
-        borderRadius: '0.5rem',
-        display: 'flex',
-        gap: '0.75rem',
-        alignItems: 'center',
-        zIndex: 1000,
-      }}
     >
       <span>{message}</span>
-      <button onClick={onClose} type="button">
+      <button
+        className="rounded-md px-2 py-1 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
+        onClick={onClose}
+        type="button"
+      >
         Close
       </button>
     </div>

@@ -1,10 +1,4 @@
-import {
-  type CSSProperties,
-  type KeyboardEvent,
-  type ReactNode,
-  useEffect,
-  useRef,
-} from 'react';
+import { type KeyboardEvent, type ReactNode, useEffect, useRef } from 'react';
 
 type ModalCompositionProps = {
   children: ReactNode;
@@ -16,49 +10,16 @@ export type ModalProps = {
   children: ReactNode;
 };
 
-const overlayStyle: CSSProperties = {
-  position: 'fixed',
-  inset: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: '1rem',
-};
-
-const panelStyle: CSSProperties = {
-  backgroundColor: '#fff',
-  width: 'min(32rem, 100%)',
-  borderRadius: '0.75rem',
-  padding: '1rem',
-};
-
-const headerStyle: CSSProperties = {
-  marginBottom: '1rem',
-};
-
-const bodyStyle: CSSProperties = {
-  display: 'grid',
-  gap: '0.75rem',
-};
-
-const footerStyle: CSSProperties = {
-  display: 'flex',
-  justifyContent: 'flex-end',
-  gap: '0.75rem',
-  marginTop: '1rem',
-};
-
 function ModalHeader({ children }: ModalCompositionProps): JSX.Element {
-  return <div style={headerStyle}>{children}</div>;
+  return <div className="mb-4">{children}</div>;
 }
 
 function ModalBody({ children }: ModalCompositionProps): JSX.Element {
-  return <div style={bodyStyle}>{children}</div>;
+  return <div className="grid gap-3">{children}</div>;
 }
 
 function ModalFooter({ children }: ModalCompositionProps): JSX.Element {
-  return <div style={footerStyle}>{children}</div>;
+  return <div className="mt-4 flex justify-end gap-3">{children}</div>;
 }
 
 type ModalComponent = ((props: ModalProps) => JSX.Element | null) & {
@@ -127,21 +88,21 @@ const Modal: ModalComponent = function Modal({
   return (
     <div
       aria-hidden={false}
+      className="fixed inset-0 flex items-center justify-center bg-black/50 p-4"
       onClick={onClose}
       role="presentation"
-      style={overlayStyle}
     >
       <div
         aria-modal="true"
+        className="w-full max-w-lg rounded-xl bg-white p-4"
         onClick={(event) => event.stopPropagation()}
         onKeyDown={trapFocus}
         ref={panelRef}
         role="dialog"
-        style={panelStyle}
       >
         <button
           aria-label="Close dialog"
-          style={{ marginLeft: 'auto' }}
+          className="ml-auto rounded-md px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
           type="button"
           onClick={onClose}
         >

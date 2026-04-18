@@ -1,6 +1,5 @@
 import type {
   ButtonHTMLAttributes,
-  CSSProperties,
   ReactNode,
 } from 'react';
 import { Link } from 'react-router-dom';
@@ -36,49 +35,18 @@ type ButtonAsLinkProps = BaseButtonProps & {
 
 export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
 
-const variantStyles: Record<ButtonVariant, CSSProperties> = {
-  primary: {
-    backgroundColor: '#5A4034',
-    color: '#fff',
-    border: '1px solid #5A4034',
-  },
-  secondary: {
-    backgroundColor: '#F6E6DA',
-    color: '#5A4034',
-    border: '1px solid #D4B189',
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-    color: '#5A4034',
-    border: '1px solid #d6d6d6',
-  },
-  danger: {
-    backgroundColor: '#b42318',
-    color: '#fff',
-    border: '1px solid #b42318',
-  },
-  link: {
-    backgroundColor: 'transparent',
-    color: '#5A4034',
-    border: 'none',
-    textDecoration: 'underline',
-    padding: 0,
-  },
+const variantClasses: Record<ButtonVariant, string> = {
+  primary: 'border border-[#5A4034] bg-[#5A4034] text-white',
+  secondary: 'border border-[#D4B189] bg-[#F6E6DA] text-[#5A4034]',
+  ghost: 'border border-zinc-300 bg-transparent text-[#5A4034]',
+  danger: 'border border-[#b42318] bg-[#b42318] text-white',
+  link: 'border-none bg-transparent p-0 text-[#5A4034] underline',
 };
 
-const sizeStyles: Record<ButtonSize, CSSProperties> = {
-  sm: {
-    fontSize: '0.875rem',
-    padding: '0.5rem 0.75rem',
-  },
-  md: {
-    fontSize: '1rem',
-    padding: '0.65rem 1rem',
-  },
-  lg: {
-    fontSize: '1.125rem',
-    padding: '0.85rem 1.25rem',
-  },
+const sizeClasses: Record<ButtonSize, string> = {
+  sm: 'px-3 py-2 text-sm',
+  md: 'px-4 py-2.5 text-base',
+  lg: 'px-5 py-3.5 text-lg',
 };
 
 /**
@@ -97,19 +65,14 @@ function Button(props: ButtonProps): JSX.Element {
     rightIcon,
   } = props;
 
-  const sharedStyle: CSSProperties = {
-    ...sizeStyles[size],
-    ...variantStyles[variant],
-    width: fullWidth ? '100%' : undefined,
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '0.5rem',
-    borderRadius: '0.5rem',
-    cursor: loading ? 'wait' : 'pointer',
-    opacity: loading || ('disabled' in props && props.disabled) ? 0.7 : 1,
-    textDecoration: variant === 'link' ? 'underline' : 'none',
-  };
+  const sharedClassName = [
+    'inline-flex items-center justify-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
+    sizeClasses[size],
+    variantClasses[variant],
+    fullWidth ? 'w-full' : '',
+    loading ? 'cursor-wait opacity-70' : 'cursor-pointer',
+    'disabled:cursor-not-allowed disabled:opacity-70',
+  ].join(' ');
 
   const content = (
     <>
@@ -123,7 +86,7 @@ function Button(props: ButtonProps): JSX.Element {
     return (
       <Link
         aria-disabled={props.disabled}
-        style={sharedStyle}
+        className={sharedClassName}
         to={props.to as string}
       >
         {content}
@@ -137,7 +100,7 @@ function Button(props: ButtonProps): JSX.Element {
     <button
       {...buttonProps}
       disabled={disabled || loading}
-      style={sharedStyle}
+      className={sharedClassName}
       type={type}
     >
       {content}

@@ -3,14 +3,14 @@ import Skeleton from '@/components/ui/Skeleton';
 function RouteSkeleton(): JSX.Element {
   return (
     <section aria-label="Loading page" role="status">
-      <Skeleton height="2.25rem" width="12rem" />
-      <div style={{ marginTop: '1rem' }}>
-        <Skeleton height="1rem" width="18rem" />
+      <Skeleton className="h-9 w-48" />
+      <div className="mt-4">
+        <Skeleton className="h-4 w-72" />
       </div>
-      <div style={{ display: 'grid', gap: '1rem', marginTop: '2rem' }}>
-        <Skeleton height="12rem" />
-        <Skeleton height="12rem" />
-        <Skeleton height="12rem" />
+      <div className="mt-8 grid gap-4">
+        <Skeleton className="h-48" />
+        <Skeleton className="h-48" />
+        <Skeleton className="h-48" />
       </div>
     </section>
   );

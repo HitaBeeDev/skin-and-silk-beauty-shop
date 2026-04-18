@@ -24,8 +24,6 @@ import { formatCurrency } from '@/components/utils/helpers';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import type { CreateOrderActionData } from '@/routes/createOrder.action';
 
-const fieldErrorStyle = { color: '#b42318' } as const;
-
 const phoneHint = 'e.g. +1 555 000 0000';
 
 const isValidPhone = (value: string): boolean =>
@@ -284,7 +282,7 @@ function CreateOrder(): JSX.Element {
           placeholder="Enter your first name"
         />
         {formState.errors.customer ? (
-          <p role="alert" style={fieldErrorStyle}>{formState.errors.customer}</p>
+          <p className="text-[#b42318]" role="alert">{formState.errors.customer}</p>
         ) : null}
 
         {/* Phone Number */}
@@ -315,7 +313,7 @@ function CreateOrder(): JSX.Element {
         />
         <p>{phoneHint}</p>
         {formState.errors.phone ? (
-          <p role="alert" style={fieldErrorStyle}>{formState.errors.phone}</p>
+          <p className="text-[#b42318]" role="alert">{formState.errors.phone}</p>
         ) : null}
 
         {/* Address */}
@@ -363,18 +361,18 @@ function CreateOrder(): JSX.Element {
           )}
         </div>
         {isAddressLookupFailed && isGeolocationFailure ? (
-          <p role="alert" style={fieldErrorStyle}>Couldn&apos;t detect location — enter address manually</p>
+          <p className="text-[#b42318]" role="alert">Couldn&apos;t detect location — enter address manually</p>
         ) : null}
         {isAddressLookupFailed && isGeocodingFailure && isGeocodingErrorVisible ? (
           <div>
-            <p role="alert" style={fieldErrorStyle}>Couldn&apos;t look up your address right now. Enter it manually if needed.</p>
+            <p className="text-[#b42318]" role="alert">Couldn&apos;t look up your address right now. Enter it manually if needed.</p>
             <button type="button" onClick={() => setIsGeocodingErrorVisible(false)}>
               Dismiss
             </button>
           </div>
         ) : null}
         {formState.errors.address ? (
-          <p role="alert" style={fieldErrorStyle}>{formState.errors.address}</p>
+          <p className="text-[#b42318]" role="alert">{formState.errors.address}</p>
         ) : null}
 
         {/* Bottom Section */}

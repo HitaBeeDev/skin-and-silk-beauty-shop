@@ -1,5 +1,3 @@
-import type { CSSProperties } from 'react';
-
 type SpinnerSize = 'sm' | 'md' | 'lg';
 
 export type SpinnerProps = {
@@ -8,9 +6,9 @@ export type SpinnerProps = {
 };
 
 const sizeMap: Record<SpinnerSize, string> = {
-  sm: '0.875rem',
-  md: '1rem',
-  lg: '1.25rem',
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
 };
 
 /**
@@ -20,17 +18,14 @@ function Spinner({
   size = 'md',
   label = 'Loading',
 }: SpinnerProps): JSX.Element {
-  const spinnerStyle: CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.35rem',
-    fontSize: sizeMap[size],
-  };
-
   return (
-    <span aria-label={label} role="status" style={spinnerStyle}>
+    <span
+      aria-label={label}
+      className={`inline-flex items-center gap-1.5 ${sizeMap[size]}`}
+      role="status"
+    >
       <span aria-hidden="true">⏳</span>
-      <span style={{ position: 'absolute', left: '-9999px' }}>{label}</span>
+      <span className="sr-only">{label}</span>
     </span>
   );
 }

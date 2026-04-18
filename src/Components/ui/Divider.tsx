@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export type DividerProps = {
   label?: ReactNode;
@@ -8,25 +8,13 @@ export type DividerProps = {
  * Horizontal separator with an optional centered label.
  */
 function Divider({ label }: DividerProps): JSX.Element {
-  const lineStyle: CSSProperties = {
-    flex: 1,
-    border: 0,
-    borderTop: '1px solid #d4d4d8',
-  };
-
-  if (!label) return <hr style={{ borderTop: '1px solid #d4d4d8' }} />;
+  if (!label) return <hr className="border-t border-zinc-300" />;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem',
-      }}
-    >
-      <hr style={lineStyle} />
+    <div className="flex items-center gap-3">
+      <hr className="flex-1 border-t border-zinc-300" />
       <span>{label}</span>
-      <hr style={lineStyle} />
+      <hr className="flex-1 border-t border-zinc-300" />
     </div>
   );
 }

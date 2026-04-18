@@ -3,38 +3,38 @@ import Skeleton from '@/components/ui/Skeleton';
 function OrderDetailSkeleton(): JSX.Element {
   return (
     <section aria-label="Loading order details" role="status">
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
-        <Skeleton height="2rem" width="12rem" />
-        <Skeleton height="1.5rem" width="8rem" />
+      <div className="flex justify-between gap-4">
+        <Skeleton className="h-8 w-48" />
+        <Skeleton className="h-6 w-32" />
       </div>
 
-      <div style={{ marginTop: '1.25rem' }}>
-        <Skeleton height="1rem" width="18rem" />
-        <div style={{ marginTop: '0.5rem' }}>
-          <Skeleton height="1rem" width="14rem" />
+      <div className="mt-5">
+        <Skeleton className="h-4 w-72" />
+        <div className="mt-2">
+          <Skeleton className="h-4 w-56" />
         </div>
       </div>
 
-      <div style={{ marginTop: '1.5rem', display: 'grid', gap: '1rem' }}>
+      <div className="mt-6 grid gap-4">
         {Array.from({ length: 3 }).map((_, index) => (
           <div key={index}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
-              <Skeleton height="1rem" width="12rem" />
-              <Skeleton height="1rem" width="4rem" />
+            <div className="flex justify-between gap-4">
+              <Skeleton className="h-4 w-48" />
+              <Skeleton className="h-4 w-16" />
             </div>
-            <div style={{ marginTop: '0.5rem' }}>
-              <Skeleton height="0.9rem" width="70%" />
+            <div className="mt-2">
+              <Skeleton className="h-4 w-[70%]" />
             </div>
           </div>
         ))}
       </div>
 
-      <div style={{ marginTop: '1.75rem', display: 'grid', gap: '0.75rem' }}>
-        <Skeleton height="1rem" width="10rem" />
-        <Skeleton height="1rem" width="8rem" />
-        <Skeleton height="1rem" width="12rem" />
-        <div style={{ marginTop: '0.5rem' }}>
-          <Skeleton height="2.5rem" width="9rem" />
+      <div className="mt-7 grid gap-3">
+        <Skeleton className="h-4 w-40" />
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-4 w-48" />
+        <div className="mt-2">
+          <Skeleton className="h-10 w-36" />
         </div>
       </div>
     </section>
