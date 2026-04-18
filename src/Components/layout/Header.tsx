@@ -14,10 +14,22 @@ type NavLinkClassNameArgs = {
   isActive: boolean;
 };
 
+const shellWidthClass = 'mx-auto w-[min(100%-2rem,72rem)]';
+const brandTextClass = 'text-[#5a4034]';
+const brandSurfaceClass = 'border-[#5a403429] bg-[#f6e6da]';
+const linkBaseClass = [
+  'relative inline-flex items-center gap-2 rounded-full px-4 py-[0.55rem] text-[0.95rem] font-medium no-underline',
+  'text-[#6b5145] transition-[color,background-color] duration-150 ease-in',
+  'hover:text-[#5a4034]',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
+].join(' ');
+
 function navLinkClassName({ isActive }: NavLinkClassNameArgs): string {
   return [
-    'header-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
-    isActive ? 'header-link-active' : '',
+    linkBaseClass,
+    isActive
+      ? "font-bold text-[#5a4034] after:absolute after:right-4 after:bottom-[0.35rem] after:left-4 after:h-[2px] after:rounded-full after:bg-current after:content-['']"
+      : '',
   ].join(' ');
 }
 
@@ -113,8 +125,10 @@ function Header(): JSX.Element {
         className={({ isActive }) =>
           [
             className,
-            'header-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2',
-            isActive ? 'header-link-active' : '',
+            linkBaseClass,
+            isActive
+              ? "font-bold text-[#5a4034] after:absolute after:right-4 after:bottom-[0.35rem] after:left-4 after:h-[2px] after:rounded-full after:bg-current after:content-['']"
+              : '',
           ].join(' ')
         }
         to={ROUTES.CART}
@@ -122,31 +136,41 @@ function Header(): JSX.Element {
         <img aria-hidden="true" className="h-5 w-5" src={shoppingBag} alt="" />
         <span>Cart</span>
         <Badge
-          className={totalCartQuantity > 0 ? 'header-badge' : 'header-badge hidden'}
+          className={totalCartQuantity > 0 ? 'min-w-[1.45rem]' : 'hidden min-w-[1.45rem]'}
           tone="accent"
         >
-          <span data-pulse={isBadgePulsing ? 'true' : 'false'}>{totalCartQuantity}</span>
+          <span
+            className={`transition-transform duration-200 ease-in ${isBadgePulsing ? 'scale-[1.3]' : 'scale-100'}`}
+          >
+            {totalCartQuantity}
+          </span>
         </Badge>
       </NavLink>
     );
   }
 
   return (
-    <header className="header-shell" data-scrolled={isScrolled ? 'true' : 'false'}>
-      <div className="page-shell flex flex-col gap-4 py-4">
+    <header
+      className={[
+        'sticky top-0 z-[60] border-b border-transparent bg-white/88 backdrop-blur-[18px]',
+        'transition-[box-shadow,border-color,background-color] duration-200 ease-in',
+        isScrolled ? 'border-[#5a403429] shadow-[0_18px_40px_-30px_rgba(36,25,21,0.12)]' : '',
+      ].join(' ')}
+    >
+      <div className={`${shellWidthClass} flex flex-col gap-4 py-4`}>
         <div className="flex items-center justify-between gap-4">
           <Link
-            className="inline-flex items-center gap-3 rounded-full px-1 py-1 text-[var(--color-espresso)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
+            className={`inline-flex items-center gap-3 rounded-full px-1 py-1 ${brandTextClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2`}
             to={ROUTES.HOME}
           >
             <span
               aria-hidden="true"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-rosewater)] text-sm font-semibold uppercase tracking-[0.28em]"
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold uppercase tracking-[0.28em] ${brandSurfaceClass}`}
             >
               SS
             </span>
 
-            <span className="text-lg font-semibold text-[var(--color-espresso)]">
+            <span className={`text-lg font-semibold ${brandTextClass}`}>
               Skin &amp; Silk
             </span>
           </Link>
@@ -160,7 +184,7 @@ function Header(): JSX.Element {
             aria-controls="mobile-navigation"
             aria-expanded={isMobileMenuOpen}
             aria-label="Open menu"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-white/80 text-[var(--color-espresso)] shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 md:hidden"
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#5a403429] bg-white/80 text-[#5a4034] shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 md:hidden`}
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             ref={mobileMenuButtonRef}
             type="button"
@@ -181,30 +205,35 @@ function Header(): JSX.Element {
 
       <div
         aria-hidden={isMobileMenuOpen ? 'false' : 'true'}
-        className="mobile-nav-backdrop md:hidden"
-        data-open={isMobileMenuOpen ? 'true' : 'false'}
+        className={[
+          'fixed inset-0 bg-[rgba(36,25,21,0.48)] transition-opacity duration-200 ease-in md:hidden',
+          isMobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
+        ].join(' ')}
       />
 
       <div
         aria-modal="true"
         aria-hidden={isMobileMenuOpen ? 'false' : 'true'}
-        className={`fixed inset-0 z-[calc(var(--z-sticky)+1)] md:hidden ${isMobileMenuOpen ? '' : 'pointer-events-none'}`}
+        className={`fixed inset-0 z-[61] md:hidden ${isMobileMenuOpen ? '' : 'pointer-events-none'}`}
         id="mobile-navigation"
         role="dialog"
       >
         <div
-          className="mobile-nav-panel flex flex-col gap-8 px-6 py-6"
-          data-open={isMobileMenuOpen ? 'true' : 'false'}
+          className={[
+            'fixed inset-y-0 right-0 flex w-[min(100%,24rem)] flex-col gap-8 bg-[linear-gradient(180deg,rgba(255,250,245,0.98),rgba(255,244,236,0.98))] px-6 py-6 shadow-[-24px_0_48px_-32px_rgba(36,25,21,0.28)]',
+            'transition-transform duration-200 ease-in',
+            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full',
+          ].join(' ')}
           ref={mobilePanelRef}
         >
           <div className="flex items-center justify-between gap-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-espresso)]">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#5a4034]">
               Menu
             </p>
 
             <button
               aria-label="Close menu"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-white/85 text-[var(--color-espresso)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#5a403429] bg-white/85 text-[#5a4034] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
               onClick={() => setIsMobileMenuOpen(false)}
               type="button"
             >
