@@ -1,4 +1,12 @@
-import { Suspense, lazy, useMemo, useState, useTransition } from "react";
+import {
+  Suspense,
+  lazy,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
+import { useSearchParams } from "react-router-dom";
 
 import {
   CATEGORY_OPTIONS,
@@ -37,12 +45,16 @@ function ProductsList(): JSX.Element {
   const productsStatus = useAppSelector(selectProductsStatus);
   const productsError = useAppSelector(selectProductsError);
   const { activeCategory, setCategory } = useProductFilters();
+  const [searchParams] = useSearchParams();
   const [sortOrder, setSortOrder] = useState<SortOption>("newest");
   const [gridResetKey, setGridResetKey] = useState(0);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
   const activeIndex = CATEGORY_OPTIONS.findIndex(
     ({ label }) => label === activeCategory,
   );
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
+  const isSaleFilterActive = searchParams.get("sale") === "true";
 
   const sortedProducts = useMemo(() => {
     const nextProducts = [...products];
@@ -67,6 +79,38 @@ function ProductsList(): JSX.Element {
         });
     }
   }, [products, sortOrder]);
+
+  const filteredProducts = useMemo(() => {
+    const saleFilteredProducts = isSaleFilterActive
+      ? sortedProducts.filter((product) => product.compareAtPrice)
+      : sortedProducts;
+
+    if (!searchQuery) {
+      return saleFilteredProducts;
+    }
+
+    return saleFilteredProducts.filter((product) => {
+      const searchableText = [
+        product.name,
+        product.category,
+        product.description,
+        product.tags.join(" "),
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return searchableText.includes(searchQuery);
+    });
+  }, [isSaleFilterActive, searchQuery, sortedProducts]);
+
+  useEffect(() => {
+    if (productsStatus !== "succeeded") return;
+
+    setIsSearchLoading(true);
+    const timeoutId = window.setTimeout(() => setIsSearchLoading(false), 250);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [productsStatus, searchQuery, isSaleFilterActive]);
 
   function handleCategoryChange(category: ProductCategoryLabel): void {
     startTransition(() => {
@@ -126,8 +170,9 @@ function ProductsList(): JSX.Element {
               Filter by category, then refine by finish and price.
             </h1>
             <p className="mt-3 font-['Quicksand',sans-serif] text-base leading-7 text-[#5b463d]">
-              Showing {sortedProducts.length} product
-              {sortedProducts.length === 1 ? "" : "s"}
+              Showing {filteredProducts.length} product
+              {filteredProducts.length === 1 ? "" : "s"}
+              {searchQuery ? ` for "${searchParams.get("q")}"` : ""}
             </p>
           </div>
 
@@ -204,7 +249,7 @@ function ProductsList(): JSX.Element {
 
         <Suspense fallback={<ProductGridSkeleton />}>
           <div
-            aria-busy={isPending}
+            aria-busy={isPending || isSearchLoading}
             className={`transition-opacity duration-200 ease-in ${isPending ? "opacity-50" : "opacity-100"}`}
           >
             <ErrorBoundary
@@ -231,16 +276,18 @@ function ProductsList(): JSX.Element {
               )}
               resetKey={`${activeCategory}-${sortOrder}-${gridResetKey}`}
             >
-              {sortedProducts.length ? (
-                <ProductGrid products={sortedProducts} />
+              {isSearchLoading ? (
+                <ProductGridSkeleton />
+              ) : filteredProducts.length ? (
+                <ProductGrid products={filteredProducts} />
               ) : (
                 <div className="rounded-[2rem] border border-dashed border-[#d9c0ae] bg-[#fffaf5] px-6 py-12 text-center">
                   <h2 className="font-['Playfair_Display',serif] text-3xl text-[#5a4034]">
-                    No products in this category
+                    No matching products
                   </h2>
                   <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-[#5b463d]">
-                    Shift back to the full collection to browse every skincare,
-                    makeup, and new arrival currently available.
+                    Try a broader search term or switch back to the full
+                    collection to browse every currently available product.
                   </p>
                   <div className="mt-6">
                     <Button to={ROUTES.PRODUCTS} variant="secondary">

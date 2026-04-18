@@ -1,45 +1,26 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { ROUTES } from "@/constants/routes";
-
-import { getTotalCartQuantity } from "@/components/features/cart/cartSelectors";
-import Badge from "@/components/ui/Badge";
-import shoppingBag from "@/assets/shoppingBag.svg";
 import { useClickOutside } from "@/hooks";
-import { useAppSelector } from "@store/hooks";
-
-type NavLinkClassNameArgs = {
-  isActive: boolean;
-};
-
-const shellWidthClass = "mx-auto w-[min(100%-2rem,72rem)]";
-const brandTextClass = "text-[#5a4034]";
-const linkBaseClass = [
-  "relative inline-flex items-center gap-2 rounded-full px-4 py-[0.55rem] text-[0.95rem] font-medium no-underline",
-  "text-[#6b5145] transition-[color,background-color] duration-150 ease-in",
-  "hover:text-[#5a4034]",
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2",
-].join(" ");
-
-function navLinkClassName({ isActive }: NavLinkClassNameArgs): string {
-  return [
-    linkBaseClass,
-    isActive
-      ? "font-bold text-[#5a4034] after:absolute after:right-4 after:bottom-[0.35rem] after:left-4 after:h-[2px] after:rounded-full after:bg-current after:content-['']"
-      : "",
-  ].join(" ");
-}
+import { useDebounce } from "@/hooks";
 
 function Header(): JSX.Element {
-  const totalCartQuantity = useAppSelector(getTotalCartQuantity);
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isBadgePulsing, setIsBadgePulsing] = useState(false);
-  const previousCartQuantityRef = useRef<number | null>(null);
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 350);
   const mobilePanelRef = useRef<HTMLDivElement | null>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement | null>(null);
+  const isHomeActive = location.pathname === ROUTES.HOME;
+  const isProductsActive = location.pathname.startsWith(ROUTES.PRODUCTS);
+  const isSaleActive =
+    location.pathname.startsWith(ROUTES.PRODUCTS) &&
+    new URLSearchParams(location.search).get("sale") === "true";
 
   useClickOutside(
     mobilePanelRef,
@@ -58,15 +39,30 @@ function Header(): JSX.Element {
   }, [location.pathname, location.search, location.hash]);
 
   useEffect(() => {
-    function handleScroll(): void {
-      setIsScrolled(window.scrollY > 0);
+    const nextSearchValue = new URLSearchParams(location.search).get("q") ?? "";
+    setSearchValue(nextSearchValue);
+  }, [location.search]);
+
+  useEffect(() => {
+    const currentSearchParams = new URLSearchParams(location.search);
+    const currentQuery = currentSearchParams.get("q") ?? "";
+    const trimmedDebouncedValue = debouncedSearchValue.trim();
+
+    if (trimmedDebouncedValue === currentQuery) return;
+
+    const nextSearchParams = new URLSearchParams(location.search);
+    nextSearchParams.set("category", "all");
+
+    if (trimmedDebouncedValue) {
+      nextSearchParams.set("q", trimmedDebouncedValue);
+    } else {
+      nextSearchParams.delete("q");
     }
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    navigate(`${ROUTES.PRODUCTS}?${nextSearchParams.toString()}`, {
+      replace: true,
+    });
+  }, [debouncedSearchValue, location.search, navigate]);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -87,186 +83,90 @@ function Header(): JSX.Element {
     };
   }, [isMobileMenuOpen]);
 
-  useEffect(() => {
-    if (
-      previousCartQuantityRef.current !== null &&
-      previousCartQuantityRef.current !== totalCartQuantity &&
-      totalCartQuantity > 0
-    ) {
-      setIsBadgePulsing(true);
-      const timeoutId = window.setTimeout(() => setIsBadgePulsing(false), 200);
+  function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
 
-      previousCartQuantityRef.current = totalCartQuantity;
+    const nextSearchParams = new URLSearchParams(location.search);
+    nextSearchParams.set("category", "all");
 
-      return () => window.clearTimeout(timeoutId);
+    const trimmedSearchValue = searchValue.trim();
+
+    if (trimmedSearchValue) {
+      nextSearchParams.set("q", trimmedSearchValue);
     }
 
-    previousCartQuantityRef.current = totalCartQuantity;
-    setIsBadgePulsing(false);
-  }, [totalCartQuantity]);
-
-  function renderNavLink(to: string, label: string): JSX.Element {
-    return (
-      <NavLink
-        className={({ isActive }) => navLinkClassName({ isActive })}
-        to={to}
-      >
-        {label}
-      </NavLink>
-    );
-  }
-
-  function renderCartLink(className = ""): JSX.Element {
-    return (
-      <NavLink
-        aria-label={`Cart with ${totalCartQuantity} item${totalCartQuantity === 1 ? "" : "s"}`}
-        className={({ isActive }) =>
-          [
-            className,
-            linkBaseClass,
-            isActive
-              ? "font-bold text-[#5a4034] after:absolute after:right-4 after:bottom-[0.35rem] after:left-4 after:h-[2px] after:rounded-full after:bg-current after:content-['']"
-              : "",
-          ].join(" ")
-        }
-        to={ROUTES.CART}
-      >
-        <img aria-hidden="true" className="h-5 w-5" src={shoppingBag} alt="" />
-        <span>Cart</span>
-        <Badge
-          className={
-            totalCartQuantity > 0 ? "min-w-[1.45rem]" : "hidden min-w-[1.45rem]"
-          }
-          tone="accent"
-        >
-          <span
-            className={`transition-transform duration-200 ease-in ${isBadgePulsing ? "scale-[1.3]" : "scale-100"}`}
-          >
-            {totalCartQuantity}
-          </span>
-        </Badge>
-      </NavLink>
-    );
+    navigate(`${ROUTES.PRODUCTS}?${nextSearchParams.toString()}`);
   }
 
   return (
-    <header
-      className={[
-        "sticky top-0 z-[60] border-b border-transparent bg-white/88 backdrop-blur-[18px]",
-        "transition-[box-shadow,border-color,background-color] duration-200 ease-in",
-        isScrolled
-          ? "border-[#5a403429] shadow-[0_18px_40px_-30px_rgba(36,25,21,0.12)]"
-          : "",
-      ].join(" ")}
-    >
-      <div className={`${shellWidthClass} flex flex-col gap-4 py-4`}>
-        <div className="flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-[60] bg-white/90 backdrop-blur-xl rounded-full">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center pl-6 pr-6 pt-3 pb-3">
+        <div className="justify-self-start">
           <Link
-            className={`inline-flex items-center gap-3 rounded-full px-1 py-1 ${brandTextClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2`}
+            className="cursor-pointer font-['Cormorant_Garamond',serif] text-[#550000] text-[1.25rem] font-[500]"
             to={ROUTES.HOME}
           >
-            <span className={`text-lg font-semibold ${brandTextClass}`}>
-              Skin &amp; Silk
-            </span>
+            S & S
+          </Link>
+        </div>
+
+        <div className="flex flex-row items-center justify-center gap-10 justify-self-center">
+          <Link
+            className={`cursor-pointer text-[0.9rem] font-[400] ${isHomeActive ? "text-[#900c0c]" : "text-[#550000]"}`}
+            to={ROUTES.HOME}
+          >
+            Home
           </Link>
 
-          <nav
-            aria-label="Primary"
-            className="hidden items-center gap-2 md:flex"
+          <Link
+            className={`cursor-pointer text-[0.9rem] font-[400] ${isProductsActive ? "text-[#900c0c]" : "text-[#550000]"}`}
+            to={ROUTES.PRODUCTS}
           >
-            {renderNavLink(ROUTES.PRODUCTS, "Products")}
-            {renderCartLink()}
-          </nav>
+            Products
+          </Link>
 
-          <button
-            aria-controls="mobile-navigation"
-            aria-expanded={isMobileMenuOpen}
-            aria-label="Open menu"
-            className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#5a403429] bg-white/80 text-[#5a4034] shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 md:hidden`}
-            onClick={() => setIsMobileMenuOpen((open) => !open)}
-            ref={mobileMenuButtonRef}
-            type="button"
+          <Link
+            className="cursor-pointer text-[0.9rem] font-[400] text-[#550000]"
+            to={`${ROUTES.HOME}#brand-story`}
           >
-            <svg
-              aria-hidden="true"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M4 7h16M4 12h16M4 17h16"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeWidth="1.8"
+            Blog
+          </Link>
+
+          <Link
+            className={`cursor-pointer text-[0.9rem] font-[400] ${isSaleActive ? "text-[#900c0c]" : "text-[#550000]"}`}
+            to={`${ROUTES.PRODUCTS}?category=all&sale=true`}
+          >
+            Sale
+          </Link>
+        </div>
+
+        <div className="flex flex-row items-center justify-center gap-3 justify-self-end">
+          <form onSubmit={handleSearchSubmit}>
+            <label className="flex h-9 w-[12rem] items-center gap-2 rounded-full bg-[#fff0f0] px-3">
+              <FontAwesomeIcon
+                className="text-[0.8rem] text-[#ae0606]"
+                icon={faMagnifyingGlass}
               />
-            </svg>
-          </button>
+              <input
+                className="w-full bg-transparent text-[0.82rem] text-[#550000] outline-none placeholder:text-[0.72rem] placeholder:text-[#ae0606]"
+                onChange={(event) => setSearchValue(event.target.value)}
+                placeholder="Search"
+                type="search"
+                value={searchValue}
+              />
+            </label>
+          </form>
+
+          <Link
+            aria-label="Open cart"
+            className="flex h-[1.9rem] w-[1.9rem] items-center justify-center rounded-full bg-[#550000] p-[0.45rem] 
+          hover:bg-[#900c0c] transition-all duration-300 cursor-pointer"
+            to={ROUTES.CART}
+          >
+            <ShoppingCart className="text-white" strokeWidth={1.8} />
+          </Link>
         </div>
       </div>
-
-      <div
-        aria-hidden={isMobileMenuOpen ? "false" : "true"}
-        className={[
-          "fixed inset-0 bg-[rgba(36,25,21,0.48)] transition-opacity duration-200 ease-in md:hidden",
-          isMobileMenuOpen
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0",
-        ].join(" ")}
-      />
-
-      <div
-        aria-modal="true"
-        aria-hidden={isMobileMenuOpen ? "false" : "true"}
-        className={`fixed inset-0 z-[61] md:hidden ${isMobileMenuOpen ? "" : "pointer-events-none"}`}
-        id="mobile-navigation"
-        role="dialog"
-      >
-        <div
-          className={[
-            "fixed inset-y-0 right-0 flex w-[min(100%,24rem)] flex-col gap-8 bg-[linear-gradient(180deg,rgba(255,250,245,0.98),rgba(255,244,236,0.98))] px-6 py-6 shadow-[-24px_0_48px_-32px_rgba(36,25,21,0.28)]",
-            "transition-transform duration-200 ease-in",
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full",
-          ].join(" ")}
-          ref={mobilePanelRef}
-        >
-          <div className="flex items-center justify-between gap-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#5a4034]">
-              Menu
-            </p>
-
-            <button
-              aria-label="Close menu"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#5a403429] bg-white/85 text-[#5a4034] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M6 6l12 12M18 6L6 18"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeWidth="1.8"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <nav aria-label="Mobile" className="flex flex-col gap-3">
-            {renderNavLink(ROUTES.PRODUCTS, "Products")}
-            {renderCartLink("self-start")}
-          </nav>
-        </div>
-      </div>
-
-      <span aria-live="polite" className="sr-only">
-        Cart now has {totalCartQuantity} item
-        {totalCartQuantity === 1 ? "" : "s"}.
-      </span>
     </header>
   );
 }
