@@ -20,6 +20,9 @@ const ProductsList = lazy(() => import('@/components/features/products/ProductsL
 const ProductDetail = lazy(() => import('@/components/features/products/ProductDetail'));
 const Cart = lazy(() => import('@/components/features/cart/Cart'));
 const CreateOrder = lazy(() => import('@/components/features/order/CreateOrder'));
+const OrderConfirmation = lazy(
+  () => import('@/components/features/order/OrderConfirmation')
+);
 const Order = lazy(() => import('@/components/features/order/Order'));
 
 function withRouteSuspense(node: JSX.Element): JSX.Element {
@@ -77,6 +80,16 @@ const router = createBrowserRouter([
         path: ROUTES.CREATE_ORDER,
         element: withRouteSuspense(<CreateOrder />),
         action: createOrderAction,
+      },
+      {
+        path: ROUTES.ORDER_CONFIRMATION,
+        element: (
+          <Suspense fallback={<OrderDetailSkeleton />}>
+            <OrderConfirmation />
+          </Suspense>
+        ),
+        loader: orderLoader,
+        errorElement: <OrderRouteError />,
       },
       {
         path: ROUTES.ORDER_DETAIL,

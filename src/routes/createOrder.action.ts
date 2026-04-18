@@ -46,5 +46,7 @@ export async function action({
   const newOrder = await store.dispatch(submitOrder(order)).unwrap();
   store.dispatch(clearCart());
 
-  return redirect(ROUTES.ORDER_DETAIL.replace(':orderId', String(newOrder.id)));
+  return redirect(
+    ROUTES.ORDER_CONFIRMATION.replace(':orderId', String(newOrder.id))
+  );
 }

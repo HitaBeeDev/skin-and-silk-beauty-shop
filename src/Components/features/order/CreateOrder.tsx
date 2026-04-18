@@ -17,9 +17,19 @@ import {
   selectUserStatus,
   selectUsername,
 } from '@/components/features/user/userSlice';
+import Spinner from '@/components/ui/Spinner';
 import { formatCurrency } from '@/components/utils/helpers';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import type { CreateOrderActionData } from '@/routes/createOrder.action';
+
+const fieldErrorStyle = { color: '#b42318' } as const;
+
+const phoneHint = 'e.g. +1 555 000 0000';
+
+const isValidPhone = (value: string): boolean =>
+  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
+    value
+  );
 
 type CreateOrderFormState = {
   customer: string;
@@ -61,10 +71,33 @@ function validateForm(
   state: Pick<CreateOrderFormState, 'customer' | 'phone' | 'address'>
 ): CreateOrderFormState['errors'] {
   return {
-    customer: state.customer.trim() ? undefined : 'Please enter your first name.',
-    phone: state.phone.trim() ? undefined : 'Please enter your phone number.',
-    address: state.address.trim() ? undefined : 'Please enter your address.',
+    customer: validateField('customer', state.customer),
+    phone: validateField('phone', state.phone),
+    address: validateField('address', state.address),
   };
+}
+
+function validateField(
+  field: 'customer' | 'phone' | 'address',
+  value: string
+): string | undefined {
+  const trimmedValue = value.trim();
+
+  if (field === 'customer') {
+    return trimmedValue ? undefined : 'Please enter your first name.';
+  }
+
+  if (field === 'address') {
+    return trimmedValue ? undefined : 'Please enter your address.';
+  }
+
+  if (!trimmedValue) {
+    return 'Please enter your phone number.';
+  }
+
+  return isValidPhone(trimmedValue)
+    ? undefined
+    : 'Please give us your correct phone number. We might need it to contact you.';
 }
 
 function createInitialState(
@@ -228,10 +261,19 @@ function CreateOrder(): JSX.Element {
               value: event.target.value,
             })
           }
+          onBlur={(event) =>
+            dispatchForm({
+              type: 'setFieldError',
+              field: 'customer',
+              error: validateField('customer', event.target.value),
+            })
+          }
           required
           placeholder="Enter your first name"
         />
-        {formState.errors.customer ? <p>{formState.errors.customer}</p> : null}
+        {formState.errors.customer ? (
+          <p style={fieldErrorStyle}>{formState.errors.customer}</p>
+        ) : null}
 
         {/* Phone Number */}
         <label>
@@ -248,10 +290,20 @@ function CreateOrder(): JSX.Element {
               value: event.target.value,
             })
           }
+          onBlur={(event) =>
+            dispatchForm({
+              type: 'setFieldError',
+              field: 'phone',
+              error: validateField('phone', event.target.value),
+            })
+          }
           required
-          placeholder="Enter your phone number"
+          placeholder={phoneHint}
         />
-        {formState.errors.phone ? <p>{formState.errors.phone}</p> : null}
+        <p>{phoneHint}</p>
+        {formState.errors.phone ? (
+          <p style={fieldErrorStyle}>{formState.errors.phone}</p>
+        ) : null}
 
         {/* Address */}
         <label>
@@ -268,6 +320,13 @@ function CreateOrder(): JSX.Element {
                 type: 'fieldChanged',
                 field: 'address',
                 value: event.target.value,
+                })
+              }
+            onBlur={(event) =>
+              dispatchForm({
+                type: 'setFieldError',
+                field: 'address',
+                error: validateField('address', event.target.value),
               })
             }
             required
@@ -289,15 +348,18 @@ function CreateOrder(): JSX.Element {
           )}
         </div>
         {isAddressLookupFailed && isGeolocationFailure ? (
-          <p>Couldn&apos;t detect location — enter address manually</p>
+          <p style={fieldErrorStyle}>Couldn&apos;t detect location — enter address manually</p>
         ) : null}
         {isAddressLookupFailed && isGeocodingFailure && isGeocodingErrorVisible ? (
           <div>
-            <p>Couldn&apos;t look up your address right now. Enter it manually if needed.</p>
+            <p style={fieldErrorStyle}>Couldn&apos;t look up your address right now. Enter it manually if needed.</p>
             <button type="button" onClick={() => setIsGeocodingErrorVisible(false)}>
               Dismiss
             </button>
           </div>
+        ) : null}
+        {formState.errors.address ? (
+          <p style={fieldErrorStyle}>{formState.errors.address}</p>
         ) : null}
 
         {/* Bottom Section */}
@@ -340,14 +402,18 @@ function CreateOrder(): JSX.Element {
             <button
               disabled={isSubmitting || isLoadingAddress}
             >
-              {isSubmitting
-                ? 'Placing order....'
-                : `Order now from ${formatCurrency(totalPrice)}`}
+              {isSubmitting ? (
+                <>
+                  <Spinner label="Placing order" size="sm" />
+                  <span>Placing order...</span>
+                </>
+              ) : (
+                `Order now from ${formatCurrency(totalPrice)}`
+              )}
             </button>
           </div>
         </div>
       </Form>
-      {formState.errors.address ? <p>{formState.errors.address}</p> : null}
     </div>
   );
 }
