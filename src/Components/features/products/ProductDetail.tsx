@@ -111,8 +111,8 @@ function ProductDetail(): JSX.Element {
   }
 
   return (
-    <section className="mx-auto mt-6 w-[min(100%-2rem,72rem)]">
-      <div className="overflow-hidden rounded-[1.1rem] sm:p-7 md:p-9">
+    <section className="mx-auto mt-4 w-[min(100%-1.25rem,72rem)] px-0 pb-12 sm:mt-6 sm:w-[min(100%-2rem,72rem)]">
+      <div className="overflow-hidden rounded-[1.1rem] px-1 py-1 sm:p-7 md:p-9">
         <div className="flex flex-col gap-3">
           <Breadcrumb
             items={[
@@ -123,10 +123,10 @@ function ProductDetail(): JSX.Element {
             ]}
           />
 
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-start">
+          <div className="grid gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-start">
             <div className="space-y-4">
               <div className="relative overflow-hidden rounded-[1.1rem] bg-white shadow-[0_24px_60px_rgba(85,0,0,0.12)]">
-                <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-2">
+                <div className="absolute top-3 left-3 z-20 flex max-w-[calc(100%-1.5rem)] flex-wrap gap-2 sm:top-4 sm:left-4">
                   {product.isNew ? <Badge tone="accent">New</Badge> : null}
                   <Badge
                     className="bg-white/90 text-[#8c1d40]"
@@ -153,7 +153,7 @@ function ProductDetail(): JSX.Element {
                 </div>
               </div>
 
-              <div className="flex gap-3 overflow-x-auto pb-1">
+              <div className="flex gap-2 overflow-x-auto pb-1 sm:gap-3">
                 {galleryImages.map((image, index) => {
                   const isActive = image === selectedImage;
 
@@ -174,7 +174,7 @@ function ProductDetail(): JSX.Element {
                       <img
                         alt=""
                         aria-hidden="true"
-                        className="h-24 w-20 object-cover"
+                        className="h-20 w-16 object-cover sm:h-24 sm:w-20"
                         src={image}
                       />
                     </button>
@@ -184,15 +184,15 @@ function ProductDetail(): JSX.Element {
             </div>
 
             <div className="flex flex-col gap-5">
-              <div className="rounded-[1.1rem] bg-[#550000] p-5 text-[#fff0f0] sm:p-7">
-                <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#ffcad4]">
+              <div className="rounded-[1.1rem] bg-[#550000] p-4 text-[#fff0f0] sm:p-7">
+                <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#ffcad4] sm:text-[0.72rem] sm:tracking-[0.28em]">
                   {heroEyebrow}
                 </p>
-                <h1 className="mt-3 font-['Playfair_Display',serif] text-[2.2rem] leading-[0.96] text-white sm:text-[3rem]">
+                <h1 className="mt-3 break-words font-['Playfair_Display',serif] text-[1.75rem] leading-[0.94] text-white min-[420px]:text-[2rem] sm:text-[3rem]">
                   {product.name}
                 </h1>
                 {productDetails?.subtitle ? (
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-[#ffe3e7] sm:text-base">
+                  <p className="mt-4 max-w-2xl text-[0.92rem] leading-6 text-[#ffe3e7] sm:text-base sm:leading-7">
                     {productDetails.subtitle}
                   </p>
                 ) : null}
@@ -201,26 +201,26 @@ function ProductDetail(): JSX.Element {
                   {quickFacts.map((fact) => (
                     <span
                       key={fact}
-                      className="inline-flex min-h-[2rem] items-center rounded-full border border-white/25 px-4 py-1 text-[0.72rem] uppercase tracking-[0.14em] text-[#fff0f0]"
+                      className="inline-flex min-h-[2rem] items-center rounded-full border border-white/25 px-3 py-1 text-[0.66rem] uppercase tracking-[0.12em] text-[#fff0f0] sm:px-4 sm:text-[0.72rem] sm:tracking-[0.14em]"
                     >
                       {fact}
                     </span>
                   ))}
                 </div>
 
-                <div className="mt-7 flex flex-wrap items-end gap-3">
-                  <p className="text-3xl font-semibold text-white sm:text-4xl">
+                <div className="mt-7 flex flex-wrap items-end gap-2 sm:gap-3">
+                  <p className="text-[2rem] font-semibold text-white min-[420px]:text-[2.25rem] sm:text-4xl">
                     {formatCurrency(productPrice)}
                   </p>
                   {product.compareAtPrice ? (
-                    <p className="pb-1 text-base text-[#ffcad4]/80 line-through sm:text-lg">
+                    <p className="pb-1 text-sm text-[#ffcad4]/80 line-through sm:text-lg">
                       {formatCurrency(product.compareAtPrice)}
                     </p>
                   ) : null}
                 </div>
 
-                <div className="mt-7 grid gap-4 sm:grid-cols-[minmax(0,8.2rem)_minmax(0,1fr)] sm:items-center">
-                  <div className="inline-flex items-center rounded-full border border-white/15 bg-white/10">
+                <div className="mt-7 grid gap-3 sm:grid-cols-[minmax(0,8.2rem)_minmax(0,1fr)] sm:gap-4 sm:items-center">
+                  <div className="inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/10 sm:w-auto">
                     <button
                       aria-label="Decrease quantity"
                       className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white transition-colors duration-150 ease-in hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
@@ -246,7 +246,7 @@ function ProductDetail(): JSX.Element {
 
                   <Button
                     className={[
-                      "w-full rounded-full border-0 h-[3rem] bg-[#fff0f2] text-[#8f0c3c] text-[0.8rem] hover:bg-[#ffe2e6] [&_span]:text-[#8f0c3c]",
+                      "w-full rounded-full border-0 h-[3rem] bg-[#fff0f2] text-[#8f0c3c] text-[0.76rem] hover:bg-[#ffe2e6] [&_span]:text-[#8f0c3c] sm:text-[0.8rem]",
                       isCartFlashActive
                         ? "bg-[#ffd9e2] text-[#8f0c3c] [&_span]:text-[#8f0c3c]"
                         : "text-[#8f0c3c] [&_span]:text-[#8f0c3c]",
@@ -262,8 +262,8 @@ function ProductDetail(): JSX.Element {
                   </Button>
                 </div>
 
-                <div className="mt-6 flex items-center gap-3 text-sm text-[#ffe3e7]">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                <div className="mt-6 flex items-start gap-3 text-sm text-[#ffe3e7]">
+                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10">
                     <ArrowUpRight size={16} strokeWidth={2.1} />
                   </span>
 
@@ -274,11 +274,11 @@ function ProductDetail(): JSX.Element {
                 </div>
               </div>
 
-              <div className="rounded-[1.1rem] bg-white p-5 text-[#241915] shadow-[0_18px_45px_rgba(85,0,0,0.08)] sm:p-7">
+              <div className="rounded-[1.1rem] bg-white p-4 text-[#241915] shadow-[0_18px_45px_rgba(85,0,0,0.08)] sm:p-7">
                 <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
                   Product Overview
                 </p>
-                <div className="mt-4 space-y-4 text-sm leading-7 text-[#5b463d] sm:text-[0.95rem]">
+                <div className="mt-4 space-y-4 text-[0.92rem] leading-6 text-[#5b463d] sm:text-[0.95rem] sm:leading-7">
                   <p>{product.description}</p>
                   {productDetails?.overview ? (
                     <p>{productDetails.overview}</p>
@@ -292,8 +292,8 @@ function ProductDetail(): JSX.Element {
                 </div>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-3">
-                <div className="rounded-[1.1rem] bg-white p-5 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+              <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
+                <div className="rounded-[1.1rem] bg-white p-4 shadow-[0_18px_45px_rgba(85,0,0,0.08)] sm:p-5">
                   <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
                     Category
                   </p>
@@ -302,7 +302,7 @@ function ProductDetail(): JSX.Element {
                   </p>
                 </div>
 
-                <div className="rounded-[1.1rem] bg-white p-5 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+                <div className="rounded-[1.1rem] bg-white p-4 shadow-[0_18px_45px_rgba(85,0,0,0.08)] sm:p-5">
                   <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
                     Format
                   </p>
@@ -311,7 +311,7 @@ function ProductDetail(): JSX.Element {
                   </p>
                 </div>
 
-                <div className="rounded-[1.1rem] bg-white p-5 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+                <div className="rounded-[1.1rem] bg-white p-4 shadow-[0_18px_45px_rgba(85,0,0,0.08)] sm:p-5">
                   <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
                     Availability
                   </p>
@@ -324,13 +324,13 @@ function ProductDetail(): JSX.Element {
           </div>
         </div>
       </div>
-      <section className="mt-16 space-y-6">
+      <section className="mt-12 space-y-5 sm:mt-16 sm:space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
               You May Also Like
             </p>
-            <h2 className="mt-2 font-['Playfair_Display',serif] text-3xl text-[#5c0120]">
+            <h2 className="mt-2 font-['Playfair_Display',serif] text-[2rem] leading-tight text-[#5c0120] sm:text-3xl">
               More from {product.category}
             </h2>
           </div>
@@ -342,12 +342,12 @@ function ProductDetail(): JSX.Element {
           </Link>
         </div>
 
-        <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-          <div className="flex snap-x snap-mandatory gap-6 lg:grid lg:grid-cols-4">
+        <div className="-mx-2 overflow-x-auto px-2 sm:mx-0 sm:px-0">
+          <div className="flex snap-x snap-mandatory gap-4 sm:gap-6 lg:grid lg:grid-cols-4">
             {relatedProducts.map((relatedProduct) => (
               <div
                 key={relatedProduct.id}
-                className="w-[18rem] shrink-0 snap-start lg:w-auto"
+                className="w-[84vw] max-w-[18rem] shrink-0 snap-start sm:w-[18rem] lg:w-auto lg:max-w-none"
               >
                 <ProductCard product={relatedProduct} />
               </div>

@@ -14,20 +14,20 @@ function Breadcrumb({ items }: BreadcrumbProps): JSX.Element {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="font-[300] text-[#c80842] text-[0.7rem]"
+      className="flex flex-wrap items-center gap-x-1 gap-y-2 font-[300] text-[0.68rem] text-[#c80842] sm:text-[0.7rem]"
     >
       {items.map((item, index) => (
         <Fragment key={`${item.label}-${index}`}>
-          {index > 0 ? " / " : null}
+          {index > 0 ? <span aria-hidden="true">/</span> : null}
           {item.to ? (
             <Link
-              className="font-[300] text-[#a70a3f] text-[0.7rem]"
+              className="max-w-full break-words font-[300] text-[#a70a3f] text-[0.68rem] sm:text-[0.7rem]"
               to={item.to}
             >
               {item.label}
             </Link>
           ) : (
-            <span className="font-[400] text-[#a70a3f] text-[0.7rem]">
+            <span className="max-w-full break-words font-[400] text-[#a70a3f] text-[0.68rem] sm:text-[0.7rem]">
               {item.label}
             </span>
           )}

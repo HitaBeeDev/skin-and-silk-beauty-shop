@@ -99,12 +99,14 @@ function Product({ product }: ProductProps): JSX.Element {
               </div>
             </div>
 
-            <div className="flex flex-1 flex-col pt-3 pl-5 pr-5 pb-5 gap-1 text-[#241915]">
-              <p className="truncate font-['Playfair_Display',serif] text-[1.15rem] leading-tight text-[#8f0c3c] sm:text-xl">
+            <div className="flex flex-1 flex-col gap-1 px-4 pt-3 pb-4 text-[#241915] sm:px-5 sm:pb-5">
+              <p className="line-clamp-2 font-['Playfair_Display',serif] text-[1.02rem] leading-tight text-[#8f0c3c] sm:text-xl">
                 {name}
               </p>
 
-              <p className="text-[0.75rem] text-[#5c0120]">{description}</p>
+              <p className="line-clamp-3 text-[0.72rem] leading-5 text-[#5c0120] sm:text-[0.75rem]">
+                {description}
+              </p>
 
               <div className="mt-auto pt-4">
                 {!soldOut ? (
@@ -124,9 +126,9 @@ function Product({ product }: ProductProps): JSX.Element {
         {!soldOut && (
           <button
             aria-label={`Add ${name} to cart`}
-            className="absolute right-4 bottom-4 inline-flex items-center justify-center rounded-full
+            className="absolute right-3 bottom-3 inline-flex items-center justify-center rounded-full
               bg-[#8c1d40] shadow-[0_14px_28px_rgba(140,29,64,0.2)] w-[1.8rem] h-[1.8rem] p-[0.4rem]
-             transition-all duration-200 ease-in hover:scale-105 hover:bg-[#a70a3f] active:scale-100 
+             transition-all duration-200 ease-in hover:scale-105 hover:bg-[#a70a3f] active:scale-100 sm:right-4 sm:bottom-4
              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25 cursor-pointer"
             onClick={handleAddToCart}
             type="button"
@@ -138,7 +140,7 @@ function Product({ product }: ProductProps): JSX.Element {
         {soldOut ? (
           <button
             aria-label={`${name} is sold out`}
-            className="absolute right-4 bottom-4 inline-flex h-10 min-w-[7rem] cursor-not-allowed items-center justify-center rounded-full border border-[#8c1d40]/15 bg-[#fff0f2] px-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#8d6a5c] opacity-90"
+            className="absolute right-3 bottom-3 inline-flex h-10 min-w-[7rem] cursor-not-allowed items-center justify-center rounded-full border border-[#8c1d40]/15 bg-[#fff0f2] px-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#8d6a5c] opacity-90 sm:right-4 sm:bottom-4"
             disabled
             type="button"
           >

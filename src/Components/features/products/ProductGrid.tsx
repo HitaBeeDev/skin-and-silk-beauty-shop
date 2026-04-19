@@ -8,7 +8,7 @@ type ProductGridProps = {
 
 function ProductGrid({ products }: ProductGridProps): JSX.Element {
   return (
-    <div className="grid grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
