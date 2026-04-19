@@ -28,10 +28,6 @@ export const CATEGORY_OPTIONS = [
     value: ProductCategory.BodyCare,
     label: CATEGORY_LABELS[ProductCategory.BodyCare],
   },
-  {
-    value: ProductCategory.NewArrivals,
-    label: CATEGORY_LABELS[ProductCategory.NewArrivals],
-  },
 ] as const;
 
 export const DEFAULT_CATEGORY = CATEGORY_LABELS[ProductCategory.All];

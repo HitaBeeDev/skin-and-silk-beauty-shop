@@ -53,7 +53,11 @@ function Product({ product }: ProductProps): JSX.Element {
 
   return (
     <>
-      <div className="group relative flex h-full flex-col overflow-hidden rounded-[1.1rem] border border-[#8c1d40]/10 bg-white shadow-[0_18px_45px_rgba(85,0,0,0.08)] transition-transform duration-200 ease-in hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(85,0,0,0.16)]">
+      <div
+        className="group relative flex h-full flex-col overflow-hidden rounded-[1.1rem] border
+       border-[#8c1d40]/10 bg-white shadow-[0_18px_45px_rgba(85,0,0,0.08)] transition-transform duration-200 ease-in 
+       hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(85,0,0,0.16)]"
+      >
         {isNew ? (
           <div className="absolute top-3 left-3 z-20">
             <Badge tone="accent">New</Badge>

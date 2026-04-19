@@ -18,7 +18,10 @@ type HomeHeroProps = {
 
 function HomeHero({ heroProduct, hotspot }: HomeHeroProps): JSX.Element {
   return (
-    <div className="mt-6 flex w-full min-w-0 flex-col gap-4 sm:gap-5 md:grid md:h-[32rem] md:grid-cols-2 md:items-center md:justify-center">
+    <div
+      className="mt-6 flex w-full min-w-0 flex-col gap-4 sm:gap-5 md:grid md:h-[32rem] md:grid-cols-2 md:items-center 
+    md:justify-center"
+    >
       <div className="order-2 col-span-1 flex h-full w-full min-w-0 flex-col items-start justify-center rounded-[1.1rem] bg-[#550000] p-5 sm:p-7 md:order-1">
         <p
           className="mx-1 font-['Playfair_Display',serif] text-[1.8rem] font-[500] leading-[0.95] text-[#fff0f0] sm:mx-2 

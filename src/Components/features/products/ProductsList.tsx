@@ -16,7 +16,6 @@ import {
 import {
   getProductFocusFromSearchParam,
   matchesProductFocus,
-  PRODUCT_FOCUS_LABELS,
 } from "@/constants/productFocus";
 import { ROUTES } from "@/constants/routes";
 
@@ -204,27 +203,21 @@ function ProductsList(): JSX.Element {
   }
 
   return (
-    <section className="mx-auto w-[min(100%-2rem,72rem)] px-4 py-16 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-10">
-        <div className="overflow-hidden rounded-[1.1rem] bg-[linear-gradient(135deg,#fff7f8_0%,#fff0f2_42%,#fde6eb_100%)] p-5 sm:p-7 md:p-9">
+    <section className="mx-auto w-[min(100%-2rem,72rem)] mt-6 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col gap-6">
+        <div
+          className="overflow-hidden rounded-[1.1rem] bg-[#fff0f2] 
+        p-5 sm:p-7 md:p-9"
+        >
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
-              Collection
+                Collection
               </p>
-              <h1 className="mt-3 font-['Playfair_Display',serif] text-[1.9rem] leading-[0.98] text-[#3e0f1f] sm:text-[2.5rem]">
+
+              <h1 className="mt-3 font-['Playfair_Display',serif] text-[1.9rem] leading-[0.98] text-[#5c0120] sm:text-[2.5rem]">
                 The full beauty edit, shaped like the home page.
               </h1>
-              <p className="mt-4 text-[0.92rem] leading-7 text-[#6c4a4e]">
-                Showing {filteredProducts.length} product
-                {filteredProducts.length === 1 ? "" : "s"}
-                {activeFocus
-                  ? ` for ${PRODUCT_FOCUS_LABELS[activeFocus].toLowerCase()}`
-                  : ""}
-                {searchQuery ? ` for "${searchParams.get("q")}"` : ""}.
-                {isSaleFilterActive ? " Sale filter active." : ""}
-                {isTopSellerFilterActive ? " Top Seller filter active." : ""}
-              </p>
             </div>
 
             <div className="w-full max-w-xs">
@@ -269,7 +262,7 @@ function ProductsList(): JSX.Element {
         </div>
 
         <div className="rounded-[1.1rem] bg-[#fff0f2] p-2 shadow-[0_18px_42px_-34px_rgba(85,0,0,0.18)]">
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
             {CATEGORY_OPTIONS.map(({ label }) => (
               <button
                 key={label}
@@ -309,7 +302,7 @@ function ProductsList(): JSX.Element {
 
           <button
             className={[
-              "rounded-full px-4 py-2 text-[0.76rem] font-[500] uppercase tracking-[0.18em] transition-all duration-150 ease-in",
+              "rounded-full text-[0.76rem] font-[500] uppercase tracking-[0.18em] transition-all duration-150 ease-in",
               isTopSellerFilterActive
                 ? "bg-[#8c1d40] text-white shadow-[0_14px_28px_rgba(140,29,64,0.18)]"
                 : "bg-[#fff0f2] text-[#8c1d40] hover:bg-[#fde6eb]",
