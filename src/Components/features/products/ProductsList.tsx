@@ -170,69 +170,79 @@ function ProductsList(): JSX.Element {
   return (
     <section className="mx-auto w-[min(100%-2rem,72rem)] px-4 py-16 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-10">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.28em] text-[#8c6659]">
+        <div className="overflow-hidden rounded-[1.1rem] bg-[linear-gradient(135deg,#fff7f8_0%,#fff0f2_42%,#fde6eb_100%)] p-5 sm:p-7 md:p-9">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
               Collection
-            </p>
-            <h1 className="mt-3 font-['Playfair_Display',serif] text-3xl text-[#5a4034] sm:text-4xl">
-              Filter by category, then refine by finish and price.
-            </h1>
-            <p className="mt-3 font-['Quicksand',sans-serif] text-base leading-7 text-[#5b463d]">
-              Showing {filteredProducts.length} product
-              {filteredProducts.length === 1 ? "" : "s"}
-              {activeFocus ? ` for ${PRODUCT_FOCUS_LABELS[activeFocus].toLowerCase()}` : ""}
-              {searchQuery ? ` for "${searchParams.get("q")}"` : ""}
-            </p>
-          </div>
+              </p>
+              <h1 className="mt-3 font-['Playfair_Display',serif] text-[1.9rem] leading-[0.98] text-[#3e0f1f] sm:text-[2.5rem]">
+                The full beauty edit, shaped like the home page.
+              </h1>
+              <p className="mt-4 text-[0.92rem] leading-7 text-[#6c4a4e]">
+                Showing {filteredProducts.length} product
+                {filteredProducts.length === 1 ? "" : "s"}
+                {activeFocus
+                  ? ` for ${PRODUCT_FOCUS_LABELS[activeFocus].toLowerCase()}`
+                  : ""}
+                {searchQuery ? ` for "${searchParams.get("q")}"` : ""}. Filter
+                by category, then refine by price.
+              </p>
+            </div>
 
-          <div className="w-full max-w-xs">
-            <label
-              className="mb-2 block font-['Quicksand',sans-serif] text-xs font-semibold uppercase tracking-[0.22em] text-[#8c6659]"
-              htmlFor="products-sort"
-            >
-              Sort By
-            </label>
-            <div className="relative">
-              <select
-                className="w-full appearance-none rounded-full border border-[#d9c0ae] bg-white px-4 py-3 pr-11 font-['Quicksand',sans-serif] text-sm text-[#5a4034] shadow-[0_14px_32px_-26px_rgba(36,25,21,0.4)] transition-colors duration-150 ease-in focus:border-[#5a4034] focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2"
-                id="products-sort"
-                onChange={(event) =>
-                  setSortOrder(event.target.value as SortOption)
-                }
-                value={sortOrder}
+            <div className="w-full max-w-xs">
+              <label
+                className="mb-2 block text-[0.72rem] font-[500] uppercase tracking-[0.22em] text-[#8c1d40]"
+                htmlFor="products-sort"
               >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              <svg
-                aria-hidden="true"
-                className="pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 text-[#8c6659]"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M7 10l5 5 5-5"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.8"
-                />
-              </svg>
+                Sort By
+              </label>
+              <div className="relative">
+                <select
+                  className="w-full appearance-none rounded-full border border-[#8c1d40]/15 bg-white px-4 py-3 pr-11 text-sm text-[#4a2a2d] shadow-[0_14px_32px_-26px_rgba(85,0,0,0.28)] transition-colors duration-150 ease-in focus:border-[#8c1d40] focus:outline-none focus:ring-2 focus:ring-[#8c1d40]/20"
+                  id="products-sort"
+                  onChange={(event) =>
+                    setSortOrder(event.target.value as SortOption)
+                  }
+                  value={sortOrder}
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                <svg
+                  aria-hidden="true"
+                  className="pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 text-[#8c1d40]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M7 10l5 5 5-5"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.8"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="rounded-[1.75rem] border border-[#ead9ca] bg-[#fffaf5] p-2 shadow-[0_18px_42px_-34px_rgba(36,25,21,0.28)]">
-          <div className="relative grid grid-cols-4 gap-2">
+        <div className="rounded-[1.1rem] bg-[#fff0f2] p-2 shadow-[0_18px_42px_-34px_rgba(85,0,0,0.18)]">
+          <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-4">
             <div
               aria-hidden="true"
-              className="absolute top-2 bottom-2 left-0 z-0 w-[calc(25%-0.375rem)] rounded-[1.2rem] bg-[#5a4034] transition-transform duration-200 ease-in"
+              className="absolute left-0 z-0 h-[calc(50%-0.25rem)] w-[calc(50%-0.25rem)] rounded-[0.95rem] bg-[#8c1d40] transition-transform duration-200 ease-in sm:top-0 sm:bottom-0 sm:h-auto sm:w-[calc(25%-0.375rem)]"
               style={{
-                transform: `translateX(${activeIndex < 0 ? 0 : activeIndex * 100}%)`,
+                transform:
+                  activeIndex < 0
+                    ? "translate(0, 0)"
+                    : activeIndex < 2
+                      ? `translate(${activeIndex * 100}%, 0)`
+                      : `translate(${(activeIndex - 2) * 100}%, calc(100% + 0.5rem))`,
               }}
             />
             {CATEGORY_OPTIONS.map(({ label }) => (
@@ -240,11 +250,11 @@ function ProductsList(): JSX.Element {
                 key={label}
                 aria-current={activeCategory === label}
                 className={[
-                  "relative z-10 rounded-[1.2rem] px-3 py-3 text-center font-['Quicksand',sans-serif] text-xs font-semibold transition-colors duration-150 ease-in sm:px-4 sm:text-sm",
+                  "relative z-10 min-h-[3rem] rounded-[0.95rem] px-3 py-3 text-center text-xs font-[500] transition-colors duration-150 ease-in sm:min-h-0 sm:rounded-[1rem] sm:px-4 sm:text-sm",
                   activeCategory === label
                     ? "text-white"
-                    : "text-[#5a4034] hover:text-[#3f2d25]",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2",
+                    : "text-[#4a2a2d] hover:text-[#3f0f1b]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25",
                 ].join(" ")}
                 onClick={() =>
                   handleCategoryChange(label as ProductCategoryLabel)
@@ -265,13 +275,13 @@ function ProductsList(): JSX.Element {
             <ErrorBoundary
               fallback={(error) => (
                 <div
-                  className="rounded-[2rem] border border-[#ead9ca] bg-[#fff8f3] px-6 py-10 text-center shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]"
+                  className="rounded-[1.1rem] bg-[#fff0f2] px-6 py-10 text-center shadow-[0_20px_50px_-40px_rgba(85,0,0,0.22)]"
                   role="alert"
                 >
-                  <h2 className="font-['Playfair_Display',serif] text-3xl text-[#5a4034]">
+                  <h2 className="font-['Playfair_Display',serif] text-3xl text-[#3e0f1f]">
                     The product grid hit an issue
                   </h2>
-                  <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#5b463d]">
+                  <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#6c4a4e]">
                     {error.message || "The product grid could not be rendered."}
                   </p>
                   <div className="mt-6">
@@ -291,11 +301,11 @@ function ProductsList(): JSX.Element {
               ) : filteredProducts.length ? (
                 <ProductGrid products={filteredProducts} />
               ) : (
-                <div className="rounded-[2rem] border border-dashed border-[#d9c0ae] bg-[#fffaf5] px-6 py-12 text-center">
-                  <h2 className="font-['Playfair_Display',serif] text-3xl text-[#5a4034]">
+                <div className="rounded-[1.1rem] border border-dashed border-[#8c1d40]/20 bg-[#fff7f8] px-6 py-12 text-center">
+                  <h2 className="font-['Playfair_Display',serif] text-3xl text-[#3e0f1f]">
                     No matching products
                   </h2>
-                  <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-[#5b463d]">
+                  <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-[#6c4a4e]">
                     Try a broader search term or switch back to the full
                     collection to browse every currently available product.
                   </p>

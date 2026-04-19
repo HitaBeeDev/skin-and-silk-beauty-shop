@@ -53,7 +53,7 @@ function Product({ product }: ProductProps): JSX.Element {
 
   return (
     <>
-      <div className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#ead9ca] bg-white shadow-[0_20px_45px_-34px_rgba(36,25,21,0.34)] transition-transform duration-200 ease-in hover:-translate-y-1 hover:shadow-[0_24px_60px_-32px_rgba(36,25,21,0.42)]">
+      <div className="group relative flex h-full flex-col overflow-hidden rounded-[1.1rem] border border-[#8c1d40]/10 bg-white shadow-[0_18px_45px_rgba(85,0,0,0.08)] transition-transform duration-200 ease-in hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(85,0,0,0.16)]">
         {isNew ? (
           <div className="absolute top-3 left-3 z-20">
             <Badge tone="accent">New</Badge>
@@ -65,7 +65,7 @@ function Product({ product }: ProductProps): JSX.Element {
           to={ROUTES.PRODUCT_DETAIL.replace(":id", String(id))}
         >
           <div className="flex h-full flex-col">
-            <div className="relative overflow-hidden bg-[#fbf3ec]">
+            <div className="relative overflow-hidden bg-[#fff0f2]">
               <div className="relative aspect-[4/5]">
                 <img
                   className={[
@@ -87,8 +87,8 @@ function Product({ product }: ProductProps): JSX.Element {
                   />
                 ) : null}
                 {soldOut ? (
-                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-[rgba(255,251,245,0.75)]">
-                    <span className="rounded-full border border-[#d4b189] bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7b584c]">
+                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-[rgba(255,247,248,0.8)]">
+                    <span className="rounded-full border border-[#8c1d40]/15 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7a5a61]">
                       Sold Out
                     </span>
                   </div>
@@ -96,16 +96,18 @@ function Product({ product }: ProductProps): JSX.Element {
               </div>
             </div>
 
-            <div className="flex flex-1 flex-col gap-3 px-5 py-5 text-[#241915]">
-              <p className="font-['Playfair_Display',serif] text-xl leading-tight text-[#5a4034]">
+            <div className="flex flex-1 flex-col gap-3 px-4 py-4 text-[#241915] sm:px-5 sm:py-5">
+              <p className="font-['Playfair_Display',serif] text-[1.15rem] leading-tight text-[#3e0f1f] sm:text-xl">
                 {name}
               </p>
 
-              <p className="text-sm leading-6 text-[#5b463d]">{description}</p>
+              <p className="text-[0.88rem] leading-6 text-[#6c4a4e]">
+                {description}
+              </p>
 
               <div className="mt-auto pt-2">
                 {!soldOut ? (
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#5a4034]">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8c1d40]">
                     {formatCurrency(productUnitPrice)}
                   </p>
                 ) : (
@@ -121,7 +123,7 @@ function Product({ product }: ProductProps): JSX.Element {
         {!soldOut && (
           <button
             aria-label={`Add ${name} to cart`}
-            className="absolute right-4 bottom-4 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#5a4034] bg-[#5a4034] shadow-lg transition-all duration-200 ease-in hover:scale-105 hover:opacity-90 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
+            className="absolute right-4 bottom-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#8c1d40] bg-[#8c1d40] shadow-[0_14px_28px_rgba(140,29,64,0.2)] transition-all duration-200 ease-in hover:scale-105 hover:bg-[#a70a3f] active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25"
             onClick={handleAddToCart}
             type="button"
           >
@@ -132,7 +134,7 @@ function Product({ product }: ProductProps): JSX.Element {
         {soldOut ? (
           <button
             aria-label={`${name} is sold out`}
-            className="absolute right-4 bottom-4 inline-flex h-11 min-w-[7rem] cursor-not-allowed items-center justify-center rounded-full border border-[#d4b189] bg-[#f6e6da] px-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#8d6a5c] opacity-90"
+            className="absolute right-4 bottom-4 inline-flex h-10 min-w-[7rem] cursor-not-allowed items-center justify-center rounded-full border border-[#8c1d40]/15 bg-[#fff0f2] px-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#8d6a5c] opacity-90"
             disabled
             type="button"
           >
