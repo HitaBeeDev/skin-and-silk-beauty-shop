@@ -5,6 +5,7 @@ import Skeleton from "@/components/ui/Skeleton";
 import img2 from "@/assets/new/img2.png";
 import img3 from "@/assets/new/img3.png";
 import img4 from "@/assets/new/img4.png";
+import img5 from "@/assets/new/img5.png";
 import { ROUTES } from "@/constants/routes";
 
 type HomeCategoryCardsProps = {
@@ -36,13 +37,21 @@ const categoryCards = [
     alt: "Lip care icon",
     focus: "lips",
   },
+  {
+    title: "For Body",
+    description:
+      "Firming creams, moisture-rich treatments, and indulgent daily care for soft, comforted skin from head to toe.",
+    image: img5,
+    alt: "Body care icon",
+    href: `${ROUTES.PRODUCTS}?category=body-care`,
+  },
 ] as const;
 
 function HomeCategoryCards({ loading }: HomeCategoryCardsProps): JSX.Element {
   if (loading) {
     return (
-      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5 xl:grid-cols-3">
-        {Array.from({ length: 3 }).map((_, index) => (
+      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5 xl:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
           <div
             key={index}
             className="relative min-h-[9.75rem] rounded-[1.1rem] bg-[#fff0f0] px-4 py-4 sm:px-5 md:min-h-[10rem] lg:px-6"
@@ -64,7 +73,7 @@ function HomeCategoryCards({ loading }: HomeCategoryCardsProps): JSX.Element {
   }
 
   return (
-    <div className="mt-5 grid grid-cols-1 gap-4 md:mt-10 md:grid-cols-2 lg:gap-5 xl:grid-cols-3">
+    <div className="mt-5 grid grid-cols-1 gap-4 md:mt-10 md:grid-cols-2 lg:gap-5 xl:grid-cols-4">
       {categoryCards.map((card) => (
         <div
           key={card.title}
@@ -94,10 +103,14 @@ function HomeCategoryCards({ loading }: HomeCategoryCardsProps): JSX.Element {
           </div>
 
           <Link
-            aria-label={`View ${card.focus} products`}
+            aria-label={`View ${card.title.toLowerCase()} products`}
             className="absolute right-4 bottom-4 flex h-[1.6rem] w-[3.2rem] items-center justify-center rounded-full border border-[#900c0c]
             transition-all duration-300 hover:border-[#ffdddd] hover:bg-[#ffdddd] sm:right-5 md:right-6"
-            to={`${ROUTES.PRODUCTS}?category=all&focus=${card.focus}`}
+            to={
+              "href" in card
+                ? card.href
+                : `${ROUTES.PRODUCTS}?category=all&focus=${card.focus}`
+            }
           >
             <MoveRight strokeWidth={1.5} className="text-[#900c0c]" />
           </Link>
