@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-import plus from "@/assets/plus.svg";
+import { Plus } from "lucide-react";
 
 import type { Product as ProductModel } from "@/types";
 
@@ -55,7 +54,7 @@ function Product({ product }: ProductProps): JSX.Element {
     <>
       <div
         className="group relative flex h-full flex-col overflow-hidden rounded-[1.1rem] border
-       border-[#8c1d40]/10 bg-white shadow-[0_18px_45px_rgba(85,0,0,0.08)] transition-transform duration-200 ease-in 
+       border-[#ffcad4]/10 bg-white shadow-[0_18px_45px_rgba(85,0,0,0.08)] transition-transform duration-200 ease-in 
        hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(85,0,0,0.16)]"
       >
         {isNew ? (
@@ -70,7 +69,7 @@ function Product({ product }: ProductProps): JSX.Element {
         >
           <div className="flex h-full flex-col">
             <div className="relative overflow-hidden bg-[#fff0f2]">
-              <div className="relative aspect-[4/5]">
+              <div className="relative aspect-[5/5]">
                 <img
                   className={[
                     "absolute inset-0 h-full w-full object-cover transition-[transform,opacity] duration-300 ease-in",
@@ -100,18 +99,16 @@ function Product({ product }: ProductProps): JSX.Element {
               </div>
             </div>
 
-            <div className="flex flex-1 flex-col gap-3 px-4 py-4 text-[#241915] sm:px-5 sm:py-5">
-              <p className="font-['Playfair_Display',serif] text-[1.15rem] leading-tight text-[#3e0f1f] sm:text-xl">
+            <div className="flex flex-1 flex-col pt-3 pl-5 pr-5 pb-5 gap-1 text-[#241915]">
+              <p className="font-['Playfair_Display',serif] text-[1.15rem] leading-tight text-[#8f0c3c] sm:text-xl">
                 {name}
               </p>
 
-              <p className="text-[0.88rem] leading-6 text-[#6c4a4e]">
-                {description}
-              </p>
+              <p className="text-[0.75rem] text-[#5c0120]">{description}</p>
 
-              <div className="mt-auto pt-2">
+              <div className="mt-auto pt-4">
                 {!soldOut ? (
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8c1d40]">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a70a3f]">
                     {formatCurrency(productUnitPrice)}
                   </p>
                 ) : (
@@ -127,11 +124,14 @@ function Product({ product }: ProductProps): JSX.Element {
         {!soldOut && (
           <button
             aria-label={`Add ${name} to cart`}
-            className="absolute right-4 bottom-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#8c1d40] bg-[#8c1d40] shadow-[0_14px_28px_rgba(140,29,64,0.2)] transition-all duration-200 ease-in hover:scale-105 hover:bg-[#a70a3f] active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25"
+            className="absolute right-4 bottom-4 inline-flex items-center justify-center rounded-full
+              bg-[#8c1d40] shadow-[0_14px_28px_rgba(140,29,64,0.2)] w-[1.8rem] h-[1.8rem] p-[0.4rem]
+             transition-all duration-200 ease-in hover:scale-105 hover:bg-[#a70a3f] active:scale-100 
+             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25 cursor-pointer"
             onClick={handleAddToCart}
             type="button"
           >
-            <img className="h-4 w-4" src={plus} alt="" aria-hidden="true" />
+            <Plus aria-hidden="true" className="text-white" strokeWidth={2.2} />
           </button>
         )}
 
