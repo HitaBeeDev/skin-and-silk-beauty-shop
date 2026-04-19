@@ -36,10 +36,11 @@ const ProductGrid = lazy(
   () => import("@/components/features/products/ProductGrid"),
 );
 
-type SortOption = "newest" | "price-asc" | "price-desc";
+type SortOption = "newest" | "top-seller" | "price-asc" | "price-desc";
 
 const sortOptions: Array<{ value: SortOption; label: string }> = [
   { value: "newest", label: "Newest" },
+  { value: "top-seller", label: "Top Seller" },
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
 ];
@@ -64,6 +65,14 @@ function ProductsList(): JSX.Element {
     const nextProducts = [...products];
 
     switch (sortOrder) {
+      case "top-seller":
+        return nextProducts.sort((a, b) => {
+          if (Boolean(a.topSeller) === Boolean(b.topSeller)) {
+            return Number(b.id) - Number(a.id);
+          }
+
+          return Number(Boolean(b.topSeller)) - Number(Boolean(a.topSeller));
+        });
       case "price-asc":
         return nextProducts.sort(
           (a, b) => (a.unitPrice ?? a.price) - (b.unitPrice ?? b.price),
