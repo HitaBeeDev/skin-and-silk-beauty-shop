@@ -79,8 +79,8 @@ function ReviewCard({ review }: { review: Review }): JSX.Element {
 
   return (
     <article
-      className="w-[17.5rem] shrink-0 rounded-[1.1rem] border border-[#8c1d40]/10 bg-white/90 p-5 
-    shadow-[0_18px_45px_rgba(85,0,0,0.08)] backdrop-blur-sm sm:w-[19rem]"
+      className="w-[min(16.5rem,calc(100vw-4rem))] shrink-0 rounded-[1.1rem] border border-[#8c1d40]/10 bg-white/90 p-4 
+    shadow-[0_18px_45px_rgba(85,0,0,0.08)] backdrop-blur-sm sm:w-[19rem] sm:p-5"
     >
       <div className="flex items-center gap-3">
         <img
@@ -94,13 +94,13 @@ function ReviewCard({ review }: { review: Review }): JSX.Element {
             {review.name}
           </p>
 
-          <p className="text-[0.6rem] font-[300] tracking-[0.04em] text-[#7e5c5f] uppercase">
+          <p className="text-[0.58rem] font-[300] tracking-[0.04em] text-[#7e5c5f] uppercase sm:text-[0.6rem]">
             {review.role}
           </p>
         </div>
       </div>
 
-      <p className="mt-5 text-[0.9rem] font-[300] leading-[1.7] text-[#4a2a2d]">
+      <p className="mt-4 text-[0.85rem] font-[300] leading-[1.7] text-[#4a2a2d] sm:mt-5 sm:text-[0.9rem]">
         {review.quote}
       </p>
 
@@ -163,7 +163,7 @@ function HomeReviewerFeedback(): JSX.Element {
           <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
             Reviewer Feedback
           </p>
-          <p className="mt-3 font-['Playfair_Display',serif] text-[2rem] font-[400] leading-none text-[#3e0f1f]">
+          <p className="mt-3 font-['Playfair_Display',serif] text-[1.7rem] font-[400] leading-[1.02] text-[#3e0f1f] sm:text-[2rem]">
             Trusted opinions from beauty lovers who notice the details.
           </p>
         </div>
@@ -171,9 +171,9 @@ function HomeReviewerFeedback(): JSX.Element {
 
       <div className="mt-8 overflow-hidden">
         <div
-          className="flex w-max gap-4"
+          className="flex w-max gap-3 sm:gap-4"
           style={{
-            animation: "home-review-scroll-left 28s linear infinite",
+            animation: "home-review-scroll-left 30s linear infinite",
           }}
         >
           {duplicatedReviews.map((review, index) => (

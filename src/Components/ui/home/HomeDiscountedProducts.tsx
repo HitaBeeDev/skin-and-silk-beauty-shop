@@ -51,14 +51,14 @@ function HomeDiscountedProducts({
 
   return (
     <>
-      <div className="mt-10 rounded-[1.1rem] bg-[#fff0f2] p-10">
-        <div className="flex flex-row items-start justify-between">
-          <p className="font-['Playfair_Display',serif] text-[2rem] font-[400] text-black">
+      <div className="mt-10 rounded-[1.1rem] bg-[#fff0f2] p-5 sm:p-7 md:p-10">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <p className="font-['Playfair_Display',serif] text-[1.7rem] font-[400] leading-none text-black sm:text-[2rem]">
             Discounted Products
           </p>
 
           <Link
-            className="flex h-[2.1rem] cursor-pointer flex-row items-center justify-center gap-3 rounded-full bg-[#a70a3f] pl-5 pr-5 text-[0.8rem]
+            className="flex h-[2.1rem] w-fit cursor-pointer flex-row items-center justify-center gap-3 rounded-full bg-[#a70a3f] px-5 text-[0.8rem]
             font-[300] text-white transition-all duration-300 hover:bg-[#c80842]"
             to={`${ROUTES.PRODUCTS}?category=all&sale=true`}
           >
@@ -68,7 +68,7 @@ function HomeDiscountedProducts({
           </Link>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {products.map((product) => {
             const compareAtPrice = product.compareAtPrice ?? product.price;
             const discountPercent = Math.round(
@@ -79,7 +79,7 @@ function HomeDiscountedProducts({
             return (
               <div
                 key={product.id}
-                className="relative flex h-[15rem] flex-col rounded-[1.1rem] bg-white p-4"
+                className="relative flex min-h-[15rem] flex-col rounded-[1.1rem] bg-white p-4"
               >
                 <div className="absolute top-4 right-4 flex h-[1.2rem] w-[3rem] items-center justify-center rounded-full bg-[#a70a3f]">
                   <p className="text-[0.8rem] font-[300] text-[#fff0f2]">
@@ -95,13 +95,13 @@ function HomeDiscountedProducts({
                   />
                 </div>
 
-                <div className="mt-auto flex flex-row items-center justify-between gap-3">
+                <div className="mt-auto flex flex-row items-end justify-between gap-3">
                   <div className="flex min-w-0 flex-col">
                     <p className="truncate text-[0.85rem] font-[500] text-black">
                       {product.name}
                     </p>
 
-                    <p className="text-[0.9rem] font-[400]">
+                    <p className="mt-1 text-[0.85rem] font-[400] leading-[1.4] sm:text-[0.9rem]">
                       <span className="text-[0.7rem] text-black/30">
                         Price:
                       </span>{" "}
@@ -116,7 +116,7 @@ function HomeDiscountedProducts({
 
                   <button
                     aria-label={`Add ${product.name} to cart`}
-                    className="relative flex h-[1.7rem] w-[1.7rem] cursor-pointer items-center justify-center rounded-full bg-black p-[0.4rem]"
+                    className="relative flex h-[1.9rem] w-[1.9rem] shrink-0 cursor-pointer items-center justify-center rounded-full bg-black p-[0.4rem]"
                     onClick={() => handleAddToCart(product)}
                     type="button"
                   >

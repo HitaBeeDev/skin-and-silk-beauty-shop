@@ -85,7 +85,7 @@ function Home(): JSX.Element {
   );
 
   return (
-    <div>
+    <div className="min-w-0">
       {/* Hero section */}
       <HomeHero heroProduct={heroProduct} hotspot={heroHotspot} />
 

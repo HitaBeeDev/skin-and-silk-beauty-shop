@@ -18,10 +18,10 @@ type HomeHeroProps = {
 
 function HomeHero({ heroProduct, hotspot }: HomeHeroProps): JSX.Element {
   return (
-    <div className="mt-6 flex w-full min-w-0 flex-col gap-5 md:grid md:h-[32rem] md:grid-cols-2 md:items-center md:justify-center">
+    <div className="mt-6 flex w-full min-w-0 flex-col gap-4 sm:gap-5 md:grid md:h-[32rem] md:grid-cols-2 md:items-center md:justify-center">
       <div className="order-2 col-span-1 flex h-full w-full min-w-0 flex-col items-start justify-center rounded-[1.1rem] bg-[#550000] p-5 sm:p-7 md:order-1">
         <p
-          className="mr-2 ml-2 font-['Playfair_Display',serif] text-[2rem] font-[500] leading-none text-[#fff0f0] 
+          className="mx-1 font-['Playfair_Display',serif] text-[1.8rem] font-[500] leading-[0.95] text-[#fff0f0] sm:mx-2 
           sm:text-[2.6rem] md:text-[4rem]"
         >
           Luxury Beauty Collection
@@ -42,9 +42,9 @@ function HomeHero({ heroProduct, hotspot }: HomeHeroProps): JSX.Element {
           </div>
         </Link>
 
-        <div className="mt-5 ml-2 grid w-full min-w-0 items-start gap-6 sm:mt-10 md:grid-cols-2">
+        <div className="mt-5 ml-1 grid w-full min-w-0 items-start gap-5 sm:mt-10 sm:ml-2 md:grid-cols-2">
           <div className="col-span-1 min-w-0">
-            <p className="text-[0.9rem] font-[300] text-white">
+            <p className="text-[0.85rem] font-[300] leading-[1.7] text-white sm:text-[0.9rem]">
               Discover prestige skincare, refined makeup, and elevated
               essentials curated to make every ritual feel intentional,
               sensorial, and beautifully complete.
@@ -52,29 +52,29 @@ function HomeHero({ heroProduct, hotspot }: HomeHeroProps): JSX.Element {
           </div>
 
           <div className="col-span-1 flex min-w-0 flex-row flex-wrap items-center justify-start gap-2">
-            <div className="flex h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-5">
+            <div className="flex min-h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-4 py-1 sm:px-5">
               <p className="text-[0.7rem] font-[300] text-white">
                 Clé de Peau Beauté
               </p>
             </div>
 
-            <div className="flex h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-5">
+            <div className="flex min-h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-4 py-1 sm:px-5">
               <p className="text-[0.7rem] font-[300] text-white">
                 Sisley Paris
               </p>
             </div>
 
-            <div className="flex h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-5">
+            <div className="flex min-h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-4 py-1 sm:px-5">
               <p className="text-[0.7rem] font-[300] text-white">Valmont</p>
             </div>
 
-            <div className="flex h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-5">
+            <div className="flex min-h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-4 py-1 sm:px-5">
               <p className="text-[0.7rem] font-[300] text-white">
                 Augustinus Bader
               </p>
             </div>
 
-            <div className="flex h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-5">
+            <div className="flex min-h-[2.1rem] items-center justify-center rounded-full border border-[#fff0f0] px-4 py-1 sm:px-5">
               <p className="text-[0.7rem] font-[300] text-white">La Prairie</p>
             </div>
           </div>
@@ -107,16 +107,16 @@ function HomeHero({ heroProduct, hotspot }: HomeHeroProps): JSX.Element {
                 <span className="h-2 w-2 rounded-full bg-[#241915]" />
               </span>
 
-              <div className="pointer-events-none absolute right-0 top-8 w-[min(18rem,calc(100vw-3rem))] rounded-[1.1rem] bg-white/30 p-5 text-left text-[#241915] opacity-0 shadow-[0_24px_60px_rgba(36,25,21,0.24)] backdrop-blur-lg transition-all duration-200 ease-in group-hover:pointer-events-auto group-hover:translate-y-1 group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:translate-y-1 group-focus-visible:opacity-100 md:left-[-8.5rem] md:right-auto md:w-[19rem]">
+              <div className="pointer-events-none absolute right-0 top-8 w-[min(16rem,calc(100vw-2.5rem))] rounded-[1.1rem] bg-white/30 p-4 text-left text-[#241915] opacity-0 shadow-[0_24px_60px_rgba(36,25,21,0.24)] backdrop-blur-lg transition-all duration-200 ease-in group-hover:pointer-events-auto group-hover:translate-y-1 group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:translate-y-1 group-focus-visible:opacity-100 sm:w-[min(18rem,calc(100vw-3rem))] sm:p-5 md:left-[-8.5rem] md:right-auto md:w-[19rem]">
                 <p className="text-[0.6rem] font-[500] uppercase tracking-[0.18em] text-[#8c6659]">
                   {heroProduct.category}
                 </p>
 
-                <p className="mt-2 text-[0.85rem] font-[500] leading-5 text-[#5a4034]">
+                <p className="mt-2 text-[0.8rem] font-[500] leading-5 text-[#5a4034] sm:text-[0.85rem]">
                   {heroProduct.name}
                 </p>
 
-                <p className="mt-[0.1rem] text-[0.7rem] leading-5 text-[#5b463d]">
+                <p className="mt-[0.1rem] text-[0.68rem] leading-5 text-[#5b463d] sm:text-[0.7rem]">
                   {heroProduct.description}
                 </p>
 
