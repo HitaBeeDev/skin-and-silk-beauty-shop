@@ -16,7 +16,6 @@ import {
 import {
   getProductFocusFromSearchParam,
   matchesProductFocus,
-  PRODUCT_FOCUS_LABELS,
 } from "@/constants/productFocus";
 import { ROUTES } from "@/constants/routes";
 
@@ -112,11 +111,7 @@ function ProductsList(): JSX.Element {
 
       return searchableText.includes(searchQuery);
     });
-  }, [
-    activeFocus,
-    searchQuery,
-    sortedProducts,
-  ]);
+  }, [activeFocus, searchQuery, sortedProducts]);
 
   useEffect(() => {
     if (productsStatus !== "succeeded") return;
@@ -189,15 +184,6 @@ function ProductsList(): JSX.Element {
               <h1 className="mt-3 font-['Playfair_Display',serif] text-[1.9rem] leading-[0.98] text-[#5c0120] sm:text-[2.5rem]">
                 The full beauty edit, shaped like the home page.
               </h1>
-
-              <p className="mt-4 text-[0.92rem] leading-7 text-[#6c4a4e]">
-                Showing {filteredProducts.length} product
-                {filteredProducts.length === 1 ? "" : "s"}
-                {activeFocus
-                  ? ` for ${PRODUCT_FOCUS_LABELS[activeFocus].toLowerCase()}`
-                  : ""}
-                {searchQuery ? ` for "${searchParams.get("q")}"` : ""}.
-              </p>
             </div>
 
             <div className="w-full max-w-xs">
@@ -273,7 +259,8 @@ function ProductsList(): JSX.Element {
             <ErrorBoundary
               fallback={(error) => (
                 <div
-                  className="rounded-[1.1rem] bg-[#fff0f2] px-6 py-10 text-center shadow-[0_20px_50px_-40px_rgba(85,0,0,0.22)]"
+                  className="rounded-[1.1rem] bg-[#fff0f2] px-6 py-10 text-center 
+                  shadow-[0_20px_50px_-40px_rgba(85,0,0,0.22)]"
                   role="alert"
                 >
                   <h2 className="font-['Playfair_Display',serif] text-3xl text-[#3e0f1f]">

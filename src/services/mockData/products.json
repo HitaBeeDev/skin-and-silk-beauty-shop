@@ -17,7 +17,7 @@
         "gallery": ["product1.png"]
       },
       "inStock": true,
-      "isNew": true,
+      "isNew": false,
       "tags": ["hydrating", "lotion", "radiance"]
     },
     {
@@ -36,7 +36,7 @@
         "gallery": ["product2.avif"]
       },
       "inStock": true,
-      "isNew": true,
+      "isNew": false,
       "tags": ["night cream", "anti-aging", "moisturizer"]
     },
     {
@@ -129,7 +129,7 @@
         "gallery": ["product15.avif"]
       },
       "inStock": true,
-      "isNew": true,
+      "isNew": false,
       "tags": ["lip care", "treatment", "softening"]
     },
     {
@@ -185,7 +185,7 @@
         "gallery": ["product6.webp"]
       },
       "inStock": true,
-      "isNew": true,
+      "isNew": false,
       "tags": ["foundation", "gel", "buildable coverage"]
     },
     {
@@ -276,7 +276,7 @@
         "gallery": ["product23.png"]
       },
       "inStock": true,
-      "isNew": true,
+      "isNew": false,
       "tags": ["blush", "powder", "cheeks"]
     },
     {
@@ -294,7 +294,7 @@
         "gallery": ["product24.png"]
       },
       "inStock": false,
-      "isNew": true,
+      "isNew": false,
       "tags": ["blush", "cream", "argan oil"]
     },
     {
@@ -312,7 +312,7 @@
         "gallery": ["product9.png"]
       },
       "inStock": true,
-      "isNew": true,
+      "isNew": false,
       "tags": ["brush", "tool", "foundation"]
     },
     {
@@ -330,7 +330,7 @@
         "gallery": ["product10.png"]
       },
       "inStock": false,
-      "isNew": true,
+      "isNew": false,
       "tags": ["eyeshadow", "duo", "argan oil"]
     },
     {
@@ -349,7 +349,7 @@
         "gallery": ["product11.png"]
       },
       "inStock": true,
-      "isNew": true,
+      "isNew": false,
       "tags": ["lip color", "glossy", "hydrating"]
     },
     {
@@ -555,9 +555,67 @@
           "Shea butter helps nourish skin for a smooth, cared-for feel."
         ]
       }
+    },
+    {
+      "id": "27",
+      "sku": "SKU-27",
+      "name": "Ultra Booster",
+      "slug": "ultra-booster-premium-effect-serum",
+      "category": "Skin Care",
+      "topSeller": true,
+      "price": 99.9,
+      "description": "A multi-active premium effect serum that deeply hydrates, smooths wrinkles, and helps skin feel firmer with a silky finish.",
+      "images": {
+        "main": "new/product-b/Beauty_UltraBooster_Serum3_1920x1920.jpg",
+        "hover": "new/product-b/Beauty_UltraBooster_Serum4_1920x1920.jpg",
+        "gallery": [
+          "new/product-b/Beauty_UltraBooster_Serum3_1920x1920.jpg",
+          "new/product-b/Beauty_UltraBooster_Serum4_1920x1920.jpg"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "serum",
+        "face care",
+        "anti-aging",
+        "hyaluronic acid",
+        "squalane",
+        "moisture",
+        "fragrance"
+      ],
+      "details": {
+        "subtitle": "Multi-active Premium Effect Serum",
+        "size": "30 ml",
+        "overview": "The multi-active Premium Effect Serum with the active ingredient complex Osmofill+ activates the longevity factors of the skin for a deeply effective anti-aging effect. Dry skin is pampered and tightened at the same time. The hyaluronic acid it contains intensively moisturizes and smoothes the skin, while a special encapsulation technology helps support a deep effect in the skin. Squalane optimizes the skin's own hydrolipid film and leaves the skin feeling silky soft, so wrinkles appear smoothed and contours look tighter.",
+        "mainBenefits": [
+          "Intensively pads out the wrinkles.",
+          "Provides long-lasting moisture.",
+          "Protects against moisture loss."
+        ],
+        "additionalBenefits": [
+          "Designed for dry skin needing premium anti-aging care.",
+          "Encapsulation technology supports a deep skin-care effect.",
+          "Leaves skin feeling silky soft and more supple.",
+          "Contours appear firmer and more refined with continued use.",
+          "Free from silicones, parabens, PEGs, paraffin, and microplastics."
+        ],
+        "usage": [
+          "Apply to cleansed face, neck, and decollete.",
+          "Use before your moisturizer as part of your daily routine.",
+          "Massage in gently until fully absorbed.",
+          "Suitable for daily use, morning and evening."
+        ],
+        "ingredientHighlights": [
+          "Osmofill+ helps support the skin's longevity factors for a premium anti-aging effect.",
+          "Hyaluronic acid intensely moisturizes and helps smooth the look of wrinkles.",
+          "Squalane supports the skin's hydrolipid film for a soft, silky finish."
+        ],
+        "inci": "30 ml refill dispenser, with perfume. Prices incl. VAT plus shipping costs."
+      }
     }
   ],
   "meta": {
-    "total": 26
+    "total": 27
   }
 }
