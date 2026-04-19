@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Product } from "@/types";
 
 import HomeCategoryCards from "@/components/ui/home/HomeCategoryCards";
+import HomeContactUs from "@/components/ui/home/HomeContactUs";
 import HomeDiscountedProducts from "@/components/ui/home/HomeDiscountedProducts";
 import HomeHero from "@/components/ui/home/HomeHero";
 import HomeReviewerFeedback from "@/components/ui/home/HomeReviewerFeedback";
@@ -96,6 +97,9 @@ function Home(): JSX.Element {
 
       {/* Reviewer feedback */}
       <HomeReviewerFeedback />
+
+      {/* Contact us */}
+      <HomeContactUs />
     </div>
   );
 }
