@@ -4,6 +4,7 @@ import type { Product } from "@/types";
 import HomeCategoryCards from "@/components/ui/home/HomeCategoryCards";
 import HomeDiscountedProducts from "@/components/ui/home/HomeDiscountedProducts";
 import HomeHero from "@/components/ui/home/HomeHero";
+import HomeReviewerFeedback from "@/components/ui/home/HomeReviewerFeedback";
 import { getProducts } from "@/services/productsService";
 
 type FeaturedState = {
@@ -92,6 +93,9 @@ function Home(): JSX.Element {
 
       {/* Discounted products */}
       <HomeDiscountedProducts products={discountedProducts} />
+
+      {/* Reviewer feedback */}
+      <HomeReviewerFeedback />
     </div>
   );
 }

@@ -171,7 +171,10 @@ function Header(): JSX.Element {
               to={ROUTES.CART}
             >
               {totalCartQuantity > 0 ? (
-                <span className="absolute -top-2 -right-2 flex h-[1rem] min-w-[1rem] items-center justify-center rounded-full bg-[#ec124f] px-1 text-[0.62rem] font-[500] leading-none text-white">
+                <span
+                  className="absolute -top-1 -right-1 flex h-[1rem] min-w-[1rem] items-center justify-center rounded-full 
+                bg-[#ec124f] px-1 text-[0.62rem] font-[500] leading-none text-white"
+                >
                   {totalCartQuantity}
                 </span>
               ) : null}
