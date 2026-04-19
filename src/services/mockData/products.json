@@ -5,7 +5,7 @@
       "sku": "SKU-1",
       "name": "HYDRO-SOFTENING LOTION N",
       "slug": "hydro-softening-lotion-n",
-      "category": "Skin Care",
+      "category": "Body Care",
       "featured": true,
       "topSeller": true,
       "price": 345,
@@ -613,9 +613,1221 @@
         ],
         "inci": "30 ml refill dispenser, with perfume. Prices incl. VAT plus shipping costs."
       }
+    },
+    {
+      "id": "28",
+      "sku": "SKU-28",
+      "name": "LIFE MATRIX HAUTE REJUVENATION CREAM",
+      "slug": "life-matrix-haute-rejuvenation-cream",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 2161.7,
+      "description": "Experience high longevity science with this skincare masterpiece face cream designed to preserve the skin longevity matrix, the foundation of an enduring youthful appearance.",
+      "images": {
+        "main": "new/product-c/95790-01394-82_LM_Cream_packshot_C.webp",
+        "hover": "new/product-c/7611773145589_5.webp",
+        "gallery": [
+          "new/product-c/95790-01394-82_LM_Cream_packshot_C.webp",
+          "new/product-c/7611773145589_5.webp",
+          "new/product-c/7611773145589_2.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "face cream",
+        "skin longevity",
+        "anti-aging",
+        "firming",
+        "elasticity",
+        "luxury skincare",
+        "matrix complex"
+      ],
+      "details": {
+        "subtitle": "Youth longevity face cream",
+        "size": "50 ml / 1.7 oz.",
+        "overview": "Powered by the exclusive Matrix Complex with the highest concentration of Exclusive Cellular Complex™, this state-of-the-art formula helps protect and sustain the four essential pillars of the skin longevity matrix while enveloping skin in a silky-soft texture. Developed in partnership with Clinique La Prairie.",
+        "mainBenefits": [
+          "Skin texture is refined and the appearance of wrinkles is reduced.",
+          "Improves skin firmness and elasticity.",
+          "Skin feels softer and smoother."
+        ],
+        "additionalBenefits": [
+          "Supports the skin longevity matrix for a stronger, more resilient look.",
+          "Silky soft cream texture delivers a sensorial, high-luxury finish.",
+          "Designed to help preserve an enduring youthful appearance."
+        ],
+        "ingredientHighlights": [
+          "Matrix Complex helps protect the essential pillars of the skin longevity matrix.",
+          "The highest concentration of Exclusive Cellular Complex™ supports long-term skin vitality.",
+          "High longevity science pairs efficacy with a rich sensorial texture."
+        ],
+        "statistics": [
+          "Tatler Beauty Awards: Best Face Cream.",
+          "Conde Nast Traveller Beauty Awards: Beauty Award."
+        ]
+      }
+    },
+    {
+      "id": "29",
+      "sku": "SKU-29",
+      "name": "PLATINUM RARE HAUTE-REJUVENATION PROTOCOL",
+      "slug": "platinum-rare-haute-rejuvenation-protocol",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 2483,
+      "description": "A month-long freshly activated intensive face treatment powered by Exclusive Cellular Complex™, Platinum Multi-Peptide, and signaling molecules to support accelerated rejuvenation and restore even the most demanding skin.",
+      "images": {
+        "main": "new/product-d/95790-01361-32_PR_Protocol_packshot_BOX.webp",
+        "hover": "new/product-d/7611773131650_2.webp",
+        "gallery": [
+          "new/product-d/95790-01361-32_PR_Protocol_packshot_BOX.webp",
+          "new/product-d/7611773131650_2.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "intensive treatment",
+        "face treatment",
+        "anti-aging",
+        "rejuvenation",
+        "firming",
+        "density",
+        "platinum multi-peptide",
+        "luxury skincare"
+      ],
+      "details": {
+        "subtitle": "Month-long rejuvenating intensive face treatment",
+        "size": "3 x 8 ml",
+        "overview": "La Prairie's most potent 30-day freshly activated intensive program is designed to reanimate skin for accelerated rejuvenation by activating renewal and redensifying the extracellular matrix. The silky, opulent two-phase formula absorbs seamlessly after activation, leaving skin radiant, smooth, and prepared for continued rejuvenation. Suitable for all skin types, including the most demanding.",
+        "mainBenefits": [
+          "The appearance of wrinkles, dullness, uneven tone, and texture is visibly reduced.",
+          "Elasticity, density, and volume are effectively improved.",
+          "Skin tissues appear visibly rejuvenated and skin texture appears regenerated."
+        ],
+        "additionalBenefits": [
+          "Helps protect skin against external stress factors.",
+          "Supports multi-faceted rejuvenation across different epidermic layers.",
+          "Designed to restore even demanding skin over a concentrated 30-day protocol.",
+          "Leaves skin looking revitalised, youthful, radiant, and smooth."
+        ],
+        "usage": [
+          "For external use only.",
+          "Avoid the eye area and rinse thoroughly with water in case of direct eye contact.",
+          "Use only on healthy skin.",
+          "Do not use immediately after shaving, depilation, waxing, or on injured skin.",
+          "In case of allergic reaction, discontinue use immediately and contact a dermatologist.",
+          "Keep out of reach of children and do not use on children."
+        ],
+        "ingredientHighlights": [
+          "Exclusive Cellular Complex™ helps protect skin cells from external stressors and energises natural repair and renewal processes.",
+          "Platinum Multi-Peptide is engineered to activate multi-faceted skin rejuvenation across different epidermic layers.",
+          "Signaling molecules support natural renewal processes and cellular communication for a more revitalised look."
+        ],
+        "statistics": [
+          "Complimentary shipping.",
+          "3-Day Trial Set with each order."
+        ],
+        "inci": "La Prairie Group GMBH, Immermannstraße 20, 40210 Dusseldorf, Germany. info@laprairiegroup.com. Reference: 95790-01361-32."
+      }
+    },
+    {
+      "id": "30",
+      "sku": "SKU-30",
+      "name": "PLATINUM RARE HAUTE-REJUVENATION EYE ELIXIR",
+      "slug": "platinum-rare-haute-rejuvenation-eye-elixir",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 1270.2,
+      "description": "A rejuvenating eye concentrate created with platinum and powerful anti-ageing peptides to target key rejuvenation processes in the delicate eye area.",
+      "images": {
+        "main": "new/product-e/95790-01318-61_PR_EyeElixir_C_5d4b4ad0-64f2-4de5-b89a-31fc96b156da.webp",
+        "hover": "new/product-e/PR-Haute-Rejuvenation-Eye-Elixir_CMYK.webp",
+        "gallery": [
+          "new/product-e/95790-01318-61_PR_EyeElixir_C_5d4b4ad0-64f2-4de5-b89a-31fc96b156da.webp",
+          "new/product-e/PR-Haute-Rejuvenation-Eye-Elixir_CMYK.webp",
+          "new/product-e/7611773108874_5.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "eye serum",
+        "eye concentrate",
+        "anti-aging",
+        "dark circles",
+        "puffiness",
+        "firming",
+        "platinum multi-peptide",
+        "luxury skincare"
+      ],
+      "details": {
+        "subtitle": "Rejuvenating eye concentrate",
+        "size": "15 ml / 0.5 oz",
+        "overview": "Created using platinum and powerful anti-ageing peptides, this illuminating eye serum is designed to encourage and sustain rejuvenating processes in the skin. Powered by Platinum Multi-Peptide and infused with La Prairie's patented Exclusive Cellular Complex™, it helps support the virtuous loop of rejuvenation for a smoother, brighter, youthful-looking eye area. Suitable for all skin types.",
+        "mainBenefits": [
+          "Reduces the appearance of fine lines and wrinkles.",
+          "Diminishes under-eye puffiness and dark circles.",
+          "Improves radiance, firmness, and elasticity around the eyes."
+        ],
+        "additionalBenefits": [
+          "Targets key rejuvenation processes in the delicate eye area.",
+          "Helps leave the eye contour smooth and youthful-looking.",
+          "Only a single potent drop is needed with each application."
+        ],
+        "usage": [
+          "For external use only.",
+          "Avoid the eye area and rinse thoroughly with water in case of direct eye contact.",
+          "Use only on healthy skin.",
+          "Do not use immediately after shaving, depilation, waxing, or on injured skin.",
+          "In case of allergic reaction, discontinue use immediately and contact a dermatologist.",
+          "Keep out of reach of children and do not use on children."
+        ],
+        "ingredientHighlights": [
+          "Platinum Multi-Peptide combines potent peptides and platinum to encourage and sustain rejuvenation.",
+          "Exclusive Cellular Complex™ is La Prairie's patented science signature for supporting skin vitality.",
+          "Advanced rejuvenating science is designed to sustain the skin's natural rejuvenation processes."
+        ],
+        "statistics": [
+          "Complimentary shipping.",
+          "3-Day Trial Set with each order."
+        ],
+        "inci": "La Prairie Group GMBH, Immermannstraße 20, 40210 Dusseldorf, Germany. info@laprairiegroup.com. Reference: 95790-01318-61."
+      }
+    },
+    {
+      "id": "31",
+      "sku": "SKU-31",
+      "name": "PLATINUM RARE HAUTE-REJUVENATION LIFE-LOTION",
+      "slug": "platinum-rare-haute-rejuvenation-life-lotion",
+      "category": "Body Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 864.8,
+      "description": "A rejuvenating and detoxifying treatment lotion designed as the essential first step in the skincare ritual to support optimal cellular function and promote renewal from within.",
+      "images": {
+        "main": "new/product-f/95790-01365-32_PR_CellularLifeLotion_packshot_C.webp",
+        "hover": "new/product-f/dd826f1b-21fd-4b18-8b09-b71aba2b260e.webp",
+        "gallery": [
+          "new/product-f/95790-01365-32_PR_CellularLifeLotion_packshot_C.webp",
+          "new/product-f/dd826f1b-21fd-4b18-8b09-b71aba2b260e.webp",
+          "new/product-f/7611773133326_5.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "treatment lotion",
+        "detoxifying",
+        "rejuvenation",
+        "platinum peptide",
+        "cellular renewal",
+        "luxury skincare"
+      ],
+      "details": {
+        "subtitle": "Rejuvenating and detoxifying treatment lotion",
+        "size": "115 ml / 3.9 oz",
+        "overview": "Revitalise skin with this advanced treatment lotion, designed as the essential first step in the ritual. The formula supports optimal cellular function and enhances three crucial detoxification processes by helping improve the breakdown of damaged proteins, supporting energy production for a youthful glow, and helping skin combat external stressors to extend the regeneration phase.",
+        "mainBenefits": [
+          "Supports skin renewal from within.",
+          "Helps improve the skin's detoxification and energy processes.",
+          "Prepares skin for the rest of the skincare ritual with a revitalised, youthful-looking finish."
+        ],
+        "additionalBenefits": [
+          "Designed as the essential first step in the routine.",
+          "Helps skin better combat external stressors.",
+          "Supports a longer regeneration phase for a fresher, more vital appearance."
+        ],
+        "usage": [
+          "For external use only.",
+          "Avoid the eye area and rinse thoroughly with water in case of direct eye contact.",
+          "Use only on healthy skin.",
+          "Do not use immediately after shaving, depilation, waxing, or on injured skin.",
+          "In case of allergic reaction, discontinue use immediately and contact a dermatologist.",
+          "Keep out of reach of children and do not use on children."
+        ],
+        "ingredientHighlights": [
+          "Platinum Peptide supports rejuvenation and detoxifying skin functions.",
+          "Detoxifying ingredients help enhance key cellular cleansing processes.",
+          "Exclusive Cellular Complex™ is La Prairie's patented signature for supporting skin vitality."
+        ],
+        "statistics": [
+          "Complimentary shipping.",
+          "3-Day Trial Set with each order."
+        ],
+        "inci": "La Prairie Group GMBH, Immermannstraße 20, 40210 Dusseldorf, Germany. info@laprairiegroup.com. Reference: 95790-01365-32."
+      }
+    },
+    {
+      "id": "32",
+      "sku": "SKU-32",
+      "name": "LA PRAIRIE SOFTENING AND BALANCING LOTION",
+      "slug": "la-prairie-softening-and-balancing-lotion",
+      "category": "Body Care",
+      "topSeller": true,
+      "price": 249.3,
+      "description": "A moisturizing lotion and delicate toner that delivers exceptional softening and anti-irritation benefits while helping to soothe skin and improve suppleness.",
+      "images": {
+        "main": "new/product-g/95790-00272-47_CellularSofteningandBalancingLotion_packshot_C.webp",
+        "hover": "new/product-g/7611773272476_5.webp",
+        "gallery": [
+          "new/product-g/95790-00272-47_CellularSofteningandBalancingLotion_packshot_C.webp",
+          "new/product-g/7611773272476_5.webp",
+          "new/product-g/7611773272476_4.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "lotion",
+        "toner",
+        "moisturizing",
+        "softening",
+        "balancing",
+        "soothing",
+        "supple skin"
+      ],
+      "details": {
+        "subtitle": "Moisturizing lotion",
+        "size": "250 ml / 8.5 oz",
+        "overview": "Cellular Softening and Balancing Lotion is a delicate toner that helps remove residual makeup and impurities while delivering softening, soothing, and anti-irritation care. Used before serum and moisturizer, it helps create an optimal skincare ritual and leaves skin feeling more supple.",
+        "mainBenefits": [
+          "Delivers softening and anti-irritation benefits.",
+          "Helps soothe the skin and improve suppleness.",
+          "Removes residual makeup and impurities before serum and moisturizer."
+        ],
+        "additionalBenefits": [
+          "Supports a cleaner, more balanced start to the skincare ritual.",
+          "Prepares skin for the La Prairie serum and moisturizer of your choice.",
+          "Combines toner-like freshness with comforting moisture."
+        ],
+        "usage": [
+          "For external use only.",
+          "Avoid the eye area and rinse thoroughly with water in case of direct eye contact.",
+          "Use only on healthy skin.",
+          "Do not use immediately after shaving, depilation, waxing, or on injured skin.",
+          "In case of allergic reaction, discontinue use immediately and contact a dermatologist.",
+          "Keep out of reach of children and do not use on children."
+        ],
+        "statistics": [
+          "Complimentary shipping.",
+          "3-Day Trial Set with each order."
+        ],
+        "inci": "La Prairie Group GMBH, Immermannstraße 20, 40210 Dusseldorf, Germany. info@laprairiegroup.com. Reference: 95790-00272-47."
+      }
+    },
+    {
+      "id": "33",
+      "sku": "SKU-33",
+      "name": "PLATINUM RARE HAUTE-REJUVENATION MASK",
+      "slug": "platinum-rare-haute-rejuvenation-mask",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 1978.2,
+      "description": "A high potency rejuvenation treatment inspired by today's most sought-after aesthetic procedures, designed to maintain youthful skin condition between in-clinic treatments with a two-step cosmetic gesture.",
+      "images": {
+        "main": "new/product-h/95790-01376-86_PR_Mask_C_3a5fdd52-aba6-42c4-b885-78c637d792bb.webp",
+        "hover": "new/product-h/PR-Haute-Rejuvenation-Mask_CMYK.webp",
+        "gallery": [
+          "new/product-h/95790-01376-86_PR_Mask_C_3a5fdd52-aba6-42c4-b885-78c637d792bb.webp",
+          "new/product-h/PR-Haute-Rejuvenation-Mask_CMYK.webp",
+          "new/product-h/7611773138789_2.webp",
+          "new/product-h/7611773138789_5.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "mask",
+        "rejuvenation treatment",
+        "plumping",
+        "hyaluronic acid",
+        "collagen",
+        "platinum multi-peptide",
+        "luxury skincare"
+      ],
+      "details": {
+        "subtitle": "High potency rejuvenation treatment",
+        "size": "20 ml + 12 x 0.7 ml",
+        "overview": "Recommended by leading aesthetic dermatologists to maintain youthful skin condition in between aesthetic procedures, this two-step treatment recreates the gesture of modern in-clinic rejuvenation. Patented Macro-Infusion Technology helps deliver large biomolecules such as high molecular hyaluronic acid and collagen into deeper skin layers, while the ultra-sensorial no-rinse cream helps reactivate skin's rejuvenating process.",
+        "mainBenefits": [
+          "Monodose vials help plump and refine the skin.",
+          "The no-rinse cream helps reactivate skin's rejuvenating process.",
+          "Designed to maintain youthful-looking skin between aesthetic procedures."
+        ],
+        "additionalBenefits": [
+          "Exclusive Cellular Complex™ energises the skin's natural repair process.",
+          "Platinum Multi-Peptide supports multi-layered rejuvenation and helps protect against external aggressors.",
+          "Macro-Infusion Technology helps deliver high molecular hyaluronic acid and collagen for immediate efficacy."
+        ],
+        "usage": [
+          "For external use only.",
+          "Avoid the eye area and rinse thoroughly with water in case of direct eye contact.",
+          "Use only on healthy skin.",
+          "Do not use immediately after shaving, depilation, waxing, or on injured skin.",
+          "In case of allergic reaction, discontinue use immediately and contact a dermatologist.",
+          "Keep out of reach of children and do not use on children."
+        ],
+        "ingredientHighlights": [
+          "Hyaluronic acid helps retain moisture within the skin.",
+          "Bulgarian Rose Extract supports increased production of collagen and hyaluronic acid.",
+          "Tetrapeptides help boost hyaluronic acid formation.",
+          "Yeast Oligopeptide provides resurfacing and exfoliation benefits."
+        ],
+        "statistics": [
+          "Complimentary shipping.",
+          "3-Day Trial Set with each order."
+        ],
+        "inci": "La Prairie Group GMBH, Immermannstraße 20, 40210 Dusseldorf, Germany. info@laprairiegroup.com. Reference: 95790-01376-86."
+      }
+    },
+    {
+      "id": "34",
+      "sku": "SKU-34",
+      "name": "LA PRAIRIE CASHMERE BODY CREAM",
+      "slug": "la-prairie-cashmere-body-cream",
+      "category": "Body Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 346.9,
+      "description": "An enveloping body care cream created to wrap skin in ultimate comfort with a biomimetic peptide inspired by cashmere, an advanced hydrating complex, and Exclusive Cellular Complex™.",
+      "images": {
+        "main": "new/product-i/95790-01433-35_SL_0.webp",
+        "hover": "new/product-i/95790-01433-35_SL_1.webp",
+        "gallery": [
+          "new/product-i/95790-01433-35_SL_0.webp",
+          "new/product-i/95790-01433-35_SL_1.webp",
+          "new/product-i/95790-01433-35_SL_2.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "body cream",
+        "body care",
+        "cashmere",
+        "hydrating",
+        "firming",
+        "radiance",
+        "barrier care",
+        "luxury skincare"
+      ],
+      "details": {
+        "subtitle": "Enveloping body care",
+        "size": "200 ml / 6.8 oz",
+        "overview": "La Prairie's first Cashmere Body Cream envelops skin in ultimate comfort. Formulated with a biomimetic peptide inspired by cashmere, an advanced hydrating complex, and Exclusive Cellular Complex™, it goes beyond hydration to restore suppleness and reveal the luxurious sensation of cashmere on skin. A rich texture melts into a balm-like veil with a smooth, supple, deeply nourishing finish, while a refined fragrance unfolds with velvety musk and delicate floral nuances.",
+        "mainBenefits": [
+          "Instantly leaves skin plumper, smoother, softer, and more radiant.",
+          "Helps restore skin glow and reinforce the skin barrier.",
+          "Improves firmness, elasticity, cushioned feel, and tone evenness with continued use."
+        ],
+        "additionalBenefits": [
+          "Visible spot reduction reported after two and four weeks.",
+          "Transforms on contact into a balm-like veil that feels cocooning yet featherlight.",
+          "Leaves skin wrapped in a breathable, luxurious cashmere-like finish."
+        ],
+        "statistics": [
+          "Instantly: skin is plumper and smoother based on clinical instrumental and expert assessments with 40 panellists.",
+          "Instantly: skin is hydrated, radiance is increased, glow is restored, and skin feels softer across instrumental, expert, and self-assessment tests with 40 panellists.",
+          "After 2 and 4 weeks: visible spot reduction and reinforced skin barrier in clinical tests with 40 panellists.",
+          "After 4 weeks: improved firmness, elasticity, cushioned feel, and tone evenness in clinical tests with 40 panellists."
+        ],
+        "usage": [
+          "Warning: For external use only.",
+          "Avoid contact with eyes.",
+          "Discontinue use if signs of irritation appear.",
+          "Keep out of reach of children and do not use on children."
+        ],
+        "ingredientHighlights": [
+          "A biomimetic peptide inspired by cashmere helps create a soft, comforting skin feel.",
+          "An advanced hydrating complex supports plump, smooth, supple skin.",
+          "Exclusive Cellular Complex™ helps elevate the formula beyond hydration toward renewed skin comfort and suppleness."
+        ],
+        "inci": "Reference: 95790-01433-35."
+      }
+    },
+    {
+      "id": "35",
+      "sku": "SKU-35",
+      "name": "SKIN CAVIAR COMPLEXION CONCEALER FOUNDATION SPF 15",
+      "slug": "skin-caviar-complexion-concealer-foundation-spf-15",
+      "category": "Makeup",
+      "featured": true,
+      "topSeller": true,
+      "price": 330.6,
+      "description": "A two-in-one liquid foundation and concealer that perfects the complexion with dewy, high-coverage color, a matched concealer, and skincare benefits from Exclusive Cellular Complex™ and Caviar Extract.",
+      "images": {
+        "main": "new/product-j/7611773157544__1.webp",
+        "hover": "new/product-j/7611773052627_5.webp",
+        "gallery": [
+          "new/product-j/7611773157544__1.webp",
+          "new/product-j/7611773052627_5.webp",
+          "new/product-j/7611773052627_6.webp",
+          "new/product-j/7611773052665_1_8f40572b-be3d-4a82-ac9b-8247b0892157.webp",
+          "new/product-j/Full_assortment_24_shades.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "foundation",
+        "concealer",
+        "makeup",
+        "spf 15",
+        "caviar extract",
+        "high coverage",
+        "dewy finish"
+      ],
+      "details": {
+        "subtitle": "Two-in-one liquid foundation and concealer",
+        "overview": "Natural-looking colour perfects the complexion in a dewy, high-coverage foundation paired with a matched concealer, both infused with Caviar Extract. The luxurious cream transforms into a liquid emulsion upon application for long-lasting full coverage, while the concealer helps camouflage dark circles and imperfections with a flawless finish and subtle glow.",
+        "mainBenefits": [
+          "Provides long-lasting full coverage with a dewy yet silky finish.",
+          "Includes a matched concealer to camouflage dark circles and imperfections.",
+          "Blends effortlessly for a flawless, even-looking complexion."
+        ],
+        "additionalBenefits": [
+          "Caviar Extract and Exclusive Cellular Complex™ help support skin firmness and elasticity.",
+          "Over time, moisture levels are replenished and skin structure appears firmer.",
+          "Designed to perfect skin daily while delivering ongoing complexion care."
+        ],
+        "usage": [
+          "For external use only.",
+          "Avoid the eye area and rinse thoroughly with water in case of direct eye contact.",
+          "Use only on healthy skin.",
+          "Do not use immediately after shaving, depilation, waxing, or on injured skin.",
+          "In case of allergic reaction, discontinue use immediately and contact a dermatologist.",
+          "Keep out of reach of children and do not use on children."
+        ],
+        "ingredientHighlights": [
+          "Caviar Extract helps support skin firmness and elasticity.",
+          "Exclusive Cellular Complex™ is La Prairie's signature care technology.",
+          "SPF 15 adds daily complexion protection alongside coverage."
+        ],
+        "statistics": [
+          "Complimentary shipping.",
+          "3-Day Trial Set with each order."
+        ],
+        "inci": "La Prairie Group GMBH, Immermannstraße 20, 40210 Dusseldorf, Germany. info@laprairiegroup.com. Reference: 95790-01162-96."
+      }
+    },
+    {
+      "id": "36",
+      "sku": "SKU-36",
+      "name": "PLATINUM RARE CELLULAR NIGHT ELIXIR",
+      "slug": "platinum-rare-cellular-night-elixir",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 1647.7,
+      "description": "A rejuvenating night concentrate with an innovative overnight formula that helps defend skin while you sleep, delivering energy directly to the skin for a more rejuvenated morning appearance.",
+      "images": {
+        "main": "new/product-k/95790-01265-84_PR_NightElixir_packshot_C.webp",
+        "hover": "new/product-k/PR-Haute-Rejuvenation-Night-Elixir_CMYK.webp",
+        "gallery": [
+          "new/product-k/95790-01265-84_PR_NightElixir_packshot_C.webp",
+          "new/product-k/PR-Haute-Rejuvenation-Night-Elixir_CMYK.webp",
+          "new/product-k/7611773085892_5.webp",
+          "new/product-k/7611773085892_2.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "night serum",
+        "night concentrate",
+        "rejuvenation",
+        "anti-aging",
+        "overnight care",
+        "elasticity",
+        "luxury skincare"
+      ],
+      "details": {
+        "subtitle": "Rejuvenating night concentrate",
+        "size": "20 ml / 0.7 oz",
+        "overview": "La Prairie's Platinum Rare Cellular Night Elixir features an innovative rejuvenating formula that works overnight to help defend the skin while you sleep. By delivering energy directly to the skin, it supports nightly regeneration, encourages detoxifying processes, and helps reveal smoother, more elastic-looking skin by morning.",
+        "mainBenefits": [
+          "Improves skin texture and elasticity for a rejuvenated morning appearance.",
+          "Supports nightly regeneration and the skin's detoxifying process.",
+          "Visibly reduces the appearance of lines and wrinkles."
+        ],
+        "additionalBenefits": [
+          "Designed as an overnight serum to work in sync with nighttime skin renewal.",
+          "Helps skin feel more defended and restored while you sleep.",
+          "Leaves the complexion looking smoother, fresher, and more revitalised by morning."
+        ],
+        "usage": [
+          "For external use only.",
+          "Avoid the eye area and rinse thoroughly with water in case of direct eye contact.",
+          "Use only on healthy skin.",
+          "Do not use immediately after shaving, depilation, waxing, or on injured skin.",
+          "In case of allergic reaction, discontinue use immediately and contact a dermatologist.",
+          "Keep out of reach of children and do not use on children."
+        ],
+        "statistics": [
+          "Complimentary shipping.",
+          "3-Day Trial Set with each order."
+        ],
+        "inci": "La Prairie Group GMBH, Immermannstraße 20, 40210 Dusseldorf, Germany. info@laprairiegroup.com. Reference: 95790-01265-84."
+      }
+    },
+    {
+      "id": "37",
+      "sku": "SKU-37",
+      "name": "The Face Oil",
+      "slug": "the-face-oil",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 241.9,
+      "description": "A silky, fast-absorbing face oil that nourishes, hydrates, and refines the skin while supporting a healthy microbiome and visible skin renewal with proprietary TFC8® technology.",
+      "images": {
+        "main": "new/product-l/ab2022-the-face-oil-30ml_1.webp",
+        "hover": "new/product-l/ab2021_the-face-oil-dropper.webp",
+        "gallery": [
+          "new/product-l/ab2022-the-face-oil-30ml_1.webp",
+          "new/product-l/ab2021_the-face-oil-dropper.webp",
+          "new/product-l/ab2022-the-face-oil-30ml-dropper.webp",
+          "new/product-l/ab2022-the-face-oil-lifestyle-1.webp",
+          "new/product-l/ab2022-the-face-oil-30ml-carton.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "face oil",
+        "hydrating",
+        "radiance",
+        "skin barrier",
+        "antioxidants",
+        "microbiome",
+        "tfc8"
+      ],
+      "details": {
+        "subtitle": "Face oil",
+        "size": "30 ml",
+        "overview": "This face oil features a silky, fast-absorbing texture that absorbs immediately for instant benefits without greasy residue. Formulated without irritants or allergens, fragrance free, and non-pore-clogging, it is designed to nourish, hydrate, and visibly renew the skin while supporting the optimal environment for continuous improvement.",
+        "mainBenefits": [
+          "Clinically proven to reduce the appearance of fine lines, wrinkles, and uneven pigmentation.",
+          "Nourishes, hydrates, and refines the skin for smoother texture, more even tone, and a subtle radiant glow.",
+          "Helps maintain elasticity and strengthen the skin barrier for a supple, plump feel."
+        ],
+        "additionalBenefits": [
+          "Antioxidants help defend against environmental aggressors and signs of premature aging.",
+          "Helps maintain a healthy skin microbiome.",
+          "Proprietary TFC8® technology supports skin cell communication and visible renewal."
+        ],
+        "statistics": [
+          "99% agree skin feels instantly hydrated with a healthy, radiant glow.",
+          "98% agree redness and irritation are visibly calmed.",
+          "97% agree skin looks and feels smoother."
+        ],
+        "ingredientHighlights": [
+          "Antioxidants help defend against environmental aggressors.",
+          "TFC8® technology supports the skin's renewal environment.",
+          "Fragrance-free, non-pore-clogging formula is designed for comfortable daily use."
+        ]
+      }
+    },
+    {
+      "id": "38",
+      "sku": "SKU-38",
+      "name": "The Geranium Rose Body Cream",
+      "slug": "the-geranium-rose-body-cream",
+      "category": "Body Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 172.8,
+      "description": "A rich, ultra-conditioning body cream for daily use that visibly firms, smooths, and deeply hydrates while comforting dry, rough, stressed skin with a fresh geranium and rose scent.",
+      "images": {
+        "main": "new/product-m/grbc-packshot-v2.webp",
+        "hover": "new/product-m/grbc-lifestyle3-v2.webp",
+        "gallery": [
+          "new/product-m/grbc-packshot-v2.webp",
+          "new/product-m/grbc-lifestyle3-v2.webp",
+          "new/product-m/grbc-lifestyle4-v2.webp",
+          "new/product-m/grbc-packshot-v2 (1).webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "body cream",
+        "body care",
+        "cellulite",
+        "stretch marks",
+        "hydrating",
+        "firming",
+        "geranium",
+        "rose"
+      ],
+      "details": {
+        "subtitle": "Body cream",
+        "size": "200 ml",
+        "overview": "This rich, ultra-conditioning body cream is designed for daily use to deeply hydrate, lock in moisture, and leave skin visibly firmer, smoother, and more supple. The formula comforts and replenishes dry, rough, stressed skin, while a fresh, subtle geranium and rose scent is designed to layer well under The Geranium Rose Body Oil or fragrance.",
+        "mainBenefits": [
+          "Visibly reduces cellulite and stretch marks.",
+          "Visibly firms and smooths texture for softer, more supple skin.",
+          "Deeply hydrates and locks in moisture for plump skin with greater bounceback."
+        ],
+        "additionalBenefits": [
+          "Comforts and replenishes dry, rough, stressed skin.",
+          "Nourishes and helps strengthen the skin barrier.",
+          "Non-comedogenic, dermatologist-tested, suitable for sensitive skin, and formulated for all skin types."
+        ],
+        "statistics": [
+          "92% saw a visible reduction of cellulite.",
+          "90% said stretch marks are visibly reduced.",
+          "98% noticed skin feels firmer and more plump."
+        ],
+        "ingredientHighlights": [
+          "Fresh geranium and rose scent is designed to layer well with body oil or fragrance.",
+          "Cruelty-free and vegan formula.",
+          "Formulated without parabens, sulfates, silicones, phthalates, and mineral oils."
+        ]
+      }
+    },
+    {
+      "id": "39",
+      "sku": "SKU-39",
+      "name": "L'HUILE JASMIN",
+      "slug": "lhuile-jasmin",
+      "category": "Body Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 200,
+      "description": "A body massage oil created for a holistic, deeply relaxing massage ritual with a luminous, toning, revitalising jasmine scent and a velvety, nourishing finish.",
+      "images": {
+        "main": "new/product-n/l-huile-jasmin-body-massage-oil-8-5fl-oz--packshot-default-102020-9564919300126.avif",
+        "hover": "new/product-n/9563820949534.webp",
+        "gallery": [
+          "new/product-n/l-huile-jasmin-body-massage-oil-8-5fl-oz--packshot-default-102020-9564919300126.avif",
+          "new/product-n/9563820949534.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "body oil",
+        "massage oil",
+        "body care",
+        "jasmine",
+        "hydrating",
+        "hair care",
+        "chanel"
+      ],
+      "details": {
+        "subtitle": "Massageol fur den Korper",
+        "size": "200 ml",
+        "overview": "The CHANEL body oils were created for a holistic and deeply relaxing art of massage. L'HUILE JASMIN is a radiant, toning, revitalising oil in which jasmine blossoms unfold a soft floral, sensual, sunlit aroma over a delicate woody musk base. The scent evokes summer fields in Grasse, while the oil leaves skin velvety, nourished, hydrated, and subtly perfumed.",
+        "mainBenefits": [
+          "Leaves the skin velvety, perfectly hydrated, and delicately scented.",
+          "Creates a deeply relaxing full-body massage ritual.",
+          "Delivers a revitalising sensation with warmth, nourishment, and comfort."
+        ],
+        "additionalBenefits": [
+          "Suitable for the whole body after bathing or showering.",
+          "Can also be used as a hair treatment before shampooing on lengths and ends.",
+          "Dermatologically tested."
+        ],
+        "usage": [
+          "Massage into the whole body with circular movements after bathing or showering.",
+          "For hair care, apply to lengths and ends before shampooing."
+        ],
+        "ingredientHighlights": [
+          "Contains jasmine from Grasse, a signature raw material of the Maison.",
+          "Enriched with sunflower flower oil selected for its purity and biocompatibility with the skin.",
+          "The sunflower is cultivated with respect for biological cycles."
+        ],
+        "inci": "Ref. 102020."
+      }
+    },
+    {
+      "id": "40",
+      "sku": "SKU-40",
+      "name": "SUBLIMAGE LA CREME CORPS ET DECOLLETE",
+      "slug": "sublimage-la-creme-corps-et-decollete",
+      "category": "Body Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 320,
+      "description": "An ultimate body cream for the body and decollete that helps regenerate, soothe instantly, and restore radiance with Vanilla Planifolia and light-reflecting micropearls.",
+      "images": {
+        "main": "new/product-o/sublimage-la-creme-corps-et-decollete-the-regenerating-radiance-fresh-body-cream-5-29oz--packshot-default-144010-9564942270494.avif",
+        "hover": "new/product-o/9565095297054.webp",
+        "gallery": [
+          "new/product-o/sublimage-la-creme-corps-et-decollete-the-regenerating-radiance-fresh-body-cream-5-29oz--packshot-default-144010-9564942270494.avif",
+          "new/product-o/9565095297054.webp",
+          "new/product-o/9564203319326.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "body cream",
+        "decollete cream",
+        "body care",
+        "radiance",
+        "regenerating",
+        "vanilla planifolia",
+        "chanel"
+      ],
+      "details": {
+        "subtitle": "Ultimative Korpercreme: regeneriert und schenkt Leuchtkraft",
+        "size": "150 g",
+        "overview": "This exceptional care extends the regenerating power of the SUBLIMAGE line to the body and decollete. Enriched with Vanilla Planifolia, the signature ingredient of the range, SUBLIMAGE La Creme Corps et Decollete offers a regenerating and instantly soothing effect. Its creamy texture melts into the skin with a velvety finish, while light-reflecting micropearls leave the body and decollete glowing.",
+        "mainBenefits": [
+          "Helps the skin regain suppleness, firmness, softness, and radiance.",
+          "Hydrates and regenerates the decollete, an area especially prone to visible signs of aging.",
+          "Wraps the whole body in comfort while leaving a gentle shimmer."
+        ],
+        "additionalBenefits": [
+          "Protects against negative external influences and oxidative stress.",
+          "Designed for morning and evening use on perfectly cleansed, dry skin.",
+          "Can be paired with activating massage gestures on areas lacking firmness."
+        ],
+        "usage": [
+          "Apply morning and evening to perfectly cleansed and dried skin.",
+          "To optimize results, pinch areas lacking firmness between thumb and forefinger with activating motions.",
+          "Warm a small amount between the hands and spread over the chest, decollete, and neck."
+        ],
+        "ingredientHighlights": [
+          "Concentrated Vanilla Planifolia botanical water provides antioxidant action.",
+          "Vanilla Planifolia enfleurage oil offers delicate nurturing care.",
+          "Light-reflecting micropearls help enhance visible radiance."
+        ],
+        "inci": "Ref. 144010."
+      }
+    },
+    {
+      "id": "41",
+      "sku": "SKU-41",
+      "name": "DAS ANTI-AGING-DUO",
+      "slug": "das-anti-aging-duo",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 225,
+      "description": "A limited-edition CHANEL skincare gift set pairing LE LIFT Creme and LE LIFT La Creme Main in a star-inspired cosmetic pouch for smoother facial skin and perfectly cared-for hands.",
+      "images": {
+        "main": "new/product-p/le-lift-smooth-results-skincare-set-1pce-packshot-default-101095-9572497326110.avif",
+        "hover": "new/product-p/le-lift-smooth-results-skincare-set-1pce-packshot-default-101095-9572497326110.avif",
+        "gallery": [
+          "new/product-p/le-lift-smooth-results-skincare-set-1pce-packshot-default-101095-9572497326110.avif"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "gift set",
+        "anti-aging",
+        "face cream",
+        "hand cream",
+        "alfalfa concentrate",
+        "chanel",
+        "limited edition"
+      ],
+      "details": {
+        "subtitle": "LE LIFT Creme und LE LIFT La Creme Main",
+        "overview": "Step into the CHANEL universe with a festive limited-edition gift set featuring LE LIFT Creme and LE LIFT La Creme Main in a cosmetic pouch inspired by the starry night sky. Woven with glossy midnight blue and black threads and finished with gold details including a camellia-shaped zipper, it pairs smoothing face care with hand care designed to preserve a youthful look.",
+        "mainBenefits": [
+          "Smooths the appearance of facial skin while caring intensively for the hands.",
+          "Pairs botanical alfalfa concentrate with a skin-friendly formula designed for visible anti-aging care.",
+          "Helps hands look smoother and more even while nourishing them deeply."
+        ],
+        "additionalBenefits": [
+          "LE LIFT Creme contains 91% ingredients of natural origin.",
+          "LE LIFT La Creme Main contains 90% ingredients of natural origin and is suitable for all skin types, including sensitive skin.",
+          "The hand cream absorbs quickly, leaves a velvety finish, and fits easily into a handbag thanks to its pebble-like design."
+        ],
+        "statistics": [
+          "LE LIFT Creme: wrinkles were smoothed by 25% in an instrumental assessment of 31 women after 8 weeks of use.",
+          "LE LIFT La Creme Main: hands appeared smoother by 30% and plumper by 22% in an instrumental assessment of 11 women.",
+          "LE LIFT La Creme Main: up to 8 hours of hydration in a clinical evaluation of 20 women after 8 weeks.",
+          "LE LIFT La Creme Main: pigment spots reduced by 12% and skin appeared more even by 18% in clinical evaluations after 8 weeks."
+        ],
+        "usage": [
+          "Apply LE LIFT Creme and follow with lifting massage strokes from the neck upward across the face as described in the LE GESTE LIFT technique.",
+          "Use LE LIFT La Creme Main as often as desired.",
+          "For a firming effect, work the backs of the hands with gentle pinching movements."
+        ],
+        "ingredientHighlights": [
+          "Botanical alfalfa concentrate is described as as effective as retinol while remaining gentle on the skin.",
+          "Licorice extract helps brighten and support a more even skin tone on the hands.",
+          "Mimosa, jojoba, and sunflower waxes help nourish the hands intensely."
+        ],
+        "inci": "Ref. 101095."
+      }
+    },
+    {
+      "id": "42",
+      "sku": "SKU-42",
+      "name": "N°1 DE CHANEL REVITALISIERENDES SERUM-DUO MIT ROTER KAMELIE",
+      "slug": "n-1-de-chanel-revitalisierendes-serum-duo-mit-roter-kamelie",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 220,
+      "description": "A revitalising serum duo with red camellia that helps refresh, smooth, and preserve a youthful-looking complexion and eye area with a two-step ritual for face and eyes.",
+      "images": {
+        "main": "new/product-q/n-1-de-chanel-expert-revitalizing-serum-duo-refreshes-smooths-preserves-1pce-packshot-default-140046-9541988220958.avif",
+        "hover": "new/product-q/9554934661150.webp",
+        "gallery": [
+          "new/product-q/n-1-de-chanel-expert-revitalizing-serum-duo-refreshes-smooths-preserves-1pce-packshot-default-140046-9541988220958.avif",
+          "new/product-q/9554934661150.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "serum duo",
+        "eye serum",
+        "face serum",
+        "red camellia",
+        "anti-aging",
+        "radiance",
+        "chanel"
+      ],
+      "details": {
+        "subtitle": "Erfrischt - glattet - bewahrt ein jugendliches Hautbild",
+        "overview": "The N°1 DE CHANEL line preserves the youthful freshness of the skin by harnessing the power of the exceptionally long-living red camellia. This duo pairs a 15 ml eye serum and a 30 ml face serum in a red cosmetic pouch. Together, they form a two-step ritual designed to refresh the eye area and smooth the complexion while supporting youthful-looking skin vitality.",
+        "mainBenefits": [
+          "The eye serum with its patented cryoapplicator helps reduce signs of fatigue by 35% immediately and leaves the eye area smoother.",
+          "The face serum helps the skin look more radiant and smoother, and wrinkles appear immediately softened.",
+          "The duo supports youthful-looking features of the skin and is suitable for all skin types, including sensitive skin."
+        ],
+        "additionalBenefits": [
+          "After 8 weeks of use, the serum's efficacy is said to be tripled in clinical evaluation.",
+          "Red camellia extract stimulates skin vitality mechanisms and helps protect against oxidative stress.",
+          "An oligopeptide helps stimulate markers of youthful-looking skin."
+        ],
+        "statistics": [
+          "35% reduction in visible signs of fatigue immediately after using the eye serum, based on self-assessment by 44 women.",
+          "Clinical evaluation of 43 women showed stronger serum efficacy after 8 weeks compared with the immediate effect.",
+          "Red camellia extract stimulated skin vitality mechanisms by 63% in an in-vitro enzyme activity test on reconstructed skin."
+        ],
+        "usage": [
+          "First open the eye area using the rotating cooling applicator.",
+          "Then apply the serum to smooth the skin, protect against oxidative stress, and boost radiance.",
+          "Finish the ritual with the N°1 DE CHANEL cream to help plump and strengthen skin throughout the day."
+        ],
+        "ingredientHighlights": [
+          "Red camellia extract is obtained through a three-step extraction process including cold grinding, hydrofusion, and clarification.",
+          "The extract is rich in protocatechuic acid and helps support youthful-looking skin.",
+          "An oligopeptide helps stimulate markers associated with youthful skin vitality."
+        ],
+        "inci": "Ref. 140046."
+      }
+    },
+    {
+      "id": "43",
+      "sku": "SKU-43",
+      "name": "SUBLIMAGE LA CREME YEUX",
+      "slug": "sublimage-la-creme-yeux",
+      "category": "Skin Care",
+      "featured": true,
+      "topSeller": true,
+      "price": 235,
+      "description": "An ultimate eye cream enriched with Vanilla Planifolia that smooths, brightens, and helps transform the eye contour with a comprehensive regenerating effect.",
+      "images": {
+        "main": "new/product-r/sublimage-la-creme-yeux-ultimate-eye-cream-0-5oz--packshot-default-147900-9536296124446.avif",
+        "hover": "new/product-r/9565095985182.webp",
+        "gallery": [
+          "new/product-r/sublimage-la-creme-yeux-ultimate-eye-cream-0-5oz--packshot-default-147900-9536296124446.avif",
+          "new/product-r/9565095985182.webp",
+          "new/product-r/9534137008158.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "eye cream",
+        "eye care",
+        "anti-aging",
+        "vanilla planifolia",
+        "dark circles",
+        "puffiness",
+        "chanel"
+      ],
+      "details": {
+        "subtitle": "Ultimative Augenpflege",
+        "size": "15 g",
+        "overview": "SUBLIMAGE La Creme Yeux is an exceptional eye treatment enriched with Vanilla Planifolia. Its enveloping texture smooths the delicate eye contour and restores radiance, helping the eye area appear more awake, rested, and transformed. The formula acts on the parameters defined by CHANEL research for youthful-looking skin, including hydration, feel, wrinkles, structure, evenness, strength, and radiance.",
+        "mainBenefits": [
+          "Smooths and brightens the delicate eye contour.",
+          "Helps the eye area appear awake, rested, and radiant.",
+          "Acts on multiple dimensions of youthful-looking skin including hydration, wrinkles, structure, evenness, strength, and radiance."
+        ],
+        "additionalBenefits": [
+          "Polyfractioned Vanilla Planifolia contains a 40-times higher concentration of active molecules than the raw plant material.",
+          "The key active is said to triple cell regeneration in an ex-vivo test.",
+          "Presented in a refillable polished glass jar with an insert-style refill."
+        ],
+        "usage": [
+          "Apply morning and evening using an amount about the size of a grain of rice around the eye contour.",
+          "Use lifting strokes on the upper lid from the inner to outer corner, first with the index finger and then the middle finger.",
+          "Use smoothing strokes on crow's feet toward the temples.",
+          "Use long, gentle alternating strokes under the eye to target dark shadows."
+        ],
+        "ingredientHighlights": [
+          "Polyfractioned Vanilla Planifolia is cultivated and harvested in the CHANEL open-sky laboratory in Madagascar.",
+          "Planifolia-Ephemeres help reinforce the action of polyfractioned Vanilla Planifolia and support the regenerative power of the eye contour.",
+          "The Sublime Eye Complex boosts microcirculation and helps visibly reduce puffiness and dark shadows."
+        ],
+        "inci": "Ref. 147900."
+      }
+    },
+    {
+      "id": "44",
+      "sku": "SKU-44",
+      "name": "31 LE ROUGE - RECHARGE",
+      "slug": "31-le-rouge-recharge",
+      "category": "Makeup",
+      "featured": true,
+      "topSeller": true,
+      "price": 85,
+      "description": "A satin lipstick refill inspired by the spirit of 31 rue Cambon, combining intense long-wearing color with a caring formula and a refill design made for the faceted 31 LE ROUGE glass case.",
+      "images": {
+        "main": "new/product-s/31-le-rouge-refill-satin-lipstick-5-rouge-creation-0-11oz--packshot-default-173542-9563585642526.avif",
+        "hover": "new/product-s/9563586134046.webp",
+        "gallery": [
+          "new/product-s/31-le-rouge-refill-satin-lipstick-5-rouge-creation-0-11oz--packshot-default-173542-9563585642526.avif",
+          "new/product-s/9563586134046.webp",
+          "new/product-s/9563643150366.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "lipstick",
+        "lipstick refill",
+        "satin finish",
+        "makeup",
+        "chanel",
+        "long-wear",
+        "lip care"
+      ],
+      "details": {
+        "subtitle": "Satinierter Lippenstift",
+        "size": "3.3 g",
+        "overview": "31 LE ROUGE captures the spirit of 31 rue Cambon in one of CHANEL's most irresistible lip creations. The refill is designed for the square, faceted 31 LE ROUGE case inspired by the mirrors of Gabrielle Chanel's legendary Art Deco staircase. Available in 12 satin shades, the formula combines intense, long-lasting color with a sensorial glide and ongoing lip care.",
+        "mainBenefits": [
+          "Delivers intense, luminous, long-lasting satin color.",
+          "Combines easy application with a caring formula for lips that look more beautiful day after day.",
+          "Helps lips appear smoother with more defined contours."
+        ],
+        "additionalBenefits": [
+          "Formulated with 75% ingredients of natural origin.",
+          "Transparent pearl powder and finely micronized pigments help reveal pure, radiant color intensity.",
+          "The refill can be fully closed and swapped between 12 satin shades, but only fits the 31 LE ROUGE case."
+        ],
+        "statistics": [
+          "After 4 weeks, lips were better hydrated by 70% in an instrumental test on 20 women.",
+          "After 4 weeks, lips appeared smoother by 44%, firmer by 55%, and more contoured by 14% in clinical evaluation on 26 women."
+        ],
+        "usage": [
+          "Insert the refill into the lower part of the square, faceted 31 LE ROUGE case until the magnetic click is heard.",
+          "After inserting the refill, apply color first to the center of the lips by drawing an X from upper to lower lip.",
+          "Then spread the color outward toward the corners of the mouth.",
+          "Keep the product in its quilted black pouch to help protect the faceted glass case from scratches."
+        ],
+        "ingredientHighlights": [
+          "Maracuja oil helps support comfort and glide.",
+          "Gardenia oil from Gaujacq is an exclusive CHANEL ingredient that helps smooth lips and define contours.",
+          "Transparent pearl powder enhances the purity and radiance of the color."
+        ],
+        "inci": "Ref. 173542."
+      }
+    },
+    {
+      "id": "45",
+      "sku": "SKU-45",
+      "name": "LES BEIGES BELLE MINE NATURELLE SOMMER ESSENTIALS SET",
+      "slug": "les-beiges-belle-mine-naturelle-sommer-essentials-set",
+      "category": "Makeup",
+      "featured": true,
+      "topSeller": true,
+      "price": 250,
+      "description": "A limited-edition LES BEIGES summer essentials set that brings together CHANEL complexion and makeup must-haves for a naturally radiant glow, presented in an elegant basket for on-the-go use.",
+      "images": {
+        "main": "new/product-t/les-beiges-healthy-glow-summer-essentials-les-beiges-exclusive-creation-1pce-packshot-default-184219-9582242005022.avif",
+        "hover": "new/product-t/9579968135198.webp",
+        "gallery": [
+          "new/product-t/les-beiges-healthy-glow-summer-essentials-les-beiges-exclusive-creation-1pce-packshot-default-184219-9582242005022.avif",
+          "new/product-t/9579968135198.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "makeup set",
+        "highlighter",
+        "blush",
+        "mascara",
+        "lipstick",
+        "limited edition",
+        "chanel"
+      ],
+      "details": {
+        "subtitle": "LES BEIGES Exklusivkreation",
+        "overview": "The LES BEIGES BELLE MINE NATURELLE SOMMER ESSENTIALS SET brings together LES BEIGES must-haves for a naturally radiant complexion and a fresh glow as if after a day by the sea. Presented in an elegant basket, this limited edition set offers a simple multi-step ritual including a universal illuminating powder, a fluid blush, a mascara for volume and definition, and a ROUGE COCO FLASH lipstick.",
+        "mainBenefits": [
+          "Creates a fresh, naturally radiant complexion with simple multi-step application.",
+          "Combines complexion, eye, and lip essentials in one refined travel-ready set.",
+          "Delivers glow, color, definition, and glossy comfort in a single limited edition ritual."
+        ],
+        "additionalBenefits": [
+          "LES BEIGES Poudre Illuminatrice gives the face a soft veil of summer radiance.",
+          "LES BEIGES Blush Belle Mine provides a fresh, hydrated, second-skin effect with a sun-kissed tint.",
+          "LES BEIGES Mascara offers long-wearing volume and definition without clumping."
+        ],
+        "statistics": [
+          "ROUGE COCO FLASH Hydraboost Complex provides up to 8 hours of hydration in an instrumental assessment of 15 women.",
+          "ROUGE COCO FLASH delivered 45% longer-lasting comfort in self-assessment by 22 women four hours after application."
+        ],
+        "usage": [
+          "Apply the illuminating powder to cheekbones, above the brows, and along the bridge of the nose for either subtle or more striking radiance.",
+          "Apply the blush with fingers or brush, blending outward and using any remaining product on the bridge of the nose for freshness.",
+          "Apply mascara from the upper lash line to the tips with a slight twist, and use the tip for inner-corner and lower lashes.",
+          "Apply ROUGE COCO FLASH freely for a glossy lip look in a single stroke."
+        ],
+        "ingredientHighlights": [
+          "The illuminating powder is made with fine pearlescent particles for soft glow.",
+          "The mascara contains the Pro-Vitamine Protecteur signature complex, camellia ceramides, and peptide-enriched yeast extract.",
+          "ROUGE COCO FLASH contains a Hydraboost Complex with three waxes of natural origin plus oils that intensively reflect light."
+        ],
+        "inci": "Ref. 184219."
+      }
+    },
+    {
+      "id": "46",
+      "sku": "SKU-46",
+      "name": "ROUGE ALLURE VELVET",
+      "slug": "rouge-allure-velvet-limited-edition-set",
+      "category": "Makeup",
+      "featured": true,
+      "topSeller": true,
+      "price": 125,
+      "description": "A limited-edition set of two matte lipsticks with high color intensity in new shades 478 RENCONTRE and 479 CRUSH, presented in a gold-toned travel case with an inner mirror.",
+      "images": {
+        "main": "new/product-u/rouge-allure-velvet-set-of-2-luminous-matte-lip-colours-2pce-packshot-default-101126-9580867944478.avif",
+        "hover": "new/product-u/9581204471838.webp",
+        "gallery": [
+          "new/product-u/rouge-allure-velvet-set-of-2-luminous-matte-lip-colours-2pce-packshot-default-101126-9580867944478.avif",
+          "new/product-u/9581204471838.webp",
+          "new/product-u/9579425529886.webp",
+          "new/product-u/9579425529886 (1).webp",
+          "new/product-u/9581207617566.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "lipstick set",
+        "matte lipstick",
+        "makeup",
+        "limited edition",
+        "high pigment",
+        "jojoba oil",
+        "chanel"
+      ],
+      "details": {
+        "subtitle": "Limitierte Edition - Set aus 2 mattierenden Lippenstiften mit hoher Farbintensitat",
+        "overview": "This limited-edition ROUGE ALLURE VELVET set includes two new matte shades with high color intensity: 478 RENCONTRE, a powdery pink, and 479 CRUSH, a brown-rosewood tone. Presented in a gold-toned case for travel with a built-in mirror, the set is inspired by the iconic COCO CRUSH ring and the quilted motif engraved at the base of ROUGE ALLURE VELVET.",
+        "mainBenefits": [
+          "Delivers long-lasting matte color with high intensity.",
+          "The second-skin texture offers high comfort while defining the lips.",
+          "Jojoba oil derivative and shea butter provide immediate moisture and a supple feel."
+        ],
+        "additionalBenefits": [
+          "Soft-focus microspheres and ultrafine pearlescent particles create a luminous matte finish.",
+          "Fine, highly concentrated pigments support an even and lasting makeup result.",
+          "The mirrored travel case makes touch-ups easy throughout the day."
+        ],
+        "usage": [
+          "Apply directly to the lips from the center outward.",
+          "For an ultra-precise lip contour, draw a line first with LE CRAYON LEVRES.",
+          "Then apply the lipstick with the lip brush from the liner."
+        ],
+        "ingredientHighlights": [
+          "Jojoba oil derivative helps support moisture and smoothness.",
+          "Shea butter helps create immediate comfort and softness.",
+          "Soft-focus microspheres and pearlescent particles help balance matte finish with radiance."
+        ],
+        "inci": "Ref. 101126."
+      }
+    },
+    {
+      "id": "47",
+      "sku": "SKU-47",
+      "name": "SUBLIMAGE L'ESSENCE DE TEINT",
+      "slug": "sublimage-l-essence-de-teint",
+      "category": "Makeup",
+      "featured": true,
+      "topSeller": true,
+      "price": 168,
+      "description": "A serum foundation for ultimate radiance that combines the benefits of Vanilla Planifolia with light-reflecting pigments for a smooth, luminous, hydrated complexion.",
+      "images": {
+        "main": "new/product-v/sublimage-l-essence-de-teint-ultimate-radiance-generating-serum-b20-1-35fl-oz--packshot-default-147140-8835364847646.avif",
+        "hover": "new/product-v/9554598035486.webp",
+        "gallery": [
+          "new/product-v/sublimage-l-essence-de-teint-ultimate-radiance-generating-serum-b20-1-35fl-oz--packshot-default-147140-8835364847646.avif",
+          "new/product-v/9554598035486.webp",
+          "new/product-v/9554594332702.webp",
+          "new/product-v/9533148135454.webp",
+          "new/product-v/9574698713118.webp"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "serum foundation",
+        "foundation",
+        "makeup",
+        "radiance",
+        "vanilla planifolia",
+        "hydrating",
+        "chanel"
+      ],
+      "details": {
+        "subtitle": "Serum-Foundation fur ultimative Leuchtkraft",
+        "size": "40 ml",
+        "overview": "This first tinted serum from CHANEL combines the benefits of Vanilla Planifolia with the power of a radiance booster. Its unique formula blends pigments with light-reflecting particles to instantly activate glow that lasts all day. The serum texture is both enveloping and lightweight, melting onto the skin to smooth its appearance and enhance natural radiance, while the dedicated brush allows tailored application and buildable coverage.",
+        "mainBenefits": [
+          "Delivers an even, silky-matte, radiant complexion that lasts all day.",
+          "Helps the skin look immediately smoother, more luminous, and more plumped.",
+          "Hydrates the skin and helps protect it from external environmental stressors."
+        ],
+        "additionalBenefits": [
+          "Complexion appeared 86% more even immediately after application and 70% more even after 12 hours in clinical evaluation.",
+          "Radiance increased by 53% immediately and 39% after 12 hours in clinical evaluation.",
+          "Hydration increased by 94% after 30 minutes and 63% after 12 hours in instrumental evaluation."
+        ],
+        "statistics": [
+          "Plumping effect improved by 28% immediately after application in clinical evaluation on 21 participants.",
+          "Smoothing effect improved by 27% immediately after application in clinical evaluation on 21 participants."
+        ],
+        "usage": [
+          "Dispense a small amount of foundation onto the back of the hand.",
+          "Pick up a hazelnut-sized amount with the tip of the brush.",
+          "Tap onto cheeks, forehead, chin, and neck, then smooth from the center outward.",
+          "Blend evenly with circular motions and repeat application as desired for more coverage."
+        ],
+        "ingredientHighlights": [
+          "Concentrated Vanilla Planifolia botanical water helps preserve the skin's natural beauty and protect against environmental stress thanks to antioxidant properties.",
+          "Vanilla enfleurage oil, used here for the first time in a CHANEL makeup formula, wraps the skin in comfort and softness.",
+          "Coated pigments combined with film-forming polymers help optimize wear."
+        ],
+        "inci": "Ref. 147140."
+      }
     }
   ],
   "meta": {
-    "total": 27
+    "total": 47
   }
 }

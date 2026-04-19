@@ -100,7 +100,7 @@ function Product({ product }: ProductProps): JSX.Element {
             </div>
 
             <div className="flex flex-1 flex-col pt-3 pl-5 pr-5 pb-5 gap-1 text-[#241915]">
-              <p className="font-['Playfair_Display',serif] text-[1.15rem] leading-tight text-[#8f0c3c] sm:text-xl">
+              <p className="truncate font-['Playfair_Display',serif] text-[1.15rem] leading-tight text-[#8f0c3c] sm:text-xl">
                 {name}
               </p>
 

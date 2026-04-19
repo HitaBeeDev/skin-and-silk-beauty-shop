@@ -28,6 +28,7 @@ import {
 import Button from "@/components/ui/Button";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import ProductGridSkeleton from "@/components/ui/ProductGridSkeleton";
+import type { Product } from "@/types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useProductFilters } from "@hooks/useProductFilters";
 
@@ -43,6 +44,18 @@ const sortOptions: Array<{ value: SortOption; label: string }> = [
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
 ];
+
+function getProductDisplayPriority(product: Product): number {
+  if (product.soldOut ?? !product.inStock) {
+    return 2;
+  }
+
+  if (product.isNew) {
+    return 0;
+  }
+
+  return 1;
+}
 
 function ProductsList(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -61,9 +74,17 @@ function ProductsList(): JSX.Element {
   const sortedProducts = useMemo(() => {
     const nextProducts = [...products];
 
+    const compareByDisplayPriority = (a: Product, b: Product): number =>
+      getProductDisplayPriority(a) - getProductDisplayPriority(b);
+
     switch (sortOrder) {
       case "top-seller":
         return nextProducts.sort((a, b) => {
+          const displayPriorityComparison = compareByDisplayPriority(a, b);
+          if (displayPriorityComparison !== 0) {
+            return displayPriorityComparison;
+          }
+
           if (Boolean(a.topSeller) === Boolean(b.topSeller)) {
             return Number(b.id) - Number(a.id);
           }
@@ -71,16 +92,31 @@ function ProductsList(): JSX.Element {
           return Number(Boolean(b.topSeller)) - Number(Boolean(a.topSeller));
         });
       case "price-asc":
-        return nextProducts.sort(
-          (a, b) => (a.unitPrice ?? a.price) - (b.unitPrice ?? b.price),
-        );
+        return nextProducts.sort((a, b) => {
+          const displayPriorityComparison = compareByDisplayPriority(a, b);
+          if (displayPriorityComparison !== 0) {
+            return displayPriorityComparison;
+          }
+
+          return (a.unitPrice ?? a.price) - (b.unitPrice ?? b.price);
+        });
       case "price-desc":
-        return nextProducts.sort(
-          (a, b) => (b.unitPrice ?? b.price) - (a.unitPrice ?? a.price),
-        );
+        return nextProducts.sort((a, b) => {
+          const displayPriorityComparison = compareByDisplayPriority(a, b);
+          if (displayPriorityComparison !== 0) {
+            return displayPriorityComparison;
+          }
+
+          return (b.unitPrice ?? b.price) - (a.unitPrice ?? a.price);
+        });
       case "newest":
       default:
         return nextProducts.sort((a, b) => {
+          const displayPriorityComparison = compareByDisplayPriority(a, b);
+          if (displayPriorityComparison !== 0) {
+            return displayPriorityComparison;
+          }
+
           if (a.isNew === b.isNew) {
             return Number(b.id) - Number(a.id);
           }
@@ -237,7 +273,7 @@ function ProductsList(): JSX.Element {
                   "min-h-[3rem] rounded-[0.95rem] px-3 py-3 text-center text-xs font-[500] transition-all duration-150 ease-in sm:min-h-0 sm:rounded-[1rem] sm:px-4 sm:text-sm",
                   activeCategory === label
                     ? "bg-[#8c1d40] text-white shadow-[0_14px_28px_rgba(140,29,64,0.18)]"
-                    : "text-[#4a2a2d] hover:bg-white/70 hover:text-[#3f0f1b]",
+                    : "text-[#5c0120] hover:bg-white/70 hover:text-[#3f0f1b]",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25",
                 ].join(" ")}
                 onClick={() =>
