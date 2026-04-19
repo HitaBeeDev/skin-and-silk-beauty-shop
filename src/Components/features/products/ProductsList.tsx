@@ -50,13 +50,14 @@ function ProductsList(): JSX.Element {
   const productsStatus = useAppSelector(selectProductsStatus);
   const productsError = useAppSelector(selectProductsError);
   const { activeCategory, setCategory } = useProductFilters();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [sortOrder, setSortOrder] = useState<SortOption>("newest");
   const [gridResetKey, setGridResetKey] = useState(0);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
   const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
   const isSaleFilterActive = searchParams.get("sale") === "true";
+  const isTopSellerFilterActive = searchParams.get("topseller") === "true";
   const activeFocus = getProductFocusFromSearchParam(searchParams.get("focus"));
 
   const sortedProducts = useMemo(() => {
@@ -87,7 +88,10 @@ function ProductsList(): JSX.Element {
     const saleFilteredProducts = isSaleFilterActive
       ? sortedProducts.filter((product) => product.compareAtPrice)
       : sortedProducts;
-    const focusFilteredProducts = saleFilteredProducts.filter((product) =>
+    const topSellerFilteredProducts = isTopSellerFilterActive
+      ? saleFilteredProducts.filter((product) => product.topSeller)
+      : saleFilteredProducts;
+    const focusFilteredProducts = topSellerFilteredProducts.filter((product) =>
       matchesProductFocus(product, activeFocus),
     );
 
@@ -107,7 +111,13 @@ function ProductsList(): JSX.Element {
 
       return searchableText.includes(searchQuery);
     });
-  }, [activeFocus, isSaleFilterActive, searchQuery, sortedProducts]);
+  }, [
+    activeFocus,
+    isSaleFilterActive,
+    isTopSellerFilterActive,
+    searchQuery,
+    sortedProducts,
+  ]);
 
   useEffect(() => {
     if (productsStatus !== "succeeded") return;
@@ -116,7 +126,12 @@ function ProductsList(): JSX.Element {
     const timeoutId = window.setTimeout(() => setIsSearchLoading(false), 250);
 
     return () => window.clearTimeout(timeoutId);
-  }, [productsStatus, searchQuery, isSaleFilterActive]);
+  }, [
+    productsStatus,
+    searchQuery,
+    isSaleFilterActive,
+    isTopSellerFilterActive,
+  ]);
 
   function handleCategoryChange(category: ProductCategoryLabel): void {
     startTransition(() => {
@@ -131,6 +146,21 @@ function ProductsList(): JSX.Element {
         activeCategory === DEFAULT_CATEGORY ? undefined : activeCategory,
       ),
     );
+  }
+
+  function handleToggleFilter(
+    key: "sale" | "topseller",
+    isActive: boolean,
+  ): void {
+    const nextParams = new URLSearchParams(searchParams);
+
+    if (isActive) {
+      nextParams.delete(key);
+    } else {
+      nextParams.set(key, "true");
+    }
+
+    setSearchParams(nextParams);
   }
 
   if (productsStatus === "loading" && !products.length) {
@@ -182,8 +212,9 @@ function ProductsList(): JSX.Element {
                 {activeFocus
                   ? ` for ${PRODUCT_FOCUS_LABELS[activeFocus].toLowerCase()}`
                   : ""}
-                {searchQuery ? ` for "${searchParams.get("q")}"` : ""}. Filter
-                by category, then refine by price.
+                {searchQuery ? ` for "${searchParams.get("q")}"` : ""}.
+                {isSaleFilterActive ? " Sale filter active." : ""}
+                {isTopSellerFilterActive ? " Top Seller filter active." : ""}
               </p>
             </div>
 
@@ -252,6 +283,38 @@ function ProductsList(): JSX.Element {
           </div>
         </div>
 
+        <div className="flex flex-wrap gap-3">
+          <button
+            className={[
+              "rounded-full px-4 py-2 text-[0.76rem] font-[500] uppercase tracking-[0.18em] transition-all duration-150 ease-in",
+              isSaleFilterActive
+                ? "bg-[#8c1d40] text-white shadow-[0_14px_28px_rgba(140,29,64,0.18)]"
+                : "bg-[#fff0f2] text-[#8c1d40] hover:bg-[#fde6eb]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25",
+            ].join(" ")}
+            onClick={() => handleToggleFilter("sale", isSaleFilterActive)}
+            type="button"
+          >
+            On Sale
+          </button>
+
+          <button
+            className={[
+              "rounded-full px-4 py-2 text-[0.76rem] font-[500] uppercase tracking-[0.18em] transition-all duration-150 ease-in",
+              isTopSellerFilterActive
+                ? "bg-[#8c1d40] text-white shadow-[0_14px_28px_rgba(140,29,64,0.18)]"
+                : "bg-[#fff0f2] text-[#8c1d40] hover:bg-[#fde6eb]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25",
+            ].join(" ")}
+            onClick={() =>
+              handleToggleFilter("topseller", isTopSellerFilterActive)
+            }
+            type="button"
+          >
+            Top Seller
+          </button>
+        </div>
+
         <Suspense fallback={<ProductGridSkeleton />}>
           <div
             aria-busy={isPending || isSearchLoading}
@@ -279,7 +342,7 @@ function ProductsList(): JSX.Element {
                   </div>
                 </div>
               )}
-              resetKey={`${activeCategory}-${sortOrder}-${gridResetKey}`}
+              resetKey={`${activeCategory}-${sortOrder}-${isSaleFilterActive}-${isTopSellerFilterActive}-${gridResetKey}`}
             >
               {isSearchLoading ? (
                 <ProductGridSkeleton />

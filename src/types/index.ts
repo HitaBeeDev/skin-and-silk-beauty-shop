@@ -25,6 +25,7 @@ export interface Product {
   slug: string;
   category: string;
   featured?: boolean;
+  topSeller?: boolean;
   price: number;
   compareAtPrice?: number;
   images: ProductImageSet;
