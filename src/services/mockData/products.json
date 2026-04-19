@@ -492,9 +492,64 @@
         ],
         "inci": "WATER (AQUA/EAU), GLYCERIN, CETYL ETHYLHEXANOATE, BUTYLENE GLYCOL, SQUALANE, ISODODECANE, DIPROPYLENE GLYCOL, BEHENYL ALCOHOL, DIMETHICONE, MICROCRYSTALLINE WAX, DIPHENYLSILOXY PHENYL TRIMETHICONE, BIS-DIGLYCERYL POLYACYLADIPATE-2, HYDROGENATED POLYISOBUTENE, MALTITOL, DIMETHYLACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE CROSSPOLYMER, TREHALOSE, PEG/PPG-14/7 DIMETHYL ETHER, POTASSIUM METHOXYSALICYLATE, TOCOPHERYL ACETATE, PHYTOSTERYL/OCTYLDODECYL LAUROYL GLUTAMATE, SODIUM HYALURONATE, DIPOTASSIUM GLYCYRRHIZATE, SODIUM ACETYLATED HYALURONATE, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, CITRUS UNSHIU PEEL EXTRACT, ANGELICA ACUTILOBA ROOT EXTRACT, CENTAUREA CYANUS FLOWER EXTRACT, IRIS FLORENTINA ROOT EXTRACT, SANGUISORBA OFFICINALIS ROOT EXTRACT, SERINE, GLYCINE, INOSITOL, AVERRHOA CARAMBOLA LEAF EXTRACT, CARTHAMUS TINCTORIUS (SAFFLOWER) FLOWER EXTRACT, LONICERA JAPONICA (HONEYSUCKLE) FLOWER EXTRACT, RETINYL ACETATE, RETINYL PALMITATE, HYDROLYZED SILK, ZINGIBER AROMATICUS EXTRACT, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, PAEONIA ALBIFLORA ROOT EXTRACT, BUPLEURUM FALCATUM ROOT EXTRACT, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, POTENTILLA ERECTA ROOT EXTRACT, SOPHORA ANGUSTIFOLIA ROOT EXTRACT, PERILLA OCYMOIDES LEAF EXTRACT, HYDROLYZED CONCHIOLIN PROTEIN, STEARYL ALCOHOL, HYDROGENATED PALM OIL, MYRISTYL MYRISTATE, BEHENETH-20, DIMETHICONE/PHENYL VINYL DIMETHICONE CROSSPOLYMER, ELAEIS GUINEENSIS (PALM) KERNEL OIL, ELAEIS GUINEENSIS (PALM) OIL, ALCOHOL, BEHENETH-10, THEANINE, DISODIUM EDTA, SODIUM CITRATE, BHT, SODIUM METABISULFITE, CITRIC ACID, SODIUM METAPHOSPHATE, HEXYL CINNAMAL, CITRONELLOL, ALPHA-ISOMETHYL IONONE, LIMONENE, LINALOOL, GERANIOL, BENZYL BENZOATE, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ZEA MAYS (CORN) OIL, PHENOXYETHANOL, BENZOIC ACID, FRAGRANCE (PARFUM), IRON OXIDES (CI 77492), IRON OXIDES (CI 77491)"
       }
+    },
+    {
+      "id": "26",
+      "sku": "SKU-26",
+      "name": "Ultra Booster Exclusive Premium Effect Body Cream",
+      "slug": "ultra-booster-exclusive-premium-effect-body-cream",
+      "category": "Body Care",
+      "price": 59.9,
+      "description": "A silky body cream that delivers immediate moisture, lasting comfort, and a firmer, more supple skin feel.",
+      "images": {
+        "main": "new/product-a/Beauty_UltraBooster_BodyCream1_1920x1920.png",
+        "hover": "new/product-a/Beauty_UltraBooster_BodyCream3_1920x1920.jpg",
+        "gallery": [
+          "new/product-a/Beauty_UltraBooster_BodyCream1_1920x1920.png",
+          "new/product-a/Beauty_UltraBooster_BodyCream3_1920x1920.jpg"
+        ]
+      },
+      "inStock": true,
+      "isNew": true,
+      "tags": [
+        "body cream",
+        "body care",
+        "firming",
+        "moisture",
+        "shea butter",
+        "panthenol",
+        "fragrance"
+      ],
+      "details": {
+        "subtitle": "200 ml, with fragrance",
+        "size": "200 ml",
+        "overview": "The exclusive body cream with the unique active ingredient complex Osmofill+ pampers dehydrated skin from the first application. Panthenol helps replenish moisture reserves over time to protect skin from drying out, while rich shea butter leaves the body feeling soft, supple, and carefully cared for.",
+        "mainBenefits": [
+          "Firms the skin and helps improve elasticity.",
+          "Delivers an immediate moisture boost with a long-term care effect.",
+          "Leaves skin feeling soft, smooth, and supple."
+        ],
+        "additionalBenefits": [
+          "Silky-soft texture creates a more luxurious body-care ritual.",
+          "Sensual fragrance adds a premium pampering finish.",
+          "Suitable for dehydrated skin needing richer daily comfort.",
+          "Free from silicones, parabens, PEGs, paraffins, and microplastics."
+        ],
+        "usage": [
+          "Apply to clean, dry skin after bathing or showering.",
+          "Massage evenly into the body using circular motions.",
+          "Focus on areas prone to dryness or loss of firmness.",
+          "Use daily for ongoing softness and moisture support."
+        ],
+        "ingredientHighlights": [
+          "Osmofill+ helps comfort dehydrated skin from the first application.",
+          "Panthenol supports long-lasting moisture and elasticity.",
+          "Shea butter helps nourish skin for a smooth, cared-for feel."
+        ]
+      }
     }
   ],
   "meta": {
-    "total": 25
+    "total": 26
   }
 }

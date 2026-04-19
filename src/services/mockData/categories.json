@@ -11,12 +11,17 @@
       "label": "Makeup"
     },
     {
+      "id": "body-care",
+      "slug": "body-care",
+      "label": "Body Care"
+    },
+    {
       "id": "new-arrivals",
       "slug": "new-arrivals",
       "label": "New Arrivals"
     }
   ],
   "meta": {
-    "total": 3
+    "total": 4
   }
 }

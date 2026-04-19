@@ -55,9 +55,6 @@ function ProductsList(): JSX.Element {
   const [gridResetKey, setGridResetKey] = useState(0);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const activeIndex = CATEGORY_OPTIONS.findIndex(
-    ({ label }) => label === activeCategory,
-  );
   const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
   const isSaleFilterActive = searchParams.get("sale") === "true";
   const activeFocus = getProductFocusFromSearchParam(searchParams.get("focus"));
@@ -232,28 +229,16 @@ function ProductsList(): JSX.Element {
         </div>
 
         <div className="rounded-[1.1rem] bg-[#fff0f2] p-2 shadow-[0_18px_42px_-34px_rgba(85,0,0,0.18)]">
-          <div className="relative grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <div
-              aria-hidden="true"
-              className="absolute left-0 z-0 h-[calc(50%-0.25rem)] w-[calc(50%-0.25rem)] rounded-[0.95rem] bg-[#8c1d40] transition-transform duration-200 ease-in sm:top-0 sm:bottom-0 sm:h-auto sm:w-[calc(25%-0.375rem)]"
-              style={{
-                transform:
-                  activeIndex < 0
-                    ? "translate(0, 0)"
-                    : activeIndex < 2
-                      ? `translate(${activeIndex * 100}%, 0)`
-                      : `translate(${(activeIndex - 2) * 100}%, calc(100% + 0.5rem))`,
-              }}
-            />
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
             {CATEGORY_OPTIONS.map(({ label }) => (
               <button
                 key={label}
                 aria-current={activeCategory === label}
                 className={[
-                  "relative z-10 min-h-[3rem] rounded-[0.95rem] px-3 py-3 text-center text-xs font-[500] transition-colors duration-150 ease-in sm:min-h-0 sm:rounded-[1rem] sm:px-4 sm:text-sm",
+                  "min-h-[3rem] rounded-[0.95rem] px-3 py-3 text-center text-xs font-[500] transition-all duration-150 ease-in sm:min-h-0 sm:rounded-[1rem] sm:px-4 sm:text-sm",
                   activeCategory === label
-                    ? "text-white"
-                    : "text-[#4a2a2d] hover:text-[#3f0f1b]",
+                    ? "bg-[#8c1d40] text-white shadow-[0_14px_28px_rgba(140,29,64,0.18)]"
+                    : "text-[#4a2a2d] hover:bg-white/70 hover:text-[#3f0f1b]",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25",
                 ].join(" ")}
                 onClick={() =>

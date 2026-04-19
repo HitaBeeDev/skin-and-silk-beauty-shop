@@ -33,6 +33,19 @@ const LIP_KEYWORDS = [
   "volumizer",
 ] as const;
 
+const BODY_KEYWORDS = [
+  "body",
+  "cream",
+  "lotion",
+  "butter",
+  "deodorant",
+  "wash",
+  "scrub",
+  "shower",
+  "hand",
+  "bath",
+] as const;
+
 function buildProductSearchText(product: Product): string {
   return [
     product.name,
@@ -69,6 +82,7 @@ export function matchesProductFocus(
   const searchText = buildProductSearchText(product);
   const isEyeProduct = includesAnyKeyword(searchText, EYE_KEYWORDS);
   const isLipProduct = includesAnyKeyword(searchText, LIP_KEYWORDS);
+  const isBodyProduct = includesAnyKeyword(searchText, BODY_KEYWORDS);
 
   switch (focus) {
     case "eyes":
@@ -76,7 +90,7 @@ export function matchesProductFocus(
     case "lips":
       return isLipProduct;
     case "face":
-      return !isEyeProduct && !isLipProduct;
+      return !isEyeProduct && !isLipProduct && !isBodyProduct;
     default:
       return true;
   }

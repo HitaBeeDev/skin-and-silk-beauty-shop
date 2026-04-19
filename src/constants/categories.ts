@@ -2,6 +2,7 @@ export enum ProductCategory {
   All = "all",
   SkinCare = "skin-care",
   Makeup = "makeup",
+  BodyCare = "body-care",
   NewArrivals = "new-arrivals",
 }
 
@@ -9,6 +10,7 @@ export const CATEGORY_LABELS: Record<ProductCategory, string> = {
   [ProductCategory.All]: "All",
   [ProductCategory.SkinCare]: "Skin Care",
   [ProductCategory.Makeup]: "Makeup",
+  [ProductCategory.BodyCare]: "Body Care",
   [ProductCategory.NewArrivals]: "New Arrivals",
 };
 
@@ -21,6 +23,10 @@ export const CATEGORY_OPTIONS = [
   {
     value: ProductCategory.Makeup,
     label: CATEGORY_LABELS[ProductCategory.Makeup],
+  },
+  {
+    value: ProductCategory.BodyCare,
+    label: CATEGORY_LABELS[ProductCategory.BodyCare],
   },
   {
     value: ProductCategory.NewArrivals,
