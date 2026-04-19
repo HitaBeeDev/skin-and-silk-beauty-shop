@@ -111,8 +111,8 @@ function ProductDetail(): JSX.Element {
   }
 
   return (
-    <section className="mx-auto mt-6 w-[min(100%-2rem,72rem)] px-4 pb-16 sm:px-6 lg:px-8">
-      <div className="overflow-hidden rounded-[1.1rem] bg-[#fff0f2] p-5 sm:p-7 md:p-9">
+    <section className="mx-auto mt-6 w-[min(100%-2rem,72rem)]">
+      <div className="overflow-hidden rounded-[1.1rem] sm:p-7 md:p-9">
         <div className="flex flex-col gap-3">
           <Breadcrumb
             items={[
@@ -246,17 +246,19 @@ function ProductDetail(): JSX.Element {
 
                   <Button
                     className={[
-                      "w-full rounded-full border-0 bg-white text-[#8c1d40] shadow-[0_18px_36px_rgba(0,0,0,0.14)] hover:bg-[#fff3f5]",
+                      "w-full rounded-full border-0 h-[3rem] bg-[#fff0f2] text-[#8f0c3c] text-[0.8rem] hover:bg-[#ffe2e6] [&_span]:text-[#8f0c3c]",
                       isCartFlashActive
-                        ? "bg-[#ffd9e2] text-[#5c0120]"
-                        : "",
+                        ? "bg-[#ffd9e2] text-[#8f0c3c] [&_span]:text-[#8f0c3c]"
+                        : "text-[#8f0c3c] [&_span]:text-[#8f0c3c]",
                     ].join(" ")}
                     disabled={isSoldOut}
                     onClick={handleAddToCart}
                     size="lg"
                     type="button"
                   >
-                    {isSoldOut ? "Currently Sold Out" : `Add ${quantity} to Cart`}
+                    {isSoldOut
+                      ? "Currently Sold Out"
+                      : `Add ${quantity} to Cart`}
                   </Button>
                 </div>
 
@@ -264,9 +266,10 @@ function ProductDetail(): JSX.Element {
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
                     <ArrowUpRight size={16} strokeWidth={2.1} />
                   </span>
+
                   <p className="leading-6">
-                    Cart updates instantly, so you can keep building your routine
-                    without interrupting the flow.
+                    Cart updates instantly, so you can keep building your
+                    routine without interrupting the flow.
                   </p>
                 </div>
               </div>
@@ -294,7 +297,7 @@ function ProductDetail(): JSX.Element {
                   <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
                     Category
                   </p>
-                  <p className="mt-3 font-['Playfair_Display',serif] text-[1.25rem] text-[#5c0120]">
+                  <p className="mt-3 font-['Playfair_Display',serif] text-[0.9rem] text-[#5c0120]">
                     {product.category}
                   </p>
                 </div>
@@ -303,7 +306,7 @@ function ProductDetail(): JSX.Element {
                   <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
                     Format
                   </p>
-                  <p className="mt-3 font-['Playfair_Display',serif] text-[1.25rem] text-[#5c0120]">
+                  <p className="mt-3 font-['Playfair_Display',serif] text-[0.9rem] text-[#5c0120]">
                     {productDetails?.size ?? "Luxury treatment"}
                   </p>
                 </div>
@@ -312,7 +315,7 @@ function ProductDetail(): JSX.Element {
                   <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
                     Availability
                   </p>
-                  <p className="mt-3 font-['Playfair_Display',serif] text-[1.25rem] text-[#5c0120]">
+                  <p className="mt-3 font-['Playfair_Display',serif] text-[0.9rem] text-[#5c0120]">
                     {isSoldOut ? "Sold out" : "Ready to ship"}
                   </p>
                 </div>
@@ -321,103 +324,6 @@ function ProductDetail(): JSX.Element {
           </div>
         </div>
       </div>
-      {productDetails ? (
-        <section className="mt-16 grid gap-4 lg:grid-cols-2">
-          {productDetails.mainBenefits?.length ? (
-            <div className="rounded-[1.1rem] bg-[#fff0f2] p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
-              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
-                Main Benefits
-              </p>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
-                {productDetails.mainBenefits.map((benefit) => (
-                  <li key={benefit} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a70a3f]" />
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          {productDetails.additionalBenefits?.length ? (
-            <div className="rounded-[1.1rem] bg-[#fff0f2] p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
-              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
-                Additional Benefits
-              </p>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
-                {productDetails.additionalBenefits.map((benefit) => (
-                  <li key={benefit} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a70a3f]" />
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          {productDetails.statistics?.length ? (
-            <div className="rounded-[1.1rem] bg-[#fff0f2] p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
-              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
-                Clinical Notes
-              </p>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
-                {productDetails.statistics.map((statistic) => (
-                  <li key={statistic} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a70a3f]" />
-                    <span>{statistic}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          {productDetails.usage?.length ? (
-            <div className="rounded-[1.1rem] bg-[#fff0f2] p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
-              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
-                How To Use
-              </p>
-              <ol className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
-                {productDetails.usage.map((step, index) => (
-                  <li key={step} className="flex gap-3">
-                    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-xs font-semibold text-[#8c1d40]">
-                      {index + 1}
-                    </span>
-                    <span>{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ) : null}
-        </section>
-      ) : null}
-
-      {productDetails?.ingredientHighlights?.length ? (
-        <section className="mt-16 rounded-[1.1rem] bg-white p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
-          <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
-            Key Ingredients
-          </p>
-          <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
-            {productDetails.ingredientHighlights.map((ingredient) => (
-              <li key={ingredient} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a70a3f]" />
-                <span>{ingredient}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      {productDetails?.inci ? (
-        <section className="mt-16 rounded-[1.1rem] bg-white p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
-          <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
-            INCI
-          </p>
-          <p className="mt-4 break-words text-sm leading-7 text-[#5b463d]">
-            {productDetails.inci}
-          </p>
-        </section>
-      ) : null}
-
       <section className="mt-16 space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
