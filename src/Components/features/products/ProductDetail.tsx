@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { ArrowUpRight, Minus, Plus } from "lucide-react";
 
 import { CATEGORY_SLUG_BY_LABEL } from "@/constants/categories";
 import { ROUTES } from "@/constants/routes";
@@ -49,6 +50,15 @@ function ProductDetail(): JSX.Element {
   const isSoldOut = product.soldOut ?? !product.inStock;
   const productCategoryHref = `${ROUTES.PRODUCTS}?category=${CATEGORY_SLUG_BY_LABEL[product.category]}`;
   const productDetails = product.details;
+  const heroEyebrow = productDetails?.size
+    ? `${product.category} · ${productDetails.size}`
+    : product.category;
+  const quickFacts = [
+    product.isNew ? "Fresh arrival" : null,
+    product.topSeller ? "Top seller" : null,
+    product.featured ? "Editor pick" : null,
+    productDetails?.size ?? null,
+  ].filter(Boolean) as string[];
 
   useEffect(() => {
     if (!previousImage) return;
@@ -101,176 +111,227 @@ function ProductDetail(): JSX.Element {
   }
 
   return (
-    <section className="mx-auto w-[min(100%-2rem,72rem)] px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumb
-        items={[
-          { label: "Home", to: ROUTES.HOME },
-          { label: "Products", to: ROUTES.PRODUCTS },
-          { label: product.category, to: productCategoryHref },
-          { label: product.name },
-        ]}
-      />
+    <section className="mx-auto mt-6 w-[min(100%-2rem,72rem)] px-4 pb-16 sm:px-6 lg:px-8">
+      <div className="overflow-hidden rounded-[1.1rem] bg-[#fff0f2] p-5 sm:p-7 md:p-9">
+        <div className="flex flex-col gap-3">
+          <Breadcrumb
+            items={[
+              { label: "Home", to: ROUTES.HOME },
+              { label: "Products", to: ROUTES.PRODUCTS },
+              { label: product.category, to: productCategoryHref },
+              { label: product.name },
+            ]}
+          />
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">
-        <div className="space-y-4">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[#fbf3ec] shadow-[0_28px_70px_-42px_rgba(36,25,21,0.38)]">
-            <div className="relative aspect-[4/5]">
-              {previousImage ? (
-                <img
-                  aria-hidden="true"
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-cover opacity-100 transition-opacity duration-150 ease-in"
-                  src={previousImage}
-                />
-              ) : null}
-              <img
-                alt={`${product.name} product in ${product.category.toLowerCase()} packaging`}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-150 ease-in ${isImageVisible ? "opacity-100" : "opacity-0"}`}
-                src={selectedImage}
-              />
-            </div>
-          </div>
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-start">
+            <div className="space-y-4">
+              <div className="relative overflow-hidden rounded-[1.1rem] bg-white shadow-[0_24px_60px_rgba(85,0,0,0.12)]">
+                <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-2">
+                  {product.isNew ? <Badge tone="accent">New</Badge> : null}
+                  <Badge
+                    className="bg-white/90 text-[#8c1d40]"
+                    tone={isSoldOut ? "danger" : "success"}
+                  >
+                    {isSoldOut ? "Sold Out" : "In Stock"}
+                  </Badge>
+                </div>
 
-          <div className="flex gap-3 overflow-x-auto pb-2">
-            {galleryImages.map((image, index) => {
-              const isActive = image === selectedImage;
-
-              return (
-                <button
-                  key={image}
-                  aria-label={`Show image ${index + 1} of ${product.name}`}
-                  className={[
-                    "shrink-0 overflow-hidden rounded-2xl border-2 bg-[#fbf3ec] transition-colors duration-150 ease-in",
-                    isActive ? "border-[#5a4034]" : "border-transparent",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2",
-                  ].join(" ")}
-                  onClick={() => handleImageChange(image)}
-                  type="button"
-                >
+                <div className="relative aspect-[5/5] bg-[#fff7f8] sm:aspect-[4/4.6]">
+                  {previousImage ? (
+                    <img
+                      aria-hidden="true"
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover opacity-100 transition-opacity duration-150 ease-in"
+                      src={previousImage}
+                    />
+                  ) : null}
                   <img
-                    alt=""
-                    aria-hidden="true"
-                    className="h-24 w-20 object-cover"
-                    src={image}
+                    alt={`${product.name} product in ${product.category.toLowerCase()} packaging`}
+                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-150 ease-in ${isImageVisible ? "opacity-100" : "opacity-0"}`}
+                    src={selectedImage}
                   />
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="space-y-8">
-          <div className="space-y-4">
-            <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
-              {product.category}
-            </p>
-            <h1 className="font-['Playfair_Display',serif] text-4xl leading-tight text-[#5a4034] sm:text-5xl">
-              {product.name}
-            </h1>
-            {productDetails?.subtitle ? (
-              <p className="font-['Quicksand',sans-serif] text-base text-[#6b5248] sm:text-lg">
-                {productDetails.subtitle}
-              </p>
-            ) : null}
-            <div className="flex flex-wrap items-center gap-3">
-              <p className="text-3xl font-semibold text-[#241915]">
-                {formatCurrency(productPrice)}
-              </p>
-              {product.compareAtPrice ? (
-                <p className="text-lg text-[#8c6659] line-through">
-                  {formatCurrency(product.compareAtPrice)}
-                </p>
-              ) : null}
-              {productDetails?.size ? (
-                <p className="rounded-full bg-[#f6e8dd] px-3 py-1 text-sm font-medium text-[#7b584c]">
-                  {productDetails.size}
-                </p>
-              ) : null}
-            </div>
-            <div>
-              <Badge
-                className="px-3 py-1 text-sm"
-                tone={isSoldOut ? "danger" : "success"}
-              >
-                {isSoldOut ? "Sold Out" : "In Stock"}
-              </Badge>
-            </div>
-            <div className="space-y-4 font-['Quicksand',sans-serif] text-base leading-8 text-[#4d3932]">
-              <p>{product.description}</p>
-              {productDetails?.overview ? (
-                <p>
-                  {productDetails.overview}
-                </p>
-              ) : (
-                <p>
-                  Layer it into your ritual for a finish that feels treated,
-                  polished, and unmistakably elevated from the first
-                  application.
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-5 rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
-            <div className="flex flex-wrap items-center gap-4">
-              <div className="inline-flex items-center rounded-full border border-[#d9c0ae] bg-white">
-                <button
-                  aria-label="Decrease quantity"
-                  className="inline-flex h-11 w-11 items-center justify-center text-xl text-[#5a4034] transition-colors duration-150 ease-in hover:bg-[#f8efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
-                  onClick={() =>
-                    setQuantity((current) => Math.max(1, current - 1))
-                  }
-                  type="button"
-                >
-                  −
-                </button>
-                <span className="min-w-[3rem] text-center font-semibold text-[#241915]">
-                  {quantity}
-                </span>
-                <button
-                  aria-label="Increase quantity"
-                  className="inline-flex h-11 w-11 items-center justify-center text-xl text-[#5a4034] transition-colors duration-150 ease-in hover:bg-[#f8efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
-                  onClick={() => setQuantity((current) => current + 1)}
-                  type="button"
-                >
-                  +
-                </button>
+                </div>
               </div>
 
-              <Button
-                className={[
-                  "min-w-[14rem] active:scale-[0.97]",
-                  isCartFlashActive
-                    ? "border-green-600 bg-green-600 text-white"
-                    : "",
-                ].join(" ")}
-                disabled={isSoldOut}
-                onClick={handleAddToCart}
-                size="lg"
-                type="button"
-              >
-                {isSoldOut ? "Currently Sold Out" : `Add ${quantity} to Cart`}
-              </Button>
+              <div className="flex gap-3 overflow-x-auto pb-1">
+                {galleryImages.map((image, index) => {
+                  const isActive = image === selectedImage;
+
+                  return (
+                    <button
+                      key={image}
+                      aria-label={`Show image ${index + 1} of ${product.name}`}
+                      className={[
+                        "shrink-0 overflow-hidden rounded-[1rem] border bg-white shadow-[0_14px_32px_rgba(85,0,0,0.08)] transition-all duration-150 ease-in",
+                        isActive
+                          ? "border-[#8c1d40] ring-2 ring-[#8c1d40]/10"
+                          : "border-[#8c1d40]/10 hover:border-[#8c1d40]/35",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40]/25",
+                      ].join(" ")}
+                      onClick={() => handleImageChange(image)}
+                      type="button"
+                    >
+                      <img
+                        alt=""
+                        aria-hidden="true"
+                        className="h-24 w-20 object-cover"
+                        src={image}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <p className="font-['Quicksand',sans-serif] text-sm leading-6 text-[#6a5147]">
-              Cart updates instantly, so you can keep building your routine
-              without waiting on a blocking state.
-            </p>
+
+            <div className="flex flex-col gap-5">
+              <div className="rounded-[1.1rem] bg-[#550000] p-5 text-[#fff0f0] sm:p-7">
+                <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#ffcad4]">
+                  {heroEyebrow}
+                </p>
+                <h1 className="mt-3 font-['Playfair_Display',serif] text-[2.2rem] leading-[0.96] text-white sm:text-[3rem]">
+                  {product.name}
+                </h1>
+                {productDetails?.subtitle ? (
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-[#ffe3e7] sm:text-base">
+                    {productDetails.subtitle}
+                  </p>
+                ) : null}
+
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {quickFacts.map((fact) => (
+                    <span
+                      key={fact}
+                      className="inline-flex min-h-[2rem] items-center rounded-full border border-white/25 px-4 py-1 text-[0.72rem] uppercase tracking-[0.14em] text-[#fff0f0]"
+                    >
+                      {fact}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-7 flex flex-wrap items-end gap-3">
+                  <p className="text-3xl font-semibold text-white sm:text-4xl">
+                    {formatCurrency(productPrice)}
+                  </p>
+                  {product.compareAtPrice ? (
+                    <p className="pb-1 text-base text-[#ffcad4]/80 line-through sm:text-lg">
+                      {formatCurrency(product.compareAtPrice)}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className="mt-7 grid gap-4 sm:grid-cols-[minmax(0,8.2rem)_minmax(0,1fr)] sm:items-center">
+                  <div className="inline-flex items-center rounded-full border border-white/15 bg-white/10">
+                    <button
+                      aria-label="Decrease quantity"
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white transition-colors duration-150 ease-in hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                      onClick={() =>
+                        setQuantity((current) => Math.max(1, current - 1))
+                      }
+                      type="button"
+                    >
+                      <Minus size={16} strokeWidth={2.1} />
+                    </button>
+                    <span className="min-w-[2.8rem] text-center text-sm font-semibold text-white">
+                      {quantity}
+                    </span>
+                    <button
+                      aria-label="Increase quantity"
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white transition-colors duration-150 ease-in hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                      onClick={() => setQuantity((current) => current + 1)}
+                      type="button"
+                    >
+                      <Plus size={16} strokeWidth={2.1} />
+                    </button>
+                  </div>
+
+                  <Button
+                    className={[
+                      "w-full rounded-full border-0 bg-white text-[#8c1d40] shadow-[0_18px_36px_rgba(0,0,0,0.14)] hover:bg-[#fff3f5]",
+                      isCartFlashActive
+                        ? "bg-[#ffd9e2] text-[#5c0120]"
+                        : "",
+                    ].join(" ")}
+                    disabled={isSoldOut}
+                    onClick={handleAddToCart}
+                    size="lg"
+                    type="button"
+                  >
+                    {isSoldOut ? "Currently Sold Out" : `Add ${quantity} to Cart`}
+                  </Button>
+                </div>
+
+                <div className="mt-6 flex items-center gap-3 text-sm text-[#ffe3e7]">
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
+                    <ArrowUpRight size={16} strokeWidth={2.1} />
+                  </span>
+                  <p className="leading-6">
+                    Cart updates instantly, so you can keep building your routine
+                    without interrupting the flow.
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-[1.1rem] bg-white p-5 text-[#241915] shadow-[0_18px_45px_rgba(85,0,0,0.08)] sm:p-7">
+                <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
+                  Product Overview
+                </p>
+                <div className="mt-4 space-y-4 text-sm leading-7 text-[#5b463d] sm:text-[0.95rem]">
+                  <p>{product.description}</p>
+                  {productDetails?.overview ? (
+                    <p>{productDetails.overview}</p>
+                  ) : (
+                    <p>
+                      Layer it into your ritual for a finish that feels treated,
+                      polished, and unmistakably elevated from the first
+                      application.
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-[1.1rem] bg-white p-5 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+                  <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
+                    Category
+                  </p>
+                  <p className="mt-3 font-['Playfair_Display',serif] text-[1.25rem] text-[#5c0120]">
+                    {product.category}
+                  </p>
+                </div>
+
+                <div className="rounded-[1.1rem] bg-white p-5 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+                  <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
+                    Format
+                  </p>
+                  <p className="mt-3 font-['Playfair_Display',serif] text-[1.25rem] text-[#5c0120]">
+                    {productDetails?.size ?? "Luxury treatment"}
+                  </p>
+                </div>
+
+                <div className="rounded-[1.1rem] bg-white p-5 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+                  <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#8c1d40]">
+                    Availability
+                  </p>
+                  <p className="mt-3 font-['Playfair_Display',serif] text-[1.25rem] text-[#5c0120]">
+                    {isSoldOut ? "Sold out" : "Ready to ship"}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
       {productDetails ? (
-        <section className="mt-16 grid gap-6 lg:grid-cols-2">
+        <section className="mt-16 grid gap-4 lg:grid-cols-2">
           {productDetails.mainBenefits?.length ? (
-            <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
-              <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+            <div className="rounded-[1.1rem] bg-[#fff0f2] p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
                 Main Benefits
               </p>
-              <ul className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+              <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
                 {productDetails.mainBenefits.map((benefit) => (
                   <li key={benefit} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8c6659]" />
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a70a3f]" />
                     <span>{benefit}</span>
                   </li>
                 ))}
@@ -279,14 +340,14 @@ function ProductDetail(): JSX.Element {
           ) : null}
 
           {productDetails.additionalBenefits?.length ? (
-            <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
-              <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+            <div className="rounded-[1.1rem] bg-[#fff0f2] p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
                 Additional Benefits
               </p>
-              <ul className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+              <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
                 {productDetails.additionalBenefits.map((benefit) => (
                   <li key={benefit} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8c6659]" />
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a70a3f]" />
                     <span>{benefit}</span>
                   </li>
                 ))}
@@ -295,14 +356,14 @@ function ProductDetail(): JSX.Element {
           ) : null}
 
           {productDetails.statistics?.length ? (
-            <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
-              <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+            <div className="rounded-[1.1rem] bg-[#fff0f2] p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
                 Clinical Notes
               </p>
-              <ul className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+              <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
                 {productDetails.statistics.map((statistic) => (
                   <li key={statistic} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8c6659]" />
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a70a3f]" />
                     <span>{statistic}</span>
                   </li>
                 ))}
@@ -311,14 +372,14 @@ function ProductDetail(): JSX.Element {
           ) : null}
 
           {productDetails.usage?.length ? (
-            <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
-              <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+            <div className="rounded-[1.1rem] bg-[#fff0f2] p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+              <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
                 How To Use
               </p>
-              <ol className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+              <ol className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
                 {productDetails.usage.map((step, index) => (
                   <li key={step} className="flex gap-3">
-                    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#f3dfd1] text-xs font-semibold text-[#7b584c]">
+                    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-xs font-semibold text-[#8c1d40]">
                       {index + 1}
                     </span>
                     <span>{step}</span>
@@ -331,14 +392,14 @@ function ProductDetail(): JSX.Element {
       ) : null}
 
       {productDetails?.ingredientHighlights?.length ? (
-        <section className="mt-16 rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
-          <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+        <section className="mt-16 rounded-[1.1rem] bg-white p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+          <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
             Key Ingredients
           </p>
-          <ul className="mt-4 space-y-3 font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932] sm:text-base">
+          <ul className="mt-4 space-y-3 text-sm leading-7 text-[#5b463d] sm:text-base">
             {productDetails.ingredientHighlights.map((ingredient) => (
               <li key={ingredient} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#8c6659]" />
+                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a70a3f]" />
                 <span>{ingredient}</span>
               </li>
             ))}
@@ -347,11 +408,11 @@ function ProductDetail(): JSX.Element {
       ) : null}
 
       {productDetails?.inci ? (
-        <section className="mt-16 rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_20px_50px_-40px_rgba(36,25,21,0.34)]">
-          <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+        <section className="mt-16 rounded-[1.1rem] bg-white p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)]">
+          <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
             INCI
           </p>
-          <p className="mt-4 break-words font-['Quicksand',sans-serif] text-sm leading-7 text-[#4d3932]">
+          <p className="mt-4 break-words text-sm leading-7 text-[#5b463d]">
             {productDetails.inci}
           </p>
         </section>
@@ -360,15 +421,15 @@ function ProductDetail(): JSX.Element {
       <section className="mt-16 space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+            <p className="text-[0.72rem] font-[500] uppercase tracking-[0.28em] text-[#8c1d40]">
               You May Also Like
             </p>
-            <h2 className="mt-2 font-['Playfair_Display',serif] text-3xl text-[#5a4034]">
+            <h2 className="mt-2 font-['Playfair_Display',serif] text-3xl text-[#5c0120]">
               More from {product.category}
             </h2>
           </div>
           <Link
-            className="font-['Quicksand',sans-serif] text-sm font-semibold text-[#5a4034] transition-colors duration-150 ease-in hover:text-[#3f2d25] hover:underline"
+            className="text-sm font-semibold text-[#8c1d40] transition-colors duration-150 ease-in hover:text-[#5c0120] hover:underline"
             to={productCategoryHref}
           >
             View All {product.category}
