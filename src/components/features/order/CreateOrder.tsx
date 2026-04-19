@@ -2,6 +2,7 @@ import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { Navigate, useActionData, useNavigation } from "react-router-dom";
 
 import { ROUTES } from "@/constants/routes";
+import { PRIORITY_DELIVERY_FEE } from "@/constants/pricing";
 
 import {
   getCart,
@@ -46,7 +47,7 @@ function CreateOrder(): JSX.Element {
   const isSubmitting = navigation.state === "submitting";
   const isLoadingAddress = addressStatus === "loading";
   const subtotal = totalCartPrice;
-  const priorityPrice = formState.priority ? subtotal * 0.2 : 0;
+  const priorityPrice = formState.priority ? PRIORITY_DELIVERY_FEE : 0;
   const totalPrice = subtotal + priorityPrice;
   const geolocationInlineError =
     addressStatus === "failed"
@@ -136,7 +137,7 @@ function CreateOrder(): JSX.Element {
         />
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.7fr)] lg:items-start">
-          <div className="max-w-lg">
+          <div className="overflow-hidden rounded-[1.1rem] bg-white p-6 shadow-[0_18px_45px_rgba(85,0,0,0.08)] sm:p-7">
             <CreateOrderForm
               addressInputRef={addressInputRef}
               cart={cart}
@@ -146,7 +147,6 @@ function CreateOrder(): JSX.Element {
               geolocationInlineError={geolocationInlineError}
               isLoadingAddress={isLoadingAddress}
               isSubmitting={isSubmitting}
-              subtotal={subtotal}
               totalPrice={totalPrice}
             />
           </div>

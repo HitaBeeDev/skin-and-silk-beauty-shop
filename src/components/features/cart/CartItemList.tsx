@@ -12,7 +12,7 @@ function CartItemList({
   onRemove,
 }: CartItemListProps): JSX.Element {
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-[#ead9ca] bg-white shadow-[0_24px_60px_-44px_rgba(36,25,21,0.38)]">
+    <div className="overflow-hidden rounded-[1.1rem] bg-white shadow-[0_24px_60px_rgba(85,0,0,0.10)]">
       <ul>
         {cart.map((product: CartItemModel) => (
           <li key={product.productId}>

@@ -22,14 +22,14 @@ function UpdateItemQuantity({
   const dispatch = useAppDispatch();
 
   return (
-    <div className="inline-flex items-center rounded-full border border-[#d9c0ae] bg-white">
+    <div className="inline-flex items-center rounded-full border border-[#550000]/20 bg-white">
       <button
         aria-label={
           currentQuantity === 1
             ? `Remove ${productName}`
             : "Decrease item quantity"
         }
-        className="inline-flex h-11 w-11 items-center justify-center text-xl text-[#5a4034] transition-colors duration-150 ease-in hover:bg-[#f8efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5a4034] focus-visible:ring-offset-2"
+        className="inline-flex h-11 w-11 items-center justify-center text-xl text-[#550000] transition-colors duration-150 ease-in hover:bg-[#fff0f0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40] focus-visible:ring-offset-2"
         onClick={() => {
           if (currentQuantity === 1) {
             onRemove();
@@ -43,13 +43,13 @@ function UpdateItemQuantity({
         −
       </button>
 
-      <p className="min-w-[2.75rem] text-center font-semibold text-[#241915]">
+      <p className="min-w-[2.75rem] text-center font-semibold text-[#5c0120]">
         {currentQuantity}
       </p>
 
       <button
         aria-label="Increase item quantity"
-        className="inline-flex h-11 w-11 items-center justify-center text-xl text-[#5a4034] transition-colors duration-150 ease-in hover:bg-[#f8efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5a4034] focus-visible:ring-offset-2"
+        className="inline-flex h-11 w-11 items-center justify-center text-xl text-[#550000] transition-colors duration-150 ease-in hover:bg-[#fff0f0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40] focus-visible:ring-offset-2"
         onClick={() => dispatch(increaseItemQuantity(productId))}
         type="button"
       >

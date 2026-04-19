@@ -17,6 +17,7 @@ import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import Toast from "@/components/ui/Toast";
 import { formatCurrency, formatDate } from "@/components/utils/helpers";
 import { ROUTES } from "@/constants/routes";
+import { PRIORITY_DELIVERY_FEE } from "@/constants/pricing";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 
 function formatOrderConfirmationId(orderId: string): string {
@@ -101,7 +102,7 @@ function Order(): JSX.Element {
     order.orderPrice ??
     order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
   const priorityPrice =
-    order.priorityPrice ?? (order.priority ? subtotal * 0.2 : 0);
+    order.priorityPrice ?? (order.priority ? PRIORITY_DELIVERY_FEE : 0);
   const total = subtotal + priorityPrice;
 
   async function handlePriorityUpgrade(): Promise<void> {

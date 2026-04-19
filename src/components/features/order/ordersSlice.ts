@@ -7,6 +7,7 @@ import {
 
 import type { CreateOrderPayload, LoadingStatus, Order } from "@/types";
 import type { RootState } from "@store";
+import { PRIORITY_DELIVERY_FEE } from "@/constants/pricing";
 
 import {
   createOrder,
@@ -80,7 +81,7 @@ const ordersSlice = createSlice({
 
       order.priority = true;
       order.orderPrice = orderPrice;
-      order.priorityPrice = orderPrice * 0.2;
+      order.priorityPrice = PRIORITY_DELIVERY_FEE;
       state.error = null;
     },
     rollbackOrderPriorityUpgrade(state, action: PayloadAction<Order>) {

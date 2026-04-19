@@ -3,6 +3,8 @@ import { Form } from "react-router-dom";
 
 import type { CartItem } from "@/types";
 
+import { PRIORITY_DELIVERY_FEE } from "@/constants/pricing";
+
 import { fetchAddress } from "@/components/features/user/userSlice";
 import Button from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";
@@ -38,7 +40,6 @@ type CreateOrderFormProps = {
   formState: CreateOrderFormState;
   isLoadingAddress: boolean;
   isSubmitting: boolean;
-  subtotal: number;
   totalPrice: number;
   geolocationInlineError: string;
   addressInputRef: RefObject<HTMLTextAreaElement>;
@@ -51,7 +52,6 @@ function CreateOrderForm({
   formState,
   isLoadingAddress,
   isSubmitting,
-  subtotal,
   totalPrice,
   geolocationInlineError,
   addressInputRef,
@@ -78,7 +78,7 @@ function CreateOrderForm({
       {hasVisibleErrors ? (
         <div
           aria-live="assertive"
-          className="rounded-2xl border border-[#efb4b4] bg-[#fff5f5] px-4 py-3 text-sm text-[#b42318]"
+          className="rounded-[1rem] border border-[#b42318]/30 bg-[#fff5f5] px-4 py-3 text-sm text-[#b42318]"
           role="alert"
         >
           Please correct the highlighted fields before submitting.
@@ -87,16 +87,16 @@ function CreateOrderForm({
 
       <div className="space-y-2">
         <label
-          className="font-['Quicksand',sans-serif] text-sm font-semibold text-[#5a4034]"
+          className="font-['Quicksand',sans-serif] text-sm font-semibold text-[#550000]"
           htmlFor="customer"
         >
           Full name
         </label>
         <input
           className={[
-            "w-full rounded-2xl border bg-white px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,opacity] duration-200 ease-in placeholder:text-[#9c8f8f]",
-            formState.errors.customer ? "border-[#b42318]" : "border-[#d9c0ae]",
-            "focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20",
+            "w-full rounded-[1rem] border bg-white px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,opacity] duration-200 ease-in placeholder:text-[#550000]/30",
+            formState.errors.customer ? "border-[#b42318]" : "border-[#550000]/20",
+            "focus:border-[#8c1d40] focus:ring-2 focus:ring-[#8c1d40]/15",
           ].join(" ")}
           id="customer"
           name="customer"
@@ -133,9 +133,9 @@ function CreateOrderForm({
         </label>
         <input
           className={[
-            "w-full rounded-2xl border bg-white px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,opacity] duration-200 ease-in placeholder:text-[#9c8f8f]",
-            formState.errors.phone ? "border-[#b42318]" : "border-[#d9c0ae]",
-            "focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20",
+            "w-full rounded-[1rem] border bg-white px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,opacity] duration-200 ease-in placeholder:text-[#550000]/30",
+            formState.errors.phone ? "border-[#b42318]" : "border-[#550000]/20",
+            "focus:border-[#8c1d40] focus:ring-2 focus:ring-[#8c1d40]/15",
           ].join(" ")}
           id="phone"
           name="phone"
@@ -153,7 +153,7 @@ function CreateOrderForm({
           type="tel"
           value={formState.phone}
         />
-        <p className="text-sm text-[#8c6659]">{phoneHint}</p>
+        <p className="text-sm text-[#8c1d40]/60">{phoneHint}</p>
         <p
           className={`text-sm text-[#b42318] transition-opacity duration-200 ease-in ${formState.errors.phone ? "opacity-100" : "opacity-0"}`}
           role={formState.errors.phone ? "alert" : undefined}
@@ -172,10 +172,10 @@ function CreateOrderForm({
         <div className="flex flex-col gap-3">
           <textarea
             className={[
-              "min-h-32 w-full rounded-2xl border px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,background-color,opacity] duration-200 ease-in placeholder:text-[#9c8f8f]",
-              formState.errors.address ? "border-[#b42318]" : "border-[#d9c0ae]",
-              formState.autofilledAddress ? "bg-[#f6e6da]" : "bg-white",
-              "focus:border-[#5a4034] focus:ring-2 focus:ring-[#5a4034]/20",
+              "min-h-32 w-full rounded-[1rem] border px-4 py-3 font-['Quicksand',sans-serif] text-base text-[#241915] outline-none transition-[border-color,box-shadow,background-color,opacity] duration-200 ease-in placeholder:text-[#550000]/30",
+              formState.errors.address ? "border-[#b42318]" : "border-[#550000]/20",
+              formState.autofilledAddress ? "bg-[#fff0f2]" : "bg-white",
+              "focus:border-[#8c1d40] focus:ring-2 focus:ring-[#8c1d40]/15",
             ].join(" ")}
             id="address"
             name="address"
@@ -196,7 +196,7 @@ function CreateOrderForm({
             value={formState.address}
           />
           <Button
-            className="self-start"
+            className="self-start rounded-full border-[#550000]/20 text-[0.78rem] text-[#550000] hover:bg-[#fff0f0]"
             disabled={isLoadingAddress}
             leftIcon={isLoadingAddress ? <Spinner size="sm" /> : <MapPinIcon />}
             onClick={() => {
@@ -221,22 +221,22 @@ function CreateOrderForm({
         </p>
       </div>
 
-      <div className="rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-4">
+      <div className="rounded-[1.1rem] border border-[#550000]/10 bg-[#fff0f2] p-4">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="font-['Quicksand',sans-serif] text-sm font-semibold text-[#5a4034]">
+            <p className="font-['Quicksand',sans-serif] text-sm font-semibold text-[#550000]">
               Priority delivery
             </p>
-            <p className="mt-1 text-sm text-[#6a5147]">
-              Add {formatCurrency(subtotal * 0.2)} for priority delivery.
+            <p className="mt-1 text-sm text-[#8c1d40]/70">
+              Add {formatCurrency(PRIORITY_DELIVERY_FEE)} for priority delivery.
             </p>
           </div>
           <button
             aria-checked={formState.priority}
             className={[
               "relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-200 ease-in",
-              formState.priority ? "bg-[#5a4034]" : "bg-[#d9c0ae]",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5a4034] focus-visible:ring-offset-2",
+              formState.priority ? "bg-[#550000]" : "bg-[#550000]/20",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8c1d40] focus-visible:ring-offset-2",
             ].join(" ")}
             onClick={() =>
               dispatchForm({
@@ -266,6 +266,7 @@ function CreateOrderForm({
       <input name="position" type="hidden" value={encodedPosition} />
 
       <Button
+        className="!rounded-full !border-0 !bg-[#550000] !text-white hover:!bg-[#6e0000]"
         disabled={isSubmitting || isLoadingAddress}
         isFullWidth
         isLoading={isSubmitting}
@@ -274,7 +275,7 @@ function CreateOrderForm({
       >
         {isSubmitting
           ? "Placing order..."
-          : `Order now from ${formatCurrency(totalPrice)}`}
+          : `Order now — ${formatCurrency(totalPrice)}`}
       </Button>
     </Form>
   );

@@ -16,44 +16,50 @@ function OrderSummary({
   totalPrice,
 }: OrderSummaryProps): JSX.Element {
   return (
-    <div className="space-y-5 rounded-[2rem] border border-[#ead9ca] bg-[#fffaf5] p-6 shadow-[0_24px_60px_-44px_rgba(36,25,21,0.34)]">
-      <div>
-        <p className="font-['Quicksand',sans-serif] text-sm font-semibold uppercase tracking-[0.24em] text-[#8c6659]">
+    <div className="overflow-hidden rounded-[1.1rem] shadow-[0_24px_60px_rgba(85,0,0,0.12)]">
+      <div className="bg-[#550000] px-5 py-5">
+        <p className="text-[0.68rem] font-[500] uppercase tracking-[0.24em] text-[#ffcad4]">
           Order Summary
         </p>
+
+        <ul className="mt-4 space-y-3">
+          {cart.map((item) => (
+            <li
+              key={item.productId}
+              className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 text-sm text-[#ffe3e7]"
+            >
+              <span>
+                {item.name}{" "}
+                <span className="text-[#ffcad4]/70">× {item.quantity}</span>
+              </span>
+              <span className="font-semibold text-white">
+                {formatCurrency(item.totalPrice)}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <ul className="space-y-3">
-        {cart.map((item) => (
-          <li
-            key={item.productId}
-            className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 text-sm text-[#4d3932]"
-          >
-            <span>
-              {item.name}{" "}
-              <span className="text-[#8c6659]">× {item.quantity}</span>
+      <div className="bg-white px-5 py-4">
+        <div className="space-y-3 text-sm text-[#5c0120]/80">
+          {priorityPrice > 0 ? (
+            <>
+              <div className="flex items-center justify-between">
+                <span>Subtotal</span>
+                <span>{formatCurrency(subtotal)}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Priority delivery</span>
+                <span>{formatCurrency(priorityPrice)}</span>
+              </div>
+            </>
+          ) : null}
+          <div className={`flex items-center justify-between text-base font-semibold text-[#550000] ${priorityPrice > 0 ? "border-t border-[#550000]/10 pt-3" : ""}`}>
+            <span>Total</span>
+            <span className="font-['Playfair_Display',serif] text-xl">
+              {formatCurrency(totalPrice)}
             </span>
-            <span className="font-semibold text-[#241915]">
-              {formatCurrency(item.totalPrice)}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="space-y-3 border-t border-[#ead9ca] pt-4 text-sm text-[#4d3932]">
-        <div className="flex items-center justify-between">
-          <span>Subtotal</span>
-          <span>{formatCurrency(subtotal)}</span>
-        </div>
-        {priorityPrice > 0 ? (
-          <div className="flex items-center justify-between">
-            <span>+{formatCurrency(priorityPrice)} for priority delivery</span>
-            <span>{formatCurrency(priorityPrice)}</span>
           </div>
-        ) : null}
-        <div className="flex items-center justify-between text-lg font-semibold text-[#241915]">
-          <span>Total</span>
-          <span>{formatCurrency(totalPrice)}</span>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import { ROUTES } from "@/constants/routes";
+import { PRIORITY_DELIVERY_FEE } from "@/constants/pricing";
 
 import type { Order } from "@/types";
 
@@ -79,7 +80,7 @@ function OrderConfirmation(): JSX.Element {
     order.orderPrice ??
     order.cart.reduce((sum, item) => sum + item.totalPrice, 0);
   const priorityPrice =
-    order.priorityPrice ?? (order.priority ? subtotal * 0.2 : 0);
+    order.priorityPrice ?? (order.priority ? PRIORITY_DELIVERY_FEE : 0);
   const total = subtotal + priorityPrice;
   const confirmationId = useMemo(
     () => formatConfirmationId(order.id),
