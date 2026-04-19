@@ -102,7 +102,7 @@ const Modal: ModalComponent = function Modal({
       >
         <button
           aria-label="Close dialog"
-          className="ml-auto rounded-md px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
+          className="ml-auto rounded-md px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5a4034] focus-visible:ring-offset-2"
           type="button"
           onClick={onClose}
         >

@@ -115,6 +115,7 @@ function Header(): JSX.Element {
 
           <div className="hidden flex-row items-center justify-center gap-6 justify-self-center md:flex lg:gap-10">
             <Link
+              aria-current={isHomeActive ? "page" : undefined}
               className={`cursor-pointer text-[0.9rem] font-[400] ${isHomeActive ? "text-[#900c0c]" : "text-[#550000]"}`}
               to={ROUTES.HOME}
             >
@@ -122,6 +123,7 @@ function Header(): JSX.Element {
             </Link>
 
             <Link
+              aria-current={isProductsActive ? "page" : undefined}
               className={`cursor-pointer text-[0.9rem] font-[400] ${isProductsActive ? "text-[#900c0c]" : "text-[#550000]"}`}
               to={ROUTES.PRODUCTS}
             >
@@ -129,6 +131,7 @@ function Header(): JSX.Element {
             </Link>
 
             <Link
+              aria-current={isBlogActive ? "page" : undefined}
               className={`cursor-pointer text-[0.9rem] font-[400] ${isBlogActive ? "text-[#900c0c]" : "text-[#550000]"}`}
               to={ROUTES.BLOG}
             >
@@ -159,35 +162,36 @@ function Header(): JSX.Element {
             </form>
 
             <Link
-              aria-label="Open cart"
-              className="relative flex h-[1.9rem] w-[1.9rem] items-center justify-center rounded-full bg-[#550000] p-[0.45rem] 
+              aria-label={`Open cart${totalCartQuantity > 0 ? `, ${totalCartQuantity} item${totalCartQuantity === 1 ? "" : "s"}` : ""}`}
+              className="relative flex h-[1.9rem] w-[1.9rem] items-center justify-center rounded-full bg-[#550000] p-[0.45rem]
           hover:bg-[#900c0c] transition-all duration-300 cursor-pointer"
               to={ROUTES.CART}
             >
               {totalCartQuantity > 0 ? (
                 <span
-                  className="absolute -top-1 -right-1 flex h-[1rem] min-w-[1rem] items-center justify-center rounded-full 
+                  aria-hidden="true"
+                  className="absolute -top-1 -right-1 flex h-[1rem] min-w-[1rem] items-center justify-center rounded-full
                 bg-[#ec124f] px-1 text-[0.62rem] font-[500] leading-none text-white"
                 >
                   {totalCartQuantity}
                 </span>
               ) : null}
-              <ShoppingCart className="text-white" strokeWidth={1.8} />
+              <ShoppingCart aria-hidden="true" className="text-white" strokeWidth={1.8} />
             </Link>
           </div>
 
           <div className="flex items-center gap-2 justify-self-end md:hidden">
             <Link
-              aria-label="Open cart"
+              aria-label={`Open cart${totalCartQuantity > 0 ? `, ${totalCartQuantity} item${totalCartQuantity === 1 ? "" : "s"}` : ""}`}
               className="relative flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-full bg-[#550000] p-[0.5rem] transition-all duration-300 cursor-pointer hover:bg-[#900c0c]"
               to={ROUTES.CART}
             >
               {totalCartQuantity > 0 ? (
-                <span className="absolute -top-1.5 -right-1.5 flex h-[1rem] min-w-[1rem] items-center justify-center rounded-full bg-[#ec124f] px-1 text-[0.62rem] font-[500] leading-none text-white">
+                <span aria-hidden="true" className="absolute -top-1.5 -right-1.5 flex h-[1rem] min-w-[1rem] items-center justify-center rounded-full bg-[#ec124f] px-1 text-[0.62rem] font-[500] leading-none text-white">
                   {totalCartQuantity}
                 </span>
               ) : null}
-              <ShoppingCart className="text-white" strokeWidth={1.8} />
+              <ShoppingCart aria-hidden="true" className="text-white" strokeWidth={1.8} />
             </Link>
 
             <button
@@ -238,6 +242,7 @@ function Header(): JSX.Element {
 
             <nav className="mt-4 flex flex-col gap-2">
               <Link
+                aria-current={isHomeActive ? "page" : undefined}
                 className={`rounded-full px-4 py-3 text-[0.95rem] font-[400] ${isHomeActive ? "bg-[#fff0f0] text-[#900c0c]" : "text-[#550000]"}`}
                 to={ROUTES.HOME}
               >
@@ -245,6 +250,7 @@ function Header(): JSX.Element {
               </Link>
 
               <Link
+                aria-current={isProductsActive ? "page" : undefined}
                 className={`rounded-full px-4 py-3 text-[0.95rem] font-[400] ${isProductsActive ? "bg-[#fff0f0] text-[#900c0c]" : "text-[#550000]"}`}
                 to={ROUTES.PRODUCTS}
               >
@@ -252,6 +258,7 @@ function Header(): JSX.Element {
               </Link>
 
               <Link
+                aria-current={isBlogActive ? "page" : undefined}
                 className={`rounded-full px-4 py-3 text-[0.95rem] font-[400] ${isBlogActive ? "bg-[#fff0f0] text-[#900c0c]" : "text-[#550000]"}`}
                 to={ROUTES.BLOG}
               >
@@ -259,6 +266,7 @@ function Header(): JSX.Element {
               </Link>
 
               <Link
+                aria-current={isSaleActive ? "page" : undefined}
                 className={`rounded-full px-4 py-3 text-[0.95rem] font-[400] ${isSaleActive ? "bg-[#fff0f0] text-[#900c0c]" : "text-[#550000]"}`}
                 to={`${ROUTES.PRODUCTS}?category=all&sale=true`}
               >

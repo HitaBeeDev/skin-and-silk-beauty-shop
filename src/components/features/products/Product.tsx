@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 
@@ -80,6 +80,7 @@ function Product({ product }: ProductProps): JSX.Element {
                   ].join(" ")}
                   src={mainImage}
                   alt={`${name} product`}
+                  loading="lazy"
                 />
                 {hasHoverImage ? (
                   <img
@@ -87,6 +88,7 @@ function Product({ product }: ProductProps): JSX.Element {
                     src={hoverImage}
                     alt=""
                     aria-hidden="true"
+                    loading="lazy"
                   />
                 ) : null}
                 {soldOut ? (
@@ -162,4 +164,4 @@ function Product({ product }: ProductProps): JSX.Element {
   );
 }
 
-export default Product;
+export default memo(Product);

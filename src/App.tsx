@@ -10,10 +10,11 @@ import ProductDetailSkeleton from "@/components/ui/ProductDetailSkeleton";
 import ProductGridSkeleton from "@/components/ui/ProductGridSkeleton";
 import RouteSkeleton from "@/components/ui/RouteSkeleton";
 import AppLayout from "@/components/layout/AppLayout";
-import BlogArticle from "@/components/ui/BlogArticle";
-import Blog from "@/components/ui/Blog";
-import Home from "@/components/ui/Home";
 import LinkButton from "@/components/ui/LinkButton";
+
+const Home = lazy(() => import("@/components/ui/Home"));
+const Blog = lazy(() => import("@/components/ui/Blog"));
+const BlogArticle = lazy(() => import("@/components/ui/BlogArticle"));
 import { action as createOrderAction } from "@/routes/createOrder.action";
 import { loader as orderLoader } from "@/routes/order.loader";
 import { loader as productDetailLoader } from "@/routes/productDetail.loader";
@@ -76,15 +77,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTES.HOME,
-        element: <Home />,
+        element: withRouteSuspense(<Home />),
       },
       {
         path: ROUTES.BLOG,
-        element: <Blog />,
+        element: withRouteSuspense(<Blog />),
       },
       {
         path: ROUTES.BLOG_ARTICLE,
-        element: <BlogArticle />,
+        element: withRouteSuspense(<BlogArticle />),
       },
       {
         path: ROUTES.PRODUCTS,

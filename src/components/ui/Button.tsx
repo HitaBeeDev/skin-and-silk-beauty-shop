@@ -69,7 +69,7 @@ function Button(props: ButtonProps): JSX.Element {
   } = props;
 
   const sharedClassName = [
-    "inline-flex items-center justify-center gap-2 rounded-lg transition-[opacity,transform,background-color] duration-200 ease-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2",
+    "inline-flex items-center justify-center gap-2 rounded-lg transition-[opacity,transform,background-color] duration-200 ease-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5a4034] focus-visible:ring-offset-2",
     sizeClasses[size],
     variantClasses[variant],
     isFullWidth ? "w-full" : "",

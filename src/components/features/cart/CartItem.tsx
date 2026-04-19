@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import type { CartItem as CartItemModel } from "@/types";
 
 import DeleteItem from "@/components/features/cart/DeleteItem";
@@ -22,6 +24,7 @@ function CartItem({ product, onRemove }: CartItemProps): JSX.Element {
         <img
           alt={`${name} thumbnail`}
           className="h-24 w-20 object-cover"
+          loading="lazy"
           src={mainImage}
         />
       </div>
@@ -54,4 +57,4 @@ function CartItem({ product, onRemove }: CartItemProps): JSX.Element {
   );
 }
 
-export default CartItem;
+export default memo(CartItem);
