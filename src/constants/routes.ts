@@ -1,5 +1,7 @@
 export const ROUTES = {
   HOME: "/",
+  BLOG: "/blog",
+  BLOG_ARTICLE: "/blog/:articleId",
   PRODUCTS: "/products",
   PRODUCT_DETAIL: "/products/:id",
   CART: "/cart",

@@ -10,6 +10,8 @@ import ProductDetailSkeleton from "@/components/ui/ProductDetailSkeleton";
 import ProductGridSkeleton from "@/components/ui/ProductGridSkeleton";
 import RouteSkeleton from "@/components/ui/RouteSkeleton";
 import AppLayout from "@/components/layout/AppLayout";
+import BlogArticle from "@/components/ui/BlogArticle";
+import Blog from "@/components/ui/Blog";
 import Home from "@/components/ui/Home";
 import LinkButton from "@/components/ui/LinkButton";
 import { action as createOrderAction } from "@/routes/createOrder.action";
@@ -75,6 +77,14 @@ const router = createBrowserRouter([
       {
         path: ROUTES.HOME,
         element: <Home />,
+      },
+      {
+        path: ROUTES.BLOG,
+        element: <Blog />,
+      },
+      {
+        path: ROUTES.BLOG_ARTICLE,
+        element: <BlogArticle />,
       },
       {
         path: ROUTES.PRODUCTS,

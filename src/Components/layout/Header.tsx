@@ -18,6 +18,7 @@ function Header(): JSX.Element {
   const mobilePanelRef = useRef<HTMLDivElement | null>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement | null>(null);
   const isHomeActive = location.pathname === ROUTES.HOME;
+  const isBlogActive = location.pathname.startsWith(ROUTES.BLOG);
   const isProductsActive = location.pathname.startsWith(ROUTES.PRODUCTS);
   const isSaleActive =
     location.pathname.startsWith(ROUTES.PRODUCTS) &&
@@ -128,17 +129,10 @@ function Header(): JSX.Element {
             </Link>
 
             <Link
-              className="cursor-pointer text-[0.9rem] font-[400] text-[#550000]"
-              to={`${ROUTES.HOME}#brand-story`}
+              className={`cursor-pointer text-[0.9rem] font-[400] ${isBlogActive ? "text-[#900c0c]" : "text-[#550000]"}`}
+              to={ROUTES.BLOG}
             >
               Blog
-            </Link>
-
-            <Link
-              className={`cursor-pointer text-[0.9rem] font-[400] ${isSaleActive ? "text-[#900c0c]" : "text-[#550000]"}`}
-              to={`${ROUTES.PRODUCTS}?category=all&sale=true`}
-            >
-              Sale
             </Link>
           </div>
 
@@ -258,8 +252,8 @@ function Header(): JSX.Element {
               </Link>
 
               <Link
-                className="rounded-full px-4 py-3 text-[0.95rem] font-[400] text-[#550000]"
-                to={`${ROUTES.HOME}#brand-story`}
+                className={`rounded-full px-4 py-3 text-[0.95rem] font-[400] ${isBlogActive ? "bg-[#fff0f0] text-[#900c0c]" : "text-[#550000]"}`}
+                to={ROUTES.BLOG}
               >
                 Blog
               </Link>
