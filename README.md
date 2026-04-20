@@ -2,6 +2,18 @@
 
 Skin & Silk is a luxury beauty storefront built with React, TypeScript, Tailwind CSS, Redux Toolkit, and React Router. It combines a curated home page, responsive product browsing, detailed product pages, cart and order flows, and an editorial blog experience inside a polished boutique-style UI.
 
+<p align="center">
+  <img src="docs/assets/preview.png" alt="NexStep Dashboard" width="800" />
+</p>
+
+## Performance
+
+| Metric | Score |
+|---|---|
+| Lighthouse Performance | 99 |
+| Accessibility | 95 |
+| SEO | 100 |
+
 ## Overview
 
 The app is designed as a premium beauty shopping experience with:
