@@ -10,8 +10,9 @@ Skin & Silk is a luxury beauty storefront built with React, TypeScript, Tailwind
 
 | Metric | Score |
 |---|---|
-| Lighthouse Performance | 99 |
+| Performance | 99 |
 | Accessibility | 95 |
+| Best Practices | 100 |
 | SEO | 100 |
 
 ## Overview
